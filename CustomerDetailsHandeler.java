@@ -1,11 +1,11 @@
 class CustomerDetailsHandeler {
-    private FashionShopCustomerDetails [] CustomerDetailsArray;
+    private FashionShopCustomerDetails [] customerDetailsArray;
 
     private String newGeneratedORderID;
-    private int orderNumber=1;
+    static int orderNumber=1;
 
     CustomerDetailsHandeler(){
-        this.CustomerDetailsArray = new FashionShopCustomerDetails[0];
+        this.customerDetailsArray = new FashionShopCustomerDetails[0];
        
     }  
      // ================= order id increment method =========================
@@ -32,6 +32,7 @@ class CustomerDetailsHandeler {
         return this.newGeneratedORderID;
     }
 
+
     //Phone Number Validation
     public boolean PhoneNumber(String phoneNumber){
         int count=0;
@@ -55,5 +56,58 @@ class CustomerDetailsHandeler {
         }
 
     }
+
+    //Quantiity Validation
+    public boolean quantityValidation(String qty){
+        if(Integer.parseInt(qty)>0){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    //Amount Calculation
+    public double amountCalculation(String qty,String tShirtSize){
+        double amount=0;
+        int quantiity = Integer.parseInt(qty);        
+        switch (tShirtSize){
+            case "XS":
+                amount = quantiity*600;                
+                break;
+            case "S":
+                amount = quantiity*800;
+                break;
+            case "M":
+                amount = quantiity*900;
+                break;
+            case "L":
+                amount = quantiity*1000;
+                break;
+            case "XL":
+                amount = quantiity*1100;
+                break;
+            case "XXL":
+                amount = quantiity*1200;
+                break;       
     
+        }
+        return amount;
+
+    }
+
+    public boolean addCustomer(FashionShopCustomerDetails customer){
+        extendArrays();
+        customerDetailsArray[customerDetailsArray.length-1]=customer;
+        return true;
+    }
+
+    public void extendArrays(){
+        FashionShopCustomerDetails[] tempCustomerDetails = new FashionShopCustomerDetails[customerDetailsArray.length+1];
+
+        for(int i=0; i<customerDetailsArray.length; i++){
+            tempCustomerDetails[i]=customerDetailsArray[i];
+        }
+        customerDetailsArray=tempCustomerDetails;
+    }   
 }
