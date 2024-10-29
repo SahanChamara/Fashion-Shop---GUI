@@ -56,29 +56,54 @@ class PlaceOrder extends JFrame{
 
         // Order ID value label
         lblOrderIdValue = new JLabel();
+
+        //set the generating order id
         lblOrderIdValue.setText(customerDetails.getOrderId());
         lblOrderIdValue.setBounds(150, 60, 200, 30);
         lblOrderIdValue.setFont(new Font("SansSerif", Font.PLAIN, 14));
         add(lblOrderIdValue);
 
-        // Customer ID label and text field
+        // Customer ID label 
         lblCustomerId = new JLabel("Customer ID :");
         lblCustomerId.setBounds(50, 100, 100, 30);
         lblCustomerId.setFont(new Font("SansSerif", Font.PLAIN, 14));
         add(lblCustomerId);
 
+        //Customer ID text field
         txtCustomerId = new JTextField();
-        txtCustomerId.setBounds(150, 100, 150, 30);
+        txtCustomerId.setBounds(150, 100, 150, 30);       
+        // Customer ID Validation
+        txtCustomerId.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){  
+                //retun the user input phone number to validation method
+                boolean isNumber = customerDetails.PhoneNumber(txtCustomerId.getText());                 
+                if(!isNumber){
+                    JOptionPane.showMessageDialog(null,"Invalid Phone Number");
+                }                
+            }
+        });
         add(txtCustomerId);
 
-        // Size label and text field
+        // Size label 
         lblSize = new JLabel("Size :");
         lblSize.setBounds(50, 140, 100, 30);
         lblSize.setFont(new Font("SansSerif", Font.PLAIN, 14));
         add(lblSize);
 
+        //Size text field
         txtSize = new JTextField();
         txtSize.setBounds(150, 140, 150, 30);
+
+        // Size Validation
+        txtSize.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                // reutn the user input size into validation method
+                boolean isSize = customerDetails.tShirtSizeValidation(txtSize.getText());
+                if(!isSize){
+                    JOptionPane.showMessageDialog(null,"Invalid Size");
+                }
+            }
+        });
         add(txtSize);
 
         // Size hint label
@@ -114,98 +139,6 @@ class PlaceOrder extends JFrame{
         btnPlaceOrder.setForeground(Color.WHITE); // White text
         btnPlaceOrder.setFont(new Font("SansSerif", Font.BOLD, 14));
         add(btnPlaceOrder);
-
-
-        // // BACK Button
-        // JPanel btnBackPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        // btnBack = new JButton("Back");
-        // btnBack.setBounds(10, 10, 80, 30);
-        // btnBack.setBackground(new Color(240, 128, 128)); // Light red background
-        // btnBack.setForeground(Color.WHITE); // White text
-        // btnBackPanel.add(btnBack);
-
-        // add("North",btnBackPanel);
-
-        // // Labls Panel
-        // JPanel allLabelsPanel = new JPanel(new GridLayout(5,1,4,4));
-
-        // // Order ID label
-        // lblOrderId = new JLabel("Order ID :");
-        // //lblOrderId.setBounds(50, 60, 100, 30);
-        // allLabelsPanel.add(lblOrderId);
-        
-        // // Customer ID label 
-        // lblCustomerId = new JLabel("Customer ID :");
-        // //lblCustomerId.setBounds(50, 100, 100, 30);
-        // allLabelsPanel.add(lblCustomerId);
-
-        // // Size label 
-        // lblSize = new JLabel("Size :");
-        // //lblSize.setBounds(50, 140, 100, 30);
-        // allLabelsPanel.add(lblSize);
-        
-        // // Quantity label 
-        // lblQty = new JLabel("QTY :");
-        // //lblQty.setBounds(50, 180, 100, 30);
-        // allLabelsPanel.add(lblQty);
-        
-        // // Amount label 
-        // lblAmount = new JLabel("Amount :");
-        // //lblAmount.setBounds(50, 220, 100, 30);
-        // allLabelsPanel.add(lblAmount);
-
-        // add("West",allLabelsPanel);
-        // // ===========================================================
-
-        
-
-        // //JPanel allTextFields = new JPanel(new GridLayout(5,1));
-
-        // // Order ID value label
-        // lblOrderIdValue = new JLabel("ODR#000002");
-        // lblOrderIdValue.setBounds(150, 60, 200, 30);
-        // add(lblOrderIdValue);
-
-        // //allTextFields.add(lblOrderIdValue);
-
-        // // // Customer ID text field
-        // // txtCustomerId = new JTextField();
-        // // //txtCustomerId.setBounds(150, 100, 150, 30);
-        // // allTextFields.add(txtCustomerId);
-
-
-        // // // Size text field
-        // // txtSize = new JTextField();
-        // // //txtSize.setBounds(150, 140, 150, 30);
-        // // allTextFields.add(txtSize);
-
-        // // // Size hint label
-        // // lblSizeHint = new JLabel("(XS/S/M/L/XL/XXL)");
-        // // //lblSizeHint.setBounds(310, 140, 100, 30);
-        // // lblSizeHint.setFont(new Font("SansSerif", Font.PLAIN, 10));
-        // // allLabelsPanel.add(lblSizeHint);
-
-        // // // QTY text field
-        // // txtQty = new JTextField();
-        // // //txtQty.setBounds(150, 180, 150, 30);
-        // // allTextFields.add(txtQty);
-
-        // // // Amount Lable
-        // // txtAmount = new JLabel("Testng Amount");
-        // // //txtAmount.setBounds(150, 220, 150, 30);
-        // // allTextFields.add(txtAmount);
-
-        // // add("East",allTextFields);
-
-        // // Place button
-        // // btnPlaceOrder = new JButton("Place");
-        // // btnPlaceOrder.setBounds(250, 300, 80, 40);
-        // // btnPlaceOrder.setBackground(new Color(0, 150, 136)); // Teal color
-        // // btnPlaceOrder.setForeground(Color.WHITE); // White text
-        // // add(btnPlaceOrder);
-
-        
-
     }
 
     // PlaceOrder(String orderId){
