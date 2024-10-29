@@ -1,6 +1,7 @@
 class FashionShop {
     public static void main(String args[]){
-        new HomePage().setVisible(true);
+        CustomerDetailsHandeler customerDetails = new CustomerDetailsHandeler();
+        new HomePage(customerDetails).setVisible(true);
         //new PlaceOrder().setVisible(true);
     }
     

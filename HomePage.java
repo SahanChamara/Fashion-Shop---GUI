@@ -4,90 +4,90 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
-class HomePage extends JFrame{
-        private JLabel mainTopic;
+class HomePage extends JFrame {
+    private JLabel mainTopic;
 
-        private JButton btnPlaceOrder;
-        private JButton btnSearchCustomer;
-        private JButton btnSearchOrder;
-        private JButton btnViewReports;
-        private JButton btnSetOrderStatus;
-        private JButton btnDeleteOrder;
+    private JButton btnPlaceOrder;
+    private JButton btnSearch;
+    // private JButton btnSearchOrder;
+    private JButton btnViewReports;
+    private JButton btnSetOrderStatus;
+    private JButton btnDeleteOrder;
 
-        HomePage(){
-            setSize(500,300);
-            setTitle("Fashion Shop Customer Management System");
-            setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-            setLocationRelativeTo(null);
+    private CustomerDetailsHandeler customerDetails;
 
-            // Main Topic
-            mainTopic = new JLabel("FASHION SHOP");
-            mainTopic.setFont(new Font("Arial",1,30));
-            mainTopic.setHorizontalAlignment(JLabel.CENTER);
-            add("North",mainTopic);
+    HomePage(CustomerDetailsHandeler customerDetails) {
+        this.customerDetails = customerDetails;
 
+        setSize(500, 500);
+        setTitle("Fashion Shop Customer Management System");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
 
-            JPanel btnPanel = new JPanel(new GridLayout(3,2));
+        // Title label
+        mainTopic = new JLabel("Fashion Shop", SwingConstants.CENTER);
+        mainTopic.setBounds(0, 20, 500, 50);
+        mainTopic.setOpaque(true);
+        mainTopic.setBackground(new Color(33, 150, 243)); // Blue background color
+        mainTopic.setForeground(Color.WHITE); // White text color
+        mainTopic.setFont(new Font("SansSerif", Font.BOLD, 24));
+        add(mainTopic);
 
-            // Buttons
-            btnPlaceOrder = new JButton("Place Order");
-            // Place Order Action
-            btnPlaceOrder.addActionListener(new ActionListener(){
-                public void actionPerformed(ActionEvent evt){
-                    new PlaceOrder().setVisible(true);
-                }
-            });
+        // NEw panel for the buttons
+        JPanel centerPanel = new JPanel(null);
+        centerPanel.setPreferredSize(new Dimension(500,400));
 
+        // Buttons
+        btnSearch = new JButton("Search");
+        btnSearch.setBounds(100, 100, 200, 40);
+        centerPanel.add(btnSearch);
 
+        btnSetOrderStatus = new JButton("Status");
+        btnSetOrderStatus.setBounds(100, 160, 200, 40);
+        centerPanel.add(btnSetOrderStatus);
 
+        btnViewReports = new JButton("Reports");
+        btnViewReports.setBounds(100, 220, 200, 40);
+        centerPanel.add(btnViewReports);
 
+        btnDeleteOrder = new JButton("Delete");
+        btnDeleteOrder.setBounds(100, 280, 200, 40);
+        centerPanel.add(btnDeleteOrder);
 
+        // Place Order button
+        btnPlaceOrder = new JButton("Place Order");
+        btnPlaceOrder.setBounds(100, 360, 200, 50);
+        btnPlaceOrder.setBackground(new Color(0, 200, 200)); // Custom color for the button
+        btnPlaceOrder.setForeground(Color.WHITE); // White text color
 
+        // add action in place oreder
+        btnPlaceOrder.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){                    
+                customerDetails.incrementOid();
+                new PlaceOrder(customerDetails).setVisible(true);                                      
+                
+            }
+        });
+        centerPanel.add(btnPlaceOrder);
 
+        // Image label
+        ImageIcon fashionImage = new ImageIcon("Image\\Fashion_Shop.png"); // Replace with your image path
+        JLabel imageLabel = new JLabel(fashionImage);
+        imageLabel.setBounds(320, 100, 200, 350); // Position image on the right
+        centerPanel.add(imageLabel);
 
-            btnSearchCustomer = new JButton("Search Customer");
-            btnSearchOrder = new JButton("Search Order");
-            btnViewReports = new JButton("View Reports");
-            btnDeleteOrder = new JButton("Delete Order");
-            btnSetOrderStatus = new JButton("Delete Order");
+        add(centerPanel,BorderLayout.CENTER);
 
+        // Copyright label
+        JLabel copyrightLabel = new JLabel("Copyrights © iCET 2023", SwingConstants.CENTER);
+        copyrightLabel.setBounds(0, 440, 500, 30);
+        copyrightLabel.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        add(copyrightLabel,BorderLayout.SOUTH);
 
-            // setting the fonts
-            btnPlaceOrder.setFont(new Font("Arial",1,15));
-            btnSearchCustomer.setFont(new Font("Arial",1,15));
-            btnSearchOrder.setFont(new Font("Arial",1,15));
-            btnViewReports.setFont(new Font("Arial",1,15));
-            btnDeleteOrder.setFont(new Font("Arial",1,15));
-            btnSetOrderStatus.setFont(new Font("Arial",1,15));
+        // Display the frame
+        setLocationRelativeTo(null); // Center on screen
+        setVisible(true);
 
-            // set the button into panel
-            JPanel btnPlaceOrderpanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-            JPanel btnSearchCustomerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-            JPanel btnSearchOrderPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-            JPanel btnViewReportPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-            JPanel btnDeleteOrderPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-            JPanel btnSetOrderStatusPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    }
 
-            btnPlaceOrderpanel.add(btnPlaceOrder);
-            btnSearchCustomerPanel.add(btnSearchCustomer);
-            btnSearchOrderPanel.add(btnSearchOrder);
-            btnViewReportPanel.add(btnViewReports);
-            btnDeleteOrderPanel.add(btnDeleteOrder);
-            btnSetOrderStatusPanel.add(btnSetOrderStatus);
-
-            btnPanel.add(btnPlaceOrderpanel);
-            btnPanel.add(btnSearchCustomerPanel);
-            btnPanel.add(btnSearchOrderPanel);
-            btnPanel.add(btnViewReportPanel);
-            btnPanel.add(btnDeleteOrderPanel);
-            btnPanel.add(btnSetOrderStatusPanel);
-
-            add("Center",btnPanel);
-
-        }
-
-
-
-
-    
 }

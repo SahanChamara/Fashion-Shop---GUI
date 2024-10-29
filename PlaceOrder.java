@@ -18,8 +18,13 @@ class PlaceOrder extends JFrame{
     private JTextField txtSize;
     private JTextField txtQty;
     private JTextField txtAmount;
+
+    private String orderId;
+
+    private CustomerDetailsHandeler customerDetails;
     
-    PlaceOrder(){
+    PlaceOrder(CustomerDetailsHandeler customerDetails){
+        this.customerDetails=customerDetails;
         setSize(500,300);
         setTitle("Place Order");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -61,17 +66,13 @@ class PlaceOrder extends JFrame{
         // Making the Text Fields...
         JPanel allTextFieldPanel = new JPanel(new GridLayout(5,1,5,5));
 
-        txtOrderId = new JTextField(5);
+        txtOrderId = new JTextField(12);
         txtOrderId.setFont(new Font("Arial",1,15));
         JPanel txtOrderIdPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         txtOrderIdPanel.add(txtOrderId);
 
-        // Order ID Showing
-        
-
-
-
-
+        // set the generate order id into the text field
+        txtOrderId.setText(customerDetails.getOrderId());
         allTextFieldPanel.add(txtOrderIdPanel);
 
         txtPhoneNumber = new JTextField(10);
@@ -99,6 +100,11 @@ class PlaceOrder extends JFrame{
         allTextFieldPanel.add(txtAmountPanel);
 
         add("Center",allTextFieldPanel);
+
+    }
+
+    PlaceOrder(String orderId){
+        this.orderId=orderId;
 
     }
 }
