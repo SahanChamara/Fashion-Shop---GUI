@@ -15,7 +15,7 @@ class HomePage extends JFrame{
         private JButton btnDeleteOrder;
 
         HomePage(){
-            setSize(400,00);
+            setSize(500,300);
             setTitle("Fashion Shop Customer Management System");
             setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             setLocationRelativeTo(null);
@@ -31,6 +31,20 @@ class HomePage extends JFrame{
 
             // Buttons
             btnPlaceOrder = new JButton("Place Order");
+            // Place Order Action
+            btnPlaceOrder.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent evt){
+                    new PlaceOrder().setVisible(true);
+                }
+            });
+
+
+
+
+
+
+
+
             btnSearchCustomer = new JButton("Search Customer");
             btnSearchOrder = new JButton("Search Order");
             btnViewReports = new JButton("View Reports");
