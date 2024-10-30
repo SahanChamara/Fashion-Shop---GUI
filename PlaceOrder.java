@@ -24,9 +24,11 @@ class PlaceOrder extends JFrame{
     private JButton btnBack;
     private JButton btnPlaceOrder;
 
-    private boolean isNumber=true;
-    private boolean isSize=true;
-    private boolean isQty=true;
+    private boolean isNumber;
+    private boolean isSize;
+    private boolean isQty;
+
+    private double amount;
 
 
     // private String orderId;
@@ -82,6 +84,7 @@ class PlaceOrder extends JFrame{
                 //retun the user input phone number to validation method
                 isNumber = customerDetails.PhoneNumber(txtCustomerId.getText());                 
                 if(!isNumber){
+                    System.out.println(isNumber);
                     JOptionPane.showMessageDialog(null,"Invalid Phone Number");
                 }                
             }
@@ -126,17 +129,6 @@ class PlaceOrder extends JFrame{
         txtQty = new JTextField();
         txtQty.setBounds(150, 180, 150, 30);
 
-        // Quantity Validation
-        txtQty.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent evt){
-                isQty = customerDetails.quantityValidation(txtQty.getText());
-                if(!isQty){
-                    JOptionPane.showMessageDialog(null,"Quantity is Not Valid");
-                }
-            }
-        });
-        add(txtQty);
-
         // Amount label and text field
         lblAmount = new JLabel("Amount :");
         lblAmount.setBounds(50, 220, 100, 30);
@@ -149,6 +141,20 @@ class PlaceOrder extends JFrame{
         txtAmount.setBounds(150, 220, 150, 30);
         add(txtAmount);
 
+        //Quantity Validation
+        txtQty.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                isQty = customerDetails.quantityValidation(txtQty.getText());
+                if(!isQty){
+                    JOptionPane.showMessageDialog(null,"Quantity is Not Valid");
+                }else{
+                    amount = customerDetails.amountCalculation(txtQty.getText(),txtSize.getText());
+                    txtAmount.setText(String.valueOf(amount)); 
+                }
+            }
+        });
+        add(txtQty);
+
         // Place button
         btnPlaceOrder = new JButton("Place");
         btnPlaceOrder.setBounds(250, 280, 80, 40);
@@ -160,9 +166,14 @@ class PlaceOrder extends JFrame{
         btnPlaceOrder.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
                 double amount = customerDetails.amountCalculation(txtQty.getText(),txtSize.getText());
-                txtAmount.setText(String.valueOf(amount));                 
+                txtAmount.setText(String.valueOf(amount));
+
+                System.out.println("prder place eke");
+                System.out.println(isNumber);
+                System.out.println(isSize);
+                System.out.println(isQty);
                 
-                if(isNumber && isSize && isQty){                                       
+                if((isNumber) && (isSize) && (isQty)){                                       
                     JOptionPane.showMessageDialog(null,"Order Place Succesfull");
 
                     String orderId = lblOrderIdValue.getText();
@@ -183,14 +194,11 @@ class PlaceOrder extends JFrame{
                     System.out.println(c1.getQuantity());
                     System.out.println(c1.getSize());
                     System.out.println(c1.getAmount());
+                }else{
+                    JOptionPane.showMessageDialog(null,"Order Place UN Successful");
                 }
             }
         });        
         add(btnPlaceOrder);
     }
-
-    // PlaceOrder(String orderId){
-    //     this.orderId=orderId;
-
-    // }
 }

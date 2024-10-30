@@ -63,16 +63,29 @@ class CustomerDetailsHandeler {
     }
 
     // Size Validation
+    // public boolean tShirtSizeValidation(String tShirtSize) {
+    //     if (tShirtSize.equalsIgnoreCase("XS") || tShirtSize.equalsIgnoreCase("S") || tShirtSize.equalsIgnoreCase("M")
+    //             || tShirtSize.equalsIgnoreCase("L") || tShirtSize.equalsIgnoreCase("XL")
+    //             || tShirtSize.equalsIgnoreCase("XXL")) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+
+    // }
+
     public boolean tShirtSizeValidation(String tShirtSize) {
-        if (tShirtSize.equalsIgnoreCase("XS") || tShirtSize.equalsIgnoreCase("S") || tShirtSize.equalsIgnoreCase("M")
-                || tShirtSize.equalsIgnoreCase("L") || tShirtSize.equalsIgnoreCase("XL")
-                || tShirtSize.equalsIgnoreCase("XXL")) {
+        tShirtSize = tShirtSize.toUpperCase();
+        if (tShirtSize.equals("XS") || tShirtSize.equals("S") || tShirtSize.equals("M")
+                || tShirtSize.equals("L") || tShirtSize.equals("XL")
+                || tShirtSize.equals("XXL")) {
             return true;
         } else {
             return false;
         }
 
     }
+
 
     // Quantiity Validation
     public boolean quantityValidation(String qty) {
@@ -86,6 +99,8 @@ class CustomerDetailsHandeler {
 
     // Amount Calculation
     public double amountCalculation(String qty, String tShirtSize) {
+        tShirtSize = tShirtSize.toUpperCase();
+
         double amount=0;
         int quantiity = Integer.parseInt(qty);
         switch (tShirtSize) {
@@ -208,6 +223,15 @@ class CustomerDetailsHandeler {
     }
     public double getSearchTotalAmount(){
         return this.searchTotalAmount;
+    }
+
+    public void tempCountUpdate(){
+        this.tempMedium=0;
+        this.tempXtraLarge=0;
+        this.tempXtraXl=0;
+        this.tempXtraSmall=0;
+        this.tempSmall=0;
+        this.tempLarge=0;
     }
     
         

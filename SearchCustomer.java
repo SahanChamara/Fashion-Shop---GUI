@@ -77,6 +77,7 @@ class SearchCustomer extends JFrame {
                     JScrollPane scrollPane = new JScrollPane(cusDetails);
                     scrollPane.setBounds(50,100,400,100);
                     add(scrollPane);
+                    customerDetails.tempCountUpdate();
                 }else{
                     JOptionPane.showMessageDialog(null,"Invalid Customer ID");
                 }              
