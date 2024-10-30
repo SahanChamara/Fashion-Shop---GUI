@@ -167,13 +167,18 @@ class PlaceOrder extends JFrame{
                     String orderId = lblOrderIdValue.getText();
                     String phoneNumber = txtCustomerId.getText();
                     String size = txtSize.getText();
-                    int qty = Integer.parseInt(txtQty.getText());
-                    amount=0;
+                    int qty = Integer.parseInt(txtQty.getText());                    
                     int orderStatus=0;
 
                     FashionShopCustomerDetails c1 = new FashionShopCustomerDetails(orderId,phoneNumber,size,qty,amount,orderStatus);
                     customerDetails.addCustomer(c1);
                     CustomerDetailsHandeler.orderNumber++;
+
+                    lblOrderIdValue.setText("");
+                    txtCustomerId.setText("");
+                    txtSize.setText("");
+                    txtQty.setText("");
+                    txtAmount.setText("");
 
                     System.out.println(c1.getOrderId());
                     System.out.println(c1.getPhoneNumber());

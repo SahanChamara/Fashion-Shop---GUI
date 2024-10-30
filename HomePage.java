@@ -42,6 +42,13 @@ class HomePage extends JFrame {
         btnSearch.setBounds(100, 100, 200, 40);
         centerPanel.add(btnSearch);
 
+        // serach button action
+        btnSearch.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                new SearchingOption(customerDetails);
+            }
+        });
+
         btnSetOrderStatus = new JButton("Status");
         btnSetOrderStatus.setBounds(100, 160, 200, 40);
         centerPanel.add(btnSetOrderStatus);
