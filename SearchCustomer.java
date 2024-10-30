@@ -1,5 +1,6 @@
 import javax.swing.*;
 import javax.swing.table.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -17,7 +18,7 @@ class SearchCustomer extends JFrame {
     SearchCustomer(CustomerDetailsHandeler customerDetails){
         this.customerDetails=customerDetails;
 
-        setSize(400,400);
+        setSize(500,400);
         setTitle("Search Customer");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -32,22 +33,45 @@ class SearchCustomer extends JFrame {
 
         // Customer ID Lable 
         lblCustomerId = new JLabel("Enter Customer ID: ");
-        lblCustomerId.setFont(new Font("sanSerif",Font.BOLD,15));
+        lblCustomerId.setFont(new Font("sanSerif",Font.BOLD,12));
         lblCustomerId.setBounds(50,50,200,30);
         add(lblCustomerId);
 
         //Customer ID Text Field (Phone Number)
         txtCustomerId = new JTextField();
-        txtCustomerId.setFont(new Font("sanSerif",Font.PLAIN,15));
-        txtCustomerId.setBounds(150,50,100,30);
+        txtCustomerId.setFont(new Font("sanSerif",Font.PLAIN,12));
+        txtCustomerId.setBounds(180,55,120,22);
         add(txtCustomerId);
 
         //Search Button
         btnSearch = new JButton("SEARCH");
-        btnSearch.setBounds(280,50,100,25);
+        btnSearch.setBounds(350,55,90,20);
         btnSearch.setBackground(new Color(240,128,128));
         btnSearch.setForeground(Color.BLACK);
         add(btnSearch);
+
+        Object[][] customerData = {
+            {"XS","5","2500.00"},
+            {"XS","5","4500.00"},
+            {"XS","5","1500.00"},
+            {"XS","5","2500.00"},
+            {"XS","5","2800.00"},
+        };
+
+        String [] colNames = {"Size","Quantiity","Amount"};
+
+        JTable cusDetails = new JTable(customerData,colNames);
+
+        // center the table values
+        DefaultTableCellRenderer centerValues = new DefaultTableCellRenderer();
+        centerValues.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < cusDetails.getColumnCount(); i++) {
+            cusDetails.getColumnModel().getColumn(i).setCellRenderer(centerValues);
+        }
+
+        JScrollPane scrollPane = new JScrollPane(cusDetails);
+        scrollPane.setBounds(50,100,400,100);
+        add(scrollPane);
 
     }
     

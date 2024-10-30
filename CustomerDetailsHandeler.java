@@ -2,14 +2,14 @@ class CustomerDetailsHandeler {
     private FashionShopCustomerDetails [] customerDetailsArray;
 
     private String newGeneratedORderID;
-    static int orderNumber=1;
+    public int orderNumber=1;
 
     CustomerDetailsHandeler(){
         this.customerDetailsArray = new FashionShopCustomerDetails[0];
        
     }  
      // ================= order id increment method =========================
-    public void incrementOid(){        
+    public String incrementOid(){        
         int tempOrderNumber = orderNumber;
         
         int[] tempNumOrder = new int[5];
@@ -25,12 +25,12 @@ class CustomerDetailsHandeler {
         }
         newGeneratedORderID = tag + idNum;
         
-        // return newGeneratedORderID;
+        return newGeneratedORderID;
     }    
 
-    public String getOrderId(){
-        return this.newGeneratedORderID;
-    }
+    // public String getOrderId(){
+    //     return this.newGeneratedORderID;
+    // }
 
 
     //Phone Number Validation

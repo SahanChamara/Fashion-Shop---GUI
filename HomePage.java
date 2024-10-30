@@ -70,7 +70,7 @@ class HomePage extends JFrame {
         // add action in place oreder
         btnPlaceOrder.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){                    
-                customerDetails.incrementOid();
+                // customerDetails.incrementOid();
                 new PlaceOrder(customerDetails).setVisible(true);                                      
                 
             }

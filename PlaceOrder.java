@@ -24,9 +24,9 @@ class PlaceOrder extends JFrame{
     private JButton btnBack;
     private JButton btnPlaceOrder;
 
-    private boolean isNumber;
-    private boolean isSize;
-    private boolean isQty;
+    private boolean isNumber=true;
+    private boolean isSize=true;
+    private boolean isQty=true;
 
 
     // private String orderId;
@@ -62,7 +62,7 @@ class PlaceOrder extends JFrame{
         lblOrderIdValue = new JLabel();
         
         //set the generating order id
-        lblOrderIdValue.setText(customerDetails.getOrderId());
+        lblOrderIdValue.setText(customerDetails.incrementOid());
         lblOrderIdValue.setBounds(150, 60, 200, 30);
         lblOrderIdValue.setFont(new Font("SansSerif", Font.PLAIN, 14));
         add(lblOrderIdValue);
@@ -160,30 +160,28 @@ class PlaceOrder extends JFrame{
         btnPlaceOrder.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
                 double amount = customerDetails.amountCalculation(txtQty.getText(),txtSize.getText());
-                txtAmount.setText(String.valueOf(amount));                
-                // if(isNumber && isSize && isQty){
+                txtAmount.setText(String.valueOf(amount));                 
+                
+                if(isNumber && isSize && isQty){                                       
                     JOptionPane.showMessageDialog(null,"Order Place Succesfull");
 
                     String orderId = lblOrderIdValue.getText();
                     String phoneNumber = txtCustomerId.getText();
                     String size = txtSize.getText();
                     int qty = Integer.parseInt(txtQty.getText());                    
-                    int orderStatus=0;
+                    int orderStatus=0;                    
 
                     FashionShopCustomerDetails c1 = new FashionShopCustomerDetails(orderId,phoneNumber,size,qty,amount,orderStatus);
-                    customerDetails.addCustomer(c1);
-                    CustomerDetailsHandeler.orderNumber++;
+                    customerDetails.addCustomer(c1);                  
 
-                    lblOrderIdValue.setText("");
-                    txtCustomerId.setText("");
-                    txtSize.setText("");
-                    txtQty.setText("");
-                    txtAmount.setText("");
+                    customerDetails.orderNumber++;
+                    dispose();
+                    new PlaceOrder(customerDetails).setVisible(true);                                                  
 
                     System.out.println(c1.getOrderId());
                     System.out.println(c1.getPhoneNumber());
                     System.out.println(c1.getQuantity());
-                //}
+                }
 
             }
         });        
