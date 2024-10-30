@@ -181,8 +181,9 @@ class PlaceOrder extends JFrame{
                     System.out.println(c1.getOrderId());
                     System.out.println(c1.getPhoneNumber());
                     System.out.println(c1.getQuantity());
+                    System.out.println(c1.getSize());
+                    System.out.println(c1.getAmount());
                 }
-
             }
         });        
         add(btnPlaceOrder);

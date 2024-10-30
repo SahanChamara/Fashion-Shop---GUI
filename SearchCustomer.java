@@ -48,31 +48,41 @@ class SearchCustomer extends JFrame {
         btnSearch.setBounds(350,55,90,20);
         btnSearch.setBackground(new Color(240,128,128));
         btnSearch.setForeground(Color.BLACK);
+
+        // ID validation and printing the table
+        btnSearch.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){                
+                boolean isCusId=customerDetails.serachCustomerId(txtCustomerId.getText());
+                if(isCusId){                    
+                    Object[][] customerData = {
+                        {"L",customerDetails.getLarge(),customerDetails.getLargeAmount()},
+                        {"M",customerDetails.getMedium(),customerDetails.getMediumAmount()},
+                        {"XS",customerDetails.getXtraSmall(),customerDetails.getXtraSmallAmount()},
+                        {"S",customerDetails.getSmall(),customerDetails.getSmallAmount()},
+                        {"XL",customerDetails.getXtraLarge(),customerDetails.getXtraLargeAmount()},
+                        {"XXL",customerDetails.getXtraXl(),customerDetails.getXtraXlAmount()},
+                    };
+            
+                    String [] colNames = {"Size","Quantiity","Amount"};
+            
+                    JTable cusDetails = new JTable(customerData,colNames);
+            
+                    // center the table values
+                    DefaultTableCellRenderer centerValues = new DefaultTableCellRenderer();
+                    centerValues.setHorizontalAlignment(SwingConstants.CENTER);
+                    for (int i = 0; i < cusDetails.getColumnCount(); i++) {
+                        cusDetails.getColumnModel().getColumn(i).setCellRenderer(centerValues);
+                    }
+            
+                    JScrollPane scrollPane = new JScrollPane(cusDetails);
+                    scrollPane.setBounds(50,100,400,100);
+                    add(scrollPane);
+                }else{
+                    JOptionPane.showMessageDialog(null,"Invalid Customer ID");
+                }              
+            }
+        });
         add(btnSearch);
-
-        Object[][] customerData = {
-            {"XS","5","2500.00"},
-            {"XS","5","4500.00"},
-            {"XS","5","1500.00"},
-            {"XS","5","2500.00"},
-            {"XS","5","2800.00"},
-        };
-
-        String [] colNames = {"Size","Quantiity","Amount"};
-
-        JTable cusDetails = new JTable(customerData,colNames);
-
-        // center the table values
-        DefaultTableCellRenderer centerValues = new DefaultTableCellRenderer();
-        centerValues.setHorizontalAlignment(SwingConstants.CENTER);
-        for (int i = 0; i < cusDetails.getColumnCount(); i++) {
-            cusDetails.getColumnModel().getColumn(i).setCellRenderer(centerValues);
-        }
-
-        JScrollPane scrollPane = new JScrollPane(cusDetails);
-        scrollPane.setBounds(50,100,400,100);
-        add(scrollPane);
-
     }
     
 }
