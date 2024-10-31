@@ -173,7 +173,7 @@ class PlaceOrder extends JFrame{
                 System.out.println(isSize);
                 System.out.println(isQty);
                 
-                if((isNumber) && (isSize) && (isQty)){                                       
+                //if((isNumber) && (isSize) && (isQty)){                                       
                     JOptionPane.showMessageDialog(null,"Order Place Succesfull");
 
                     String orderId = lblOrderIdValue.getText();
@@ -194,9 +194,9 @@ class PlaceOrder extends JFrame{
                     System.out.println(c1.getQuantity());
                     System.out.println(c1.getSize());
                     System.out.println(c1.getAmount());
-                }else{
-                    JOptionPane.showMessageDialog(null,"Order Place UN Successful");
-                }
+                //}else{
+                    //JOptionPane.showMessageDialog(null,"Order Place UN Successful");
+                //}
             }
         });        
         add(btnPlaceOrder);

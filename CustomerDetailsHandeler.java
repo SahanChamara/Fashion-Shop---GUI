@@ -135,8 +135,7 @@ class CustomerDetailsHandeler {
     }
 
     public void extendArrays() {
-        FashionShopCustomerDetails[] tempCustomerDetails = new FashionShopCustomerDetails[customerDetailsArray.length
-                + 1];
+        FashionShopCustomerDetails[] tempCustomerDetails = new FashionShopCustomerDetails[customerDetailsArray.length+ 1];
 
         for (int i = 0; i < customerDetailsArray.length; i++) {
             tempCustomerDetails[i] = customerDetailsArray[i];

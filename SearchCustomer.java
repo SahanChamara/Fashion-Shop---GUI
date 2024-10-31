@@ -68,15 +68,16 @@ class SearchCustomer extends JFrame {
                     JTable cusDetails = new JTable(customerData,colNames);
             
                     // center the table values
-                    DefaultTableCellRenderer centerValues = new DefaultTableCellRenderer();
-                    centerValues.setHorizontalAlignment(SwingConstants.CENTER);
-                    for (int i = 0; i < cusDetails.getColumnCount(); i++) {
-                        cusDetails.getColumnModel().getColumn(i).setCellRenderer(centerValues);
-                    }
+                    // DefaultTableCellRenderer centerValues = new DefaultTableCellRenderer();
+                    // centerValues.setHorizontalAlignment(SwingConstants.CENTER);
+                    // for (int i = 0; i < cusDetails.getColumnCount(); i++) {
+                    //     cusDetails.getColumnModel().getColumn(i).setCellRenderer(centerValues);
+                    // }
             
                     JScrollPane scrollPane = new JScrollPane(cusDetails);
                     scrollPane.setBounds(50,100,400,100);
                     add(scrollPane);
+
                     customerDetails.tempCountUpdate();
                 }else{
                     JOptionPane.showMessageDialog(null,"Invalid Customer ID");

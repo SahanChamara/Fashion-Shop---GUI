@@ -33,7 +33,7 @@ class SearchingOption extends JFrame{
                 new SearchCustomer(customerDetails).setVisible(true);                
                 break;
             case 1:
-                // new SearchOrder(customerDetails).setVisible(true);
+                new SearchOrder(customerDetails).setVisible(true);
                 break;
             case 2:
                 // dispose();        
