@@ -80,11 +80,32 @@ class SearchOrder extends JFrame {
         lblStatus.setBounds(40,300,200,30);
         add(lblStatus);
 
-        // retun values labls
         
-            
+        // retun values labls.............................................
+        lblOrderIdShow = new JLabel("Test");
+        lblOrderIdShow.setFont(new Font("Arial",Font.BOLD,15));
+        lblOrderIdShow.setBounds(180,100,120,30);
+        add(lblOrderIdShow);
 
+        lblSizeShow = new JLabel("Test2");
+        lblSizeShow.setFont((new Font("Arial",Font.BOLD,15)));
+        lblSizeShow.setBounds(180,150,200,30);
+        add(lblSizeShow);
 
+        lblQtyShow = new JLabel("Test3");
+        lblQtyShow.setFont(new Font("Arial",Font.BOLD,15));
+        lblQtyShow.setBounds(180,200,200,30);
+        add(lblQtyShow);
+
+        lblAmountShow = new JLabel("Test4");
+        lblAmountShow.setFont(new Font("Arial",Font.BOLD,15));
+        lblAmountShow.setBounds(180,250,200,30);
+        add(lblAmountShow);
+
+        lblStatusShow = new JLabel("Test5");
+        lblStatusShow.setFont(new Font("Arial",Font.BOLD,15));
+        lblStatusShow.setBounds(180,300,200,30);
+        add(lblStatusShow);
     }
 
 }
