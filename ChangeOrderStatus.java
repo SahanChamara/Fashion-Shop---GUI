@@ -2,12 +2,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-class SearchOrder extends JFrame {
-
+class ChangeOrderStatus extends JFrame{
+    
     private CustomerDetailsHandeler customerDetails;
 
     private JButton btnBack;
     private JButton btnSearch;
+    private JButton btnChangeStatus;
 
     private JTextField txtCustomerId;
 
@@ -24,9 +25,11 @@ class SearchOrder extends JFrame {
     private JLabel lblAmountShow;
     private JLabel lblStatusShow;
 
-    SearchOrder(CustomerDetailsHandeler customerDetails){
+    ChangeOrderStatus(CustomerDetailsHandeler customerDetails){
+        this.customerDetails=customerDetails;
+
         setSize(500,500);
-        setTitle("Search Order");
+        setTitle("Change Order Status");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(null);
@@ -38,11 +41,26 @@ class SearchOrder extends JFrame {
         btnBack.setBounds(0,0,80,30);
         add(btnBack);
 
+        // search button
+        btnSearch = new JButton("SEARCH");
+        btnSearch.setBackground(new Color(4,203,201));
+        btnSearch.setForeground(Color.WHITE);
+        btnSearch.setBounds(390,45,90,30);
+        add(btnSearch);
+
+        //Change Status Button
+        btnChangeStatus = new JButton("CHANGE STATUS");
+        btnChangeStatus.setFont(new Font("Arial",Font.BOLD,12));
+        btnChangeStatus.setBackground(new Color(135,193,255));
+        btnChangeStatus.setForeground(Color.WHITE);
+        btnChangeStatus.setBounds(320,400,150,30);
+        add(btnChangeStatus);
+
         //Back button Action
         btnBack.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
                 dispose();
-                new SearchingOption(customerDetails);
+                new HomePage(customerDetails);
             }
         });
 
@@ -56,13 +74,6 @@ class SearchOrder extends JFrame {
         txtCustomerId.setFont(new Font("SanSeriif",Font.BOLD,15));
         txtCustomerId.setBounds(180,45,180,30);
         add(txtCustomerId);
-
-        // serach button
-        btnSearch = new JButton("SEARCH");
-        btnSearch.setBackground(new Color(4,203,201));
-        btnSearch.setForeground(Color.WHITE);
-        btnSearch.setBounds(390,45,90,30);
-        add(btnSearch);
         
         // Labls ==================
         lblCustomerId = new JLabel("Customer ID: ");
@@ -118,23 +129,76 @@ class SearchOrder extends JFrame {
 
         // search button action
         btnSearch.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent evt){            
+            public void actionPerformed(ActionEvent evt){
                 FashionShopCustomerDetails f1=customerDetails.serachOrderId(txtCustomerId.getText());
                 if(f1!=null){
                     lblOrderIdShow.setText(f1.getPhoneNumber());
                     lblSizeShow.setText(f1.getSize());
                     lblQtyShow.setText(String.valueOf(f1.getQuantity()));
                     lblAmountShow.setText(String.valueOf(f1.getAmount()));
-                    lblStatusShow.setText(f1.printOrderStatus());
+                    lblStatusShow.setText(String.valueOf(f1.printOrderStatus()));
                 }else{
                     JOptionPane.showMessageDialog(null,"Invalid Order ID","Error",JOptionPane.ERROR_MESSAGE);
                 }
                 
-                
-                // JOptionPane.showConfirmDialog(rootPane, "Do you want serach another customer", ABORT);
+            }
+        });
 
+        // Change Stataus Button Action
+        btnChangeStatus.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                int status = customerDetails.changeOrderStatus(txtCustomerId.getText());
+                if(status==0){
+                    Icon qIcon = UIManager.getIcon("JoptionPane.questionIcon");
+                    Object[] buttons = {"Delivering","Delivered"};
+
+                    int selection=JOptionPane.showOptionDialog(
+                        null,
+                        "Please Select the Status",
+                        "Status",
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.PLAIN_MESSAGE,
+                        qIcon,
+                        buttons,
+                        buttons[0]
+                    );
+                    switch (selection) {
+                        case 0:
+                            customerDetails.setOrderStatus(1);                            
+                            break;
+                        case 1:
+                            customerDetails.setOrderStatus(2);
+                            break;                    
+                        default:
+                            System.out.println("default");
+                            break;
+                    }
+                }else if(status==1){
+                    Icon qIcon = UIManager.getIcon("JOptionPane.questionIcon");
+                    Object[] button = {"Delivered"};
+
+                    int selection=JOptionPane.showOptionDialog(
+                        null,
+                        "Please select the Status",
+                        "Status",
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.PLAIN_MESSAGE,
+                        qIcon,
+                        button,
+                        button[0]
+                    );
+                    switch (selection) {
+                        case 0:
+                            customerDetails.setOrderStatus(2);                            
+                            break;                    
+                        default:
+                            System.out.println("Default");
+                            break;
+                    }
+                }else if(status==2){
+                    JOptionPane.showMessageDialog(null,"Cant Change this order status...order already delivered...!","Error",JOptionPane.ERROR_MESSAGE);
+                }              
             }
         });
     }
-
 }

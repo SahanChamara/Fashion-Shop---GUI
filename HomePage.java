@@ -49,10 +49,19 @@ class HomePage extends JFrame {
             }
         });
 
+        // Status Button
         btnSetOrderStatus = new JButton("Status");
         btnSetOrderStatus.setBounds(100, 160, 200, 40);
         centerPanel.add(btnSetOrderStatus);
 
+        // Status Button Action
+        btnSetOrderStatus.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                new ChangeOrderStatus(customerDetails).setVisible(true);
+            }
+        });
+
+        // View Report Button
         btnViewReports = new JButton("Reports");
         btnViewReports.setBounds(100, 220, 200, 40);
         centerPanel.add(btnViewReports);
@@ -65,9 +74,18 @@ class HomePage extends JFrame {
             }
         });
 
+        // Delete Button
         btnDeleteOrder = new JButton("Delete");
         btnDeleteOrder.setBounds(100, 280, 200, 40);
         centerPanel.add(btnDeleteOrder);
+
+        //Delete Button Action
+        btnDeleteOrder.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                dispose();
+                new DeleteOrder(customerDetails).setVisible(true);
+            }
+        });
 
         // Place Order button
         btnPlaceOrder = new JButton("Place Order");
@@ -95,7 +113,7 @@ class HomePage extends JFrame {
         add(centerPanel,BorderLayout.CENTER);
 
         // Copyright label
-        JLabel copyrightLabel = new JLabel("Copyrights © iCET 2023", SwingConstants.CENTER);
+        JLabel copyrightLabel = new JLabel("Copyrights © Sahan Chamara 2024", SwingConstants.CENTER);
         copyrightLabel.setBounds(0, 440, 500, 30);
         copyrightLabel.setFont(new Font("SansSerif", Font.PLAIN, 12));
         add(copyrightLabel,BorderLayout.SOUTH);

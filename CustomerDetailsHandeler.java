@@ -21,6 +21,10 @@ class CustomerDetailsHandeler {
 
     private boolean numbervalid;
 
+    private final int processing = 0;
+    private final int delivering = 1;
+    private final int delivered = 2;
+
     CustomerDetailsHandeler() {
         this.customerDetailsArray = new FashionShopCustomerDetails[0];
 
@@ -247,6 +251,30 @@ class CustomerDetailsHandeler {
         }
         return null;
     }
+
+    // Delete Customer ...................
+    public boolean deleteOrder(String id){
+        int index=-1;
+        for(int i=0; i<customerDetailsArray.length; i++){
+            if(id.equalsIgnoreCase(customerDetailsArray[i].getOrderId())){
+                index=i;
+                break;
+            }            
+        }
+        if(index==-1){
+            return false;
+        }else{
+            FashionShopCustomerDetails[] tempCusDetails = new FashionShopCustomerDetails[customerDetailsArray.length-1];
+            for(int i=0, j=0; i<customerDetailsArray.length; i++){
+                if(i!=index){
+                    tempCusDetails[j]=customerDetailsArray[i];
+                    j++;
+                }
+            }
+            customerDetailsArray=tempCusDetails;
+            return true;
+        }
+    }
     
     // Best In Customers Sorting Part
     public BestsInCustomer[] bestInCusSort(){
@@ -280,7 +308,7 @@ class CustomerDetailsHandeler {
             count++;
         }
                
-        // Sorting Part....
+        // Sorting loop in best in customer....
         for(int i=count-1; i>0; i--){           
             for(int j=0; j<i; j++){    
                 if(viewBestCustomers[j] != null && viewBestCustomers[j+1] != null){
@@ -297,6 +325,32 @@ class CustomerDetailsHandeler {
         }
         return viewBestCustomers;
 
+    }
+
+    // Change Order Status
+    public int changeOrderStatus(String id){
+        for(int i=0; i<customerDetailsArray.length; i++){
+            if(id.equalsIgnoreCase(customerDetailsArray[i].getOrderId())){
+                if(customerDetailsArray[i].getOrderStatus()==0){
+                    return 0;
+                }else if(customerDetailsArray[i].getOrderStatus()==1){
+                    return 1;
+                }else if(customerDetailsArray[i].getOrderStatus()==2){
+                    return 2;
+                }
+            }            
+        }
+        return -1;        
+    }
+
+    public void setOrderStatus(int status){
+        for(int i=0; i<customerDetailsArray.length; i++){
+            if(status==1){
+                customerDetailsArray[i].setOrderStatus(delivering);
+            }else if(status==2){
+                customerDetailsArray[i].setOrderStatus(delivered);
+            }
+        }
     }
            
     

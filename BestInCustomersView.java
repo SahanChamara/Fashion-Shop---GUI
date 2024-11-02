@@ -32,20 +32,36 @@ class BestInCustomersView extends JFrame {
         btnBack.setBounds(0,0,80,30);
         add(btnBack);
 
+        // back button action
+        btnBack.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                dispose();
+                new HomePage(customerDetails);
+            }
+        });
+
         // making the table
         String[] colNames = {"Customer ID","Quantity","Amount"};
         DefaultTableModel dtm = new DefaultTableModel(colNames,0);
 
         BestsInCustomer[] bInCus=customerDetails.bestInCusSort();
-        for(BestsInCustomer customers:bInCus){
-            Object[] rowData = {customers.getPhoneNumber(),customers.getQuantity(),customers.getAmount()};
-            dtm.addRow(rowData);
+        // for(BestsInCustomer customers:bInCus){            
+        //     Object[] rowData = {customers.getPhoneNumber(),customers.getQuantity(),customers.getAmount()};
+        //     dtm.addRow(rowData);
+        // }
+
+        for(int i=0; i<bInCus.length; i++){
+            if(bInCus[i]!=null){
+                if(bInCus[i].getQuantity()!=0){
+                    Object[] rowData = {bInCus[i].getPhoneNumber(),bInCus[i].getQuantity(),bInCus[i].getAmount()};
+                    dtm.addRow(rowData);
+                }
+            }
         }
 
         JTable cusTable = new JTable(dtm);
         JScrollPane sp = new JScrollPane(cusTable);
-        sp.setBounds(70,60,600,150);
-        sp.setBackground(Color.BLUE);
+        sp.setBounds(70,60,600,150);        
         add(sp);
 
     }

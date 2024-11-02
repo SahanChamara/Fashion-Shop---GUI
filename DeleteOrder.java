@@ -2,12 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-class SearchOrder extends JFrame {
-
+class DeleteOrder extends JFrame {
     private CustomerDetailsHandeler customerDetails;
 
     private JButton btnBack;
     private JButton btnSearch;
+    private JButton btnDelete;
 
     private JTextField txtCustomerId;
 
@@ -24,9 +24,9 @@ class SearchOrder extends JFrame {
     private JLabel lblAmountShow;
     private JLabel lblStatusShow;
 
-    SearchOrder(CustomerDetailsHandeler customerDetails){
+    DeleteOrder(CustomerDetailsHandeler customerDetails){
         setSize(500,500);
-        setTitle("Search Order");
+        setTitle("Delete Order");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(null);
@@ -38,11 +38,26 @@ class SearchOrder extends JFrame {
         btnBack.setBounds(0,0,80,30);
         add(btnBack);
 
+        // search button
+        btnSearch = new JButton("SEARCH");
+        btnSearch.setBackground(new Color(4,203,201));
+        btnSearch.setForeground(Color.WHITE);
+        btnSearch.setBounds(390,45,90,30);
+        add(btnSearch);
+
+        //Delete Button
+        btnDelete = new JButton("DELETE");
+        btnDelete.setFont(new Font("Arial",Font.BOLD,15));
+        btnDelete.setBackground(new Color(153,51,0));
+        btnDelete.setForeground(Color.WHITE);
+        btnDelete.setBounds(380,400,100,30);
+        add(btnDelete);
+
         //Back button Action
         btnBack.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
                 dispose();
-                new SearchingOption(customerDetails);
+                new HomePage(customerDetails);
             }
         });
 
@@ -56,13 +71,6 @@ class SearchOrder extends JFrame {
         txtCustomerId.setFont(new Font("SanSeriif",Font.BOLD,15));
         txtCustomerId.setBounds(180,45,180,30);
         add(txtCustomerId);
-
-        // serach button
-        btnSearch = new JButton("SEARCH");
-        btnSearch.setBackground(new Color(4,203,201));
-        btnSearch.setForeground(Color.WHITE);
-        btnSearch.setBounds(390,45,90,30);
-        add(btnSearch);
         
         // Labls ==================
         lblCustomerId = new JLabel("Customer ID: ");
@@ -118,23 +126,31 @@ class SearchOrder extends JFrame {
 
         // search button action
         btnSearch.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent evt){            
+            public void actionPerformed(ActionEvent evt){
                 FashionShopCustomerDetails f1=customerDetails.serachOrderId(txtCustomerId.getText());
                 if(f1!=null){
                     lblOrderIdShow.setText(f1.getPhoneNumber());
                     lblSizeShow.setText(f1.getSize());
                     lblQtyShow.setText(String.valueOf(f1.getQuantity()));
                     lblAmountShow.setText(String.valueOf(f1.getAmount()));
-                    lblStatusShow.setText(f1.printOrderStatus());
+                    lblStatusShow.setText(String.valueOf(f1.getOrderStatus()));
                 }else{
                     JOptionPane.showMessageDialog(null,"Invalid Order ID","Error",JOptionPane.ERROR_MESSAGE);
                 }
                 
-                
-                // JOptionPane.showConfirmDialog(rootPane, "Do you want serach another customer", ABORT);
+            }
+        });
 
+        // Delete Button Action
+        btnDelete.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                boolean isDelete = customerDetails.deleteOrder(txtCustomerId.getText());
+                if(isDelete){
+                    JOptionPane.showMessageDialog(null,"Order Delete Succesfull","Delete Order",JOptionPane.INFORMATION_MESSAGE);
+                }
+                
             }
         });
     }
-
+    
 }
