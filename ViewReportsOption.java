@@ -56,6 +56,14 @@ class ViewReportsOption extends JFrame{
         btnBestInCustomers.setBounds(40,160,200,40);
         add(btnBestInCustomers);
 
+        // BIC button ACtion
+        btnBestInCustomers.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                dispose();
+                new BestInCustomersView(customerDetails).setVisible(true);
+            }
+        });
+
         // All Customers Button
         btnAllCustomers = new JButton("All Customer");
         btnAllCustomers.setFont(new Font("Arial",Font.BOLD,15));

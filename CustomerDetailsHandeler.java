@@ -73,7 +73,7 @@ class CustomerDetailsHandeler {
     // }
 
     public boolean tShirtSizeValidation(String tShirtSize) {
-        //tShirtSize = tShirtSize.toUpperCase();
+        tShirtSize = tShirtSize.toUpperCase();
         if (tShirtSize.equals("XS") || tShirtSize.equals("S") || tShirtSize.equals("M")
                 || tShirtSize.equals("L") || tShirtSize.equals("XL")
                 || tShirtSize.equals("XXL")) {
@@ -97,7 +97,7 @@ class CustomerDetailsHandeler {
 
     // Amount Calculation
     public double amountCalculation(String qty, String tShirtSize) {
-        //tShirtSize = tShirtSize.toUpperCase();
+        tShirtSize = tShirtSize.toUpperCase();
 
         double amount=0;
         int quantiity = Integer.parseInt(qty);
@@ -248,7 +248,56 @@ class CustomerDetailsHandeler {
         return null;
     }
     
+    // Best In Customers Sorting Part
+    public BestsInCustomer[] bestInCusSort(){
+        BestsInCustomer[] viewBestCustomers = new BestsInCustomer[customerDetailsArray.length];
+        boolean [] equalPass = new boolean[customerDetailsArray.length];
+        int count=0;
         
-   
+        for(int i=0; i<customerDetailsArray.length; i++){
+            if(equalPass[i]){
+                continue;
+            }
+
+            viewBestCustomers[count]=new BestsInCustomer();
+
+            int tempqty = customerDetailsArray[i].getQuantity();
+            double tempAmount = customerDetailsArray[i].getAmount();
+            equalPass[i]=true;
+
+            for(int j=i+1; j<customerDetailsArray.length; j++){
+                if(customerDetailsArray[i].getPhoneNumber().equals(customerDetailsArray[j].getPhoneNumber())){
+                    tempqty+=customerDetailsArray[j].getQuantity();
+                    tempAmount+=customerDetailsArray[j].getAmount();
+                    equalPass[j]=true;
+                }                
+            }
+            String customerPhoneNumber = customerDetailsArray[i].getPhoneNumber();
+
+            viewBestCustomers[count].setPhoneNumber(customerPhoneNumber);
+            viewBestCustomers[count].setQuantity(tempqty);
+            viewBestCustomers[count].setAmount(tempAmount);
+            count++;
+        }
+               
+        // Sorting Part....
+        for(int i=count-1; i>0; i--){           
+            for(int j=0; j<i; j++){    
+                if(viewBestCustomers[j] != null && viewBestCustomers[j+1] != null){
+                    if(viewBestCustomers[j].getQuantity()!=0 && viewBestCustomers[j+1].getQuantity()!=0){
+                        if(viewBestCustomers[j].getAmount()<viewBestCustomers[j+1].getAmount()){                   
+                            BestsInCustomer swap = viewBestCustomers[j];
+                            viewBestCustomers[j]=viewBestCustomers[j+1];
+                            viewBestCustomers[j+1]=swap;                    
+                        }
+                    }
+
+                }              
+            }
+        }
+        return viewBestCustomers;
+
+    }
+           
     
 }
