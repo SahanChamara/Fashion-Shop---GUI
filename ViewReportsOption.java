@@ -80,6 +80,7 @@ class ViewReportsOption extends JFrame{
         btnAllCustomers.setBounds(40,240,200,40);
         add(btnAllCustomers);
 
+        // all cus button action
         btnAllCustomers.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
                 dispose();
@@ -94,6 +95,14 @@ class ViewReportsOption extends JFrame{
         btnCatByQty.setForeground(Color.WHITE);
         btnCatByQty.setBounds(290,120,200,40);
         add(btnCatByQty);
+
+        // cat by qty button action
+        btnCatByQty.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                dispose();
+                new CatByQty(customerDetails).setVisible(true);
+            }
+        });
 
         // Cat by Amount
         btnCatByAmount = new JButton("categorized By Amount");
