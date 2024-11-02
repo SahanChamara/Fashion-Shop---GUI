@@ -3,25 +3,25 @@ import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
 
-class CatByQty extends JFrame {
+class ViewAllOrders extends JFrame {
     private CustomerDetailsHandeler customerDetails;
     private JLabel topic;
     private JButton btnBack;
 
-    CatByQty(CustomerDetailsHandeler customerDetails){
+    ViewAllOrders(CustomerDetailsHandeler customerDetails){
         this.customerDetails=customerDetails;
 
-        setSize(500,500);
-        setTitle("Item By QTY");
+        setSize(800,400);
+        setTitle("Item By Amount");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(null);
 
         //topic
-        topic = new JLabel("Best selling categories sorted by quantity", SwingConstants.CENTER);
+        topic = new JLabel("View All Orders", SwingConstants.CENTER);
         topic.setFont(new Font("Arial",Font.BOLD,15));
         topic.setForeground(Color.RED);
-        topic.setBounds(0,0,500,30);
+        topic.setBounds(0,0,800,30);
         add(topic);
 
         //back button
@@ -40,20 +40,22 @@ class CatByQty extends JFrame {
             }
         });
 
-        // table
-        String[] colNames = {"Size","QTY","Amount"};
+        //table
+        String[] colNames = {"Order ID","Customer ID","Size","Quantity","Amount","Status"};
         DefaultTableModel dtm = new DefaultTableModel(colNames,0);
 
-        Sorting[] sortQty = customerDetails.sortByQty();
-        for(int i=0; i<sortQty.length; i++){
-            Object[] rowData = {sortQty[i].getSize(),sortQty[i].getQuantity(),sortQty[i].getAmount()};
+        FashionShopCustomerDetails[] cusArray = customerDetails.getObject();
+        for(int i=cusArray.length-1; i>=0; i--){
+            Object[] rowData = {cusArray[i].getOrderId(),cusArray[i].getPhoneNumber(),cusArray[i].getSize(),cusArray[i].getQuantity(),cusArray[i].getAmount(),cusArray[i].printOrderStatus()};
             dtm.addRow(rowData);
         }
 
         JTable cusTable = new JTable(dtm);
         JScrollPane sp = new JScrollPane(cusTable);
-        sp.setBounds(100,100,300,200);
+        sp.setBounds(100,60,600,300);
         add(sp);
+        
+
     }
     
 }

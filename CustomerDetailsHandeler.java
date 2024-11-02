@@ -354,7 +354,7 @@ class CustomerDetailsHandeler {
     // Change Order Status
     public int changeOrderStatus(String id){
         for(int i=0; i<customerDetailsArray.length; i++){
-            if(id.equalsIgnoreCase(customerDetailsArray[i].getOrderId())){
+            if(id.equals(customerDetailsArray[i].getOrderId())){
                 if(customerDetailsArray[i].getOrderStatus()==0){
                     return 0;
                 }else if(customerDetailsArray[i].getOrderStatus()==1){
@@ -466,6 +466,7 @@ class CustomerDetailsHandeler {
 
     }
 
+    // Sorting by Quantity
     public Sorting[] sortByQty(){
         Sorting [] sortingByQuantity = new Sorting[6];
         for(int i=0; i<sortingByQuantity.length; i++){
@@ -541,7 +542,7 @@ class CustomerDetailsHandeler {
             sortingByQuantity[5].setAmount((double)largetotal);
           
         }
-        // sorting par
+        // sorting part for quantity
         for(int i=5; i>0; i--){
             for(int j=0; j<i; j++){
                 if(sortingByQuantity[j].getQuantity()<sortingByQuantity[j+1].getQuantity()){
@@ -553,6 +554,116 @@ class CustomerDetailsHandeler {
         }
         return sortingByQuantity;
     }
-    
+
+    //Sorting by Amount
+    public Sorting[] sortByAmount(){
+        Sorting [] sortByAmount = new Sorting[6];
+        for(int i=0; i<sortByAmount.length; i++){
+            sortByAmount[i]=new Sorting();
+        }
+
+        sortByAmount[0].setSize("M");
+        sortByAmount[1].setSize("XL");
+        sortByAmount[2].setSize("XS");
+        sortByAmount[3].setSize("S");
+        sortByAmount[4].setSize("XXL");
+        sortByAmount[5].setSize("L");
+
+        int tempM4=0;
+        int tempXs4=0;
+        int tempXtraXl4=0;
+        int tempXLarge4=0;
+        int tempSmall4=0;
+        int tempLarge4=0;
+
+        int mtotal=0;
+        int xstotal=0;
+        int xtraxltotal=0;
+        int xlargetotal=0;
+        int smalltotal=0;
+        int largetotal=0;
+
+        sortByAmount[0].setQuantity(0);
+        sortByAmount[1].setQuantity(0);
+        sortByAmount[2].setQuantity(0);
+        sortByAmount[3].setQuantity(0);
+        sortByAmount[4].setQuantity(0);
+        sortByAmount[5].setQuantity(0);
+
+        for(int i=0; i<customerDetailsArray.length; i++){
+            if(customerDetailsArray[i].getSize().equals("M")){
+                tempM4+=customerDetailsArray[i].getQuantity();
+                sortByAmount[0].setQuantity(tempM4);
+            }else if (customerDetailsArray[i].getSize().equals("XL")){
+                tempXLarge4+=customerDetailsArray[i].getQuantity();
+                sortByAmount[1].setQuantity(tempXLarge4);
+            }else if(customerDetailsArray[i].getSize().equals("XS")){
+                tempXs4+=customerDetailsArray[i].getQuantity();
+                sortByAmount[2].setQuantity(tempXs4);
+            }else if(customerDetailsArray[i].getSize().equals("S")){
+                tempSmall4+=customerDetailsArray[i].getQuantity();
+                sortByAmount[3].setQuantity(tempSmall4);
+            }else if(customerDetailsArray[i].getSize().equals("XXL")){
+                tempXtraXl4+=customerDetailsArray[i].getQuantity();
+                sortByAmount[4].setQuantity(tempXtraXl4);
+            }else if(customerDetailsArray[i].getSize().equals("L")){
+                tempLarge4+=customerDetailsArray[i].getQuantity();
+                sortByAmount[5].setQuantity(tempLarge4);
+            }
+
+            mtotal=tempM4*900;
+            xlargetotal=tempXLarge4*1100;
+            xstotal=tempXs4*600;
+            smalltotal=tempSmall4*800;
+            xtraxltotal=tempXtraXl4*1200;           
+            largetotal=tempLarge4*1000;
+
+            sortByAmount[0].setAmount((double)mtotal);
+            sortByAmount[1].setAmount((double)xlargetotal);
+            sortByAmount[2].setAmount((double)xstotal);
+            sortByAmount[3].setAmount((double)smalltotal);
+            sortByAmount[4].setAmount((double)xtraxltotal);
+            sortByAmount[5].setAmount((double)largetotal);
+          
+        }
+        for(int i=5; i>0; i--){           
+            for(int j=0; j<i; j++){              
+                if(sortByAmount[j].getAmount()<sortByAmount[j+1].getAmount()){                   
+                        Sorting swap = sortByAmount[j];
+                        sortByAmount[j]=sortByAmount[j+1];
+                        sortByAmount[j+1]=swap;                    
+                }           
+            }
+        }
+        return sortByAmount;
+    }
+
+    //get Object by print the view all orders
+    public FashionShopCustomerDetails[] getObject(){
+        FashionShopCustomerDetails[] tempArray = new FashionShopCustomerDetails[customerDetailsArray.length];
+        for(int i=0; i<customerDetailsArray.length; i++){
+            tempArray[i]=customerDetailsArray[i];            
+        }
+        return tempArray;
+    }
+
+    // Orders by Amount all orders print
+    public FashionShopCustomerDetails[] allOrdersByAmount(){
+        FashionShopCustomerDetails[] sortingByAmount = new FashionShopCustomerDetails[customerDetailsArray.length];
+        for(int i=0; i<customerDetailsArray.length; i++){
+            sortingByAmount[i]=customerDetailsArray[i];
+        }        
+
+        for(int i=customerDetailsArray.length-1; i>0; i--){
+            for(int j=0; j<i; j++)
+            if(sortingByAmount[j].getAmount()<sortingByAmount[j+1].getAmount()){
+                FashionShopCustomerDetails swap=customerDetailsArray[j];
+                sortingByAmount[j]=sortingByAmount[j+1];
+                sortingByAmount[j+1]=swap;
+            }
+        }
+        return sortingByAmount;
+
+    }  
     
 }

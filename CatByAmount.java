@@ -3,22 +3,22 @@ import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
 
-class CatByQty extends JFrame {
+class CatByAmount extends JFrame {
     private CustomerDetailsHandeler customerDetails;
     private JLabel topic;
     private JButton btnBack;
 
-    CatByQty(CustomerDetailsHandeler customerDetails){
+    CatByAmount(CustomerDetailsHandeler customerDetails){
         this.customerDetails=customerDetails;
 
         setSize(500,500);
-        setTitle("Item By QTY");
+        setTitle("Item By Amount");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(null);
 
         //topic
-        topic = new JLabel("Best selling categories sorted by quantity", SwingConstants.CENTER);
+        topic = new JLabel("Best selling categories sorted by Amount", SwingConstants.CENTER);
         topic.setFont(new Font("Arial",Font.BOLD,15));
         topic.setForeground(Color.RED);
         topic.setBounds(0,0,500,30);
@@ -44,9 +44,9 @@ class CatByQty extends JFrame {
         String[] colNames = {"Size","QTY","Amount"};
         DefaultTableModel dtm = new DefaultTableModel(colNames,0);
 
-        Sorting[] sortQty = customerDetails.sortByQty();
-        for(int i=0; i<sortQty.length; i++){
-            Object[] rowData = {sortQty[i].getSize(),sortQty[i].getQuantity(),sortQty[i].getAmount()};
+        Sorting[] sortAmount = customerDetails.sortByAmount();
+        for(int i=0; i<sortAmount.length; i++){
+            Object[] rowData = {sortAmount[i].getSize(),sortAmount[i].getQuantity(),sortAmount[i].getAmount()};
             dtm.addRow(rowData);
         }
 
@@ -54,6 +54,8 @@ class CatByQty extends JFrame {
         JScrollPane sp = new JScrollPane(cusTable);
         sp.setBounds(100,100,300,200);
         add(sp);
+
     }
+
     
 }

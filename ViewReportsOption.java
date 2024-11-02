@@ -112,6 +112,15 @@ class ViewReportsOption extends JFrame{
         btnCatByAmount.setBounds(290,200,200,40);
         add(btnCatByAmount);
 
+        //cat by amount
+        btnCatByAmount.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                dispose();
+                new CatByAmount(customerDetails).setVisible(true);
+            }
+        });
+
+
         // Orders By Amount
         btnOrdersByAmount = new JButton("Orders By Amount");
         btnOrdersByAmount.setFont(new Font("Arial",Font.BOLD,15));
@@ -120,6 +129,13 @@ class ViewReportsOption extends JFrame{
         btnOrdersByAmount.setBounds(550,120,200,40);
         add(btnOrdersByAmount);
 
+        btnOrdersByAmount.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                dispose();
+                new ViewAllOrdersByAmount(customerDetails).setVisible(true);
+            }
+        });
+
         // ALl Orders
         btnAllOrders = new JButton("All Orders");
         btnAllOrders.setFont(new Font("Arial",Font.BOLD,15));
@@ -127,6 +143,14 @@ class ViewReportsOption extends JFrame{
         btnAllOrders.setForeground(Color.WHITE);
         btnAllOrders.setBounds(550,200,200,40);
         add(btnAllOrders);
+
+        btnAllOrders.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                dispose();
+                new ViewAllOrders(customerDetails).setVisible(true);
+            }
+        });
+        
     }
     
 }
