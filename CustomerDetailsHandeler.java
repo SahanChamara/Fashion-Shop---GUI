@@ -275,10 +275,43 @@ class CustomerDetailsHandeler {
             return true;
         }
     }
+
+    // View Customers
+    public FashionShopCustomerDetails[] viewCustomer(){
+        FashionShopCustomerDetails[] viewCustomers = new FashionShopCustomerDetails[customerDetailsArray.length];
+        boolean[] equalPass = new boolean [customerDetailsArray.length];
+        int count=0;
+
+        for(int i=0; i<customerDetailsArray.length; i++){
+            if(equalPass[i]){
+                continue;
+            }
+
+            viewCustomers[count]=new FashionShopCustomerDetails();
+
+            int tempQty = customerDetailsArray[i].getQuantity();
+            double tempAmount=customerDetailsArray[i].getAmount();
+            equalPass[i]=true;
+
+            for(int j=i+1; j<customerDetailsArray.length; j++){
+                if(customerDetailsArray[i].getPhoneNumber().equals(customerDetailsArray[j].getPhoneNumber())){
+                    tempQty+=customerDetailsArray[i].getQuantity();
+                    tempAmount+=customerDetailsArray[i].getAmount();
+                    equalPass[j]=true;
+                }
+            }
+
+            String cusPhoneNumber = customerDetailsArray[i].getPhoneNumber();
+            viewCustomers[count].setViewCustomers(cusPhoneNumber, tempQty, tempAmount);
+            count++;
+        }
+        return viewCustomers;
+    }
+
     
     // Best In Customers Sorting Part
-    public BestsInCustomer[] bestInCusSort(){
-        BestsInCustomer[] viewBestCustomers = new BestsInCustomer[customerDetailsArray.length];
+    public FashionShopCustomerDetails[] bestInCusSort(){
+        FashionShopCustomerDetails[] viewBestCustomers = new FashionShopCustomerDetails[customerDetailsArray.length];
         boolean [] equalPass = new boolean[customerDetailsArray.length];
         int count=0;
         
@@ -287,7 +320,7 @@ class CustomerDetailsHandeler {
                 continue;
             }
 
-            viewBestCustomers[count]=new BestsInCustomer();
+            viewBestCustomers[count]=new FashionShopCustomerDetails();
 
             int tempqty = customerDetailsArray[i].getQuantity();
             double tempAmount = customerDetailsArray[i].getAmount();
@@ -302,9 +335,7 @@ class CustomerDetailsHandeler {
             }
             String customerPhoneNumber = customerDetailsArray[i].getPhoneNumber();
 
-            viewBestCustomers[count].setPhoneNumber(customerPhoneNumber);
-            viewBestCustomers[count].setQuantity(tempqty);
-            viewBestCustomers[count].setAmount(tempAmount);
+            viewBestCustomers[count].setBestInCustomers(customerPhoneNumber, tempqty, tempAmount);            
             count++;
         }
                
@@ -314,7 +345,7 @@ class CustomerDetailsHandeler {
                 if(viewBestCustomers[j] != null && viewBestCustomers[j+1] != null){
                     if(viewBestCustomers[j].getQuantity()!=0 && viewBestCustomers[j+1].getQuantity()!=0){
                         if(viewBestCustomers[j].getAmount()<viewBestCustomers[j+1].getAmount()){                   
-                            BestsInCustomer swap = viewBestCustomers[j];
+                            FashionShopCustomerDetails swap = viewBestCustomers[j];
                             viewBestCustomers[j]=viewBestCustomers[j+1];
                             viewBestCustomers[j+1]=swap;                    
                         }

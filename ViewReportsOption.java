@@ -48,6 +48,14 @@ class ViewReportsOption extends JFrame{
         btnViewCustomers.setBounds(40,80,200,40);
         add(btnViewCustomers);
 
+        // view customer action
+        btnViewCustomers.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                dispose();
+                new viewCustomer(customerDetails).setVisible(true);
+            }
+        });
+
         //Best IN Cusstomers button
         btnBestInCustomers = new JButton("Best In Customers");
         btnBestInCustomers.setFont(new Font("Arial",Font.BOLD,15));
@@ -60,7 +68,7 @@ class ViewReportsOption extends JFrame{
         btnBestInCustomers.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
                 dispose();
-                new BestInCustomersView(customerDetails).setVisible(true);
+                new BestInCustomers(customerDetails).setVisible(true);
             }
         });
 

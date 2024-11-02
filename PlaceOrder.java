@@ -124,8 +124,8 @@ class PlaceOrder extends JFrame{
 
         // Size hint label
         lblSizeHint = new JLabel("(XS/S/M/L/XL/XXL)");
-        lblSizeHint.setBounds(290, 140, 100, 30);
-        lblSizeHint.setFont(new Font("SansSerif", Font.BOLD, 10));
+        lblSizeHint.setBounds(299, 140, 100, 30);
+        lblSizeHint.setFont(new Font("SansSerif", Font.BOLD, 9));
         add(lblSizeHint);
 
         // Quantity label 

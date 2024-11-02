@@ -1,45 +1,64 @@
-class BestsInCustomer{
-    private int quantity;
-    private double amount;
-    private String customerPhoneNumber;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.table.*;
 
-    BestsInCustomer(){
+class BestInCustomers extends JFrame {
+    private JButton btnBack;
+    private JLabel topic;
 
-    }
-    BestsInCustomer(int quantity,double amount,String customerPhoneNumber){
-        this.quantity=quantity;
-        this.amount=amount;
-        this.customerPhoneNumber=customerPhoneNumber;
-    }
+    private CustomerDetailsHandeler customerDetails;
 
-    // set Quantiity
-    public void setQuantity(int quantity){
-        this.quantity=quantity;
+    BestInCustomers(CustomerDetailsHandeler customerDetails){
+        this.customerDetails=customerDetails;
+
+        setSize(800,500);
+        setTitle("Best In Customers");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setLayout(null);
+
+        // main topic
+        topic = new JLabel("BEST IN CUSTOMERS", SwingConstants.CENTER);
+        topic.setFont(new Font("Arial",Font.BOLD,15));
+        topic.setForeground(Color.BLUE);
+        topic.setBounds(0,0,800,30);
+        add(topic);
+
+        btnBack = new JButton("BACK");
+        btnBack.setFont(new Font("Arial",Font.BOLD,15));
+        btnBack.setBackground(Color.RED);
+        btnBack.setForeground(Color.WHITE);
+        btnBack.setBounds(0,0,80,30);
+        add(btnBack);
+
+        // back button action
+        btnBack.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                dispose();
+                new HomePage(customerDetails);
+            }
+        });
+
+        // making the table
+        String[] colNames = {"Customer ID","Quantity","Amount"};
+        DefaultTableModel dtm = new DefaultTableModel(colNames,0);
+
+        FashionShopCustomerDetails[] bInCus=customerDetails.bestInCusSort();
+        for(int i=0; i<bInCus.length; i++){
+            if(bInCus[i]!=null){
+                if(bInCus[i].getQuantity()!=0){
+                    Object[] rowData = {bInCus[i].getPhoneNumber(),bInCus[i].getQuantity(),bInCus[i].getAmount()};
+                    dtm.addRow(rowData);
+                }
+            }
+        }
+
+        JTable cusTable = new JTable(dtm);
+        JScrollPane sp = new JScrollPane(cusTable);
+        sp.setBounds(70,60,600,150);        
+        add(sp);
+
     }
     
-    // get Quantiity
-    public int getQuantity(){
-        return this.quantity;
-    }
-
-    // set Amount
-    public void setAmount(double amount){
-        this.amount=amount;
-    }
-
-    // Get Amount
-    public double getAmount(){
-        return this.amount;
-    }
-
-
-    // set Phone Number
-    public void setPhoneNumber(String customerPhoneNumber){
-        this.customerPhoneNumber=customerPhoneNumber;
-    }
-
-    // Get Phone Number
-    public String getPhoneNumber(){
-        return this.customerPhoneNumber;
-    }
 }

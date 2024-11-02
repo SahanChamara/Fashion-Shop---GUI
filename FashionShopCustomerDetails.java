@@ -20,6 +20,20 @@ class FashionShopCustomerDetails{
 		this.amount=amount;
 		this.orderStatus=orderStatus;		
 	}
+
+	// View Customer 
+	public void setViewCustomers(String phoneNumber,int quantity,double amount){
+		this.phoneNumber=phoneNumber;
+		this.quantity=quantity;
+		this.amount=amount;
+	}
+	
+	// Best in customers
+	public void setBestInCustomers(String phoneNumber,int quantiity,double amount){
+		this.phoneNumber=phoneNumber;
+		this.quantity=quantiity;
+		this.amount=amount;
+	}
 	
 	// set Order Id
 	public void setOrderId(String orderId){        
