@@ -18,8 +18,7 @@ class SearchOrder extends JFrame {
     private JLabel lblAmount;
     private JLabel lblStatus;
 
-    private JLabel lblOrderIdShow;
-    private JLabel lblCustomerIdShow;
+    private JLabel lblOrderIdShow;   
     private JLabel lblSizeShow;
     private JLabel lblQtyShow;
     private JLabel lblAmountShow;
@@ -32,6 +31,7 @@ class SearchOrder extends JFrame {
         setLocationRelativeTo(null);
         setLayout(null);
 
+        // back button
         btnBack = new JButton("BACK");
         btnBack.setBackground(Color.RED);
         btnBack.setForeground(Color.WHITE);
@@ -43,17 +43,19 @@ class SearchOrder extends JFrame {
         lblOrderId.setBounds(40,50,200,20);
         add(lblOrderId);
 
+        // enter order id text field
         txtCustomerId = new JTextField();
         txtCustomerId.setFont(new Font("SanSeriif",Font.BOLD,15));
         txtCustomerId.setBounds(180,45,180,30);
         add(txtCustomerId);
 
+        // serach button
         btnSearch = new JButton("SEARCH");
         btnSearch.setBackground(new Color(4,203,201));
         btnSearch.setForeground(Color.WHITE);
         btnSearch.setBounds(390,45,90,30);
         add(btnSearch);
-
+        
         // Labls ==================
         lblCustomerId = new JLabel("Customer ID: ");
         lblCustomerId.setFont(new Font("SanSerif",Font.BOLD,15));
@@ -80,7 +82,6 @@ class SearchOrder extends JFrame {
         lblStatus.setBounds(40,300,200,30);
         add(lblStatus);
 
-        
         // retun values labls.............................................
         lblOrderIdShow = new JLabel("Test");
         lblOrderIdShow.setFont(new Font("Arial",Font.BOLD,15));
@@ -106,6 +107,21 @@ class SearchOrder extends JFrame {
         lblStatusShow.setFont(new Font("Arial",Font.BOLD,15));
         lblStatusShow.setBounds(180,300,200,30);
         add(lblStatusShow);
+
+        // search button action
+        btnSearch.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                FashionShopCustomerDetails f1=customerDetails.serachOrderId(txtCustomerId.getText());
+                lblOrderIdShow.setText(f1.getPhoneNumber());
+                lblSizeShow.setText(f1.getSize());
+                lblQtyShow.setText(String.valueOf(f1.getQuantity()));
+                lblAmountShow.setText(String.valueOf(f1.getAmount()));
+                lblStatusShow.setText(String.valueOf(f1.getOrderStatus()));
+                
+                // JOptionPane.showConfirmDialog(rootPane, "Do you want serach another customer", ABORT);
+
+            }
+        });
     }
 
 }

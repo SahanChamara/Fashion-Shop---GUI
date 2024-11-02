@@ -11,7 +11,7 @@ class SearchCustomer extends JFrame {
     private JTextField txtCustomerId;
 
     private JButton btnBack;
-    private JButton btnSearch;
+    private JButton btnSearch;    
 
     private CustomerDetailsHandeler customerDetails;
 
@@ -52,8 +52,8 @@ class SearchCustomer extends JFrame {
         // ID validation and printing the table
         btnSearch.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){                
-                boolean isCusId=customerDetails.serachCustomerId(txtCustomerId.getText());
-                if(isCusId){                    
+                customerDetails.serachCustomerId(txtCustomerId.getText());
+                if(customerDetails.getNumberValid()==true){                                    
                     Object[][] customerData = {
                         {"L",customerDetails.getLarge(),customerDetails.getLargeAmount()},
                         {"M",customerDetails.getMedium(),customerDetails.getMediumAmount()},
@@ -79,6 +79,7 @@ class SearchCustomer extends JFrame {
                     add(scrollPane);
 
                     customerDetails.tempCountUpdate();
+                    
                 }else{
                     JOptionPane.showMessageDialog(null,"Invalid Customer ID");
                 }              

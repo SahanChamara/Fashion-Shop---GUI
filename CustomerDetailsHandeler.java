@@ -19,6 +19,8 @@ class CustomerDetailsHandeler {
     private double largeAmount;
     private double searchTotalAmount;
 
+    private boolean numbervalid;
+
     CustomerDetailsHandeler() {
         this.customerDetailsArray = new FashionShopCustomerDetails[0];
 
@@ -42,11 +44,7 @@ class CustomerDetailsHandeler {
         newGeneratedORderID = tag + idNum;
 
         return newGeneratedORderID;
-    }
-
-    // public String getOrderId(){
-    // return this.newGeneratedORderID;
-    // }
+    }    
 
     // Phone Number Validation
     public boolean PhoneNumber(String phoneNumber) {
@@ -75,7 +73,7 @@ class CustomerDetailsHandeler {
     // }
 
     public boolean tShirtSizeValidation(String tShirtSize) {
-        tShirtSize = tShirtSize.toUpperCase();
+        //tShirtSize = tShirtSize.toUpperCase();
         if (tShirtSize.equals("XS") || tShirtSize.equals("S") || tShirtSize.equals("M")
                 || tShirtSize.equals("L") || tShirtSize.equals("XL")
                 || tShirtSize.equals("XXL")) {
@@ -99,7 +97,7 @@ class CustomerDetailsHandeler {
 
     // Amount Calculation
     public double amountCalculation(String qty, String tShirtSize) {
-        tShirtSize = tShirtSize.toUpperCase();
+        //tShirtSize = tShirtSize.toUpperCase();
 
         double amount=0;
         int quantiity = Integer.parseInt(qty);
@@ -143,44 +141,51 @@ class CustomerDetailsHandeler {
         customerDetailsArray = tempCustomerDetails;
     }
 
-    public boolean serachCustomerId(String cusEnterPhonenum) {
-        //boolean numbervalid = false;
+    // serarch by custoemer id...................
+    public void serachCustomerId(String cusEnterPhonenum) {
+        numbervalid = false;
 
         for (int i = 0; i < customerDetailsArray.length; i++) {
             if (cusEnterPhonenum.equals(customerDetailsArray[i].getPhoneNumber())) {
-                //numbervalid = true;
+                numbervalid = true;               
 
                 if (customerDetailsArray[i].getSize().equals("M")) {
-                    this.tempMedium += customerDetailsArray[i].getQuantity();
+                    tempMedium += customerDetailsArray[i].getQuantity();
                 } else if (customerDetailsArray[i].getSize().equals("XS")) {
-                    this.tempXtraSmall += customerDetailsArray[i].getQuantity();
+                    tempXtraSmall += customerDetailsArray[i].getQuantity();
                 } else if (customerDetailsArray[i].getSize().equals("XXL")) {
-                    this.tempXtraXl += customerDetailsArray[i].getQuantity();
+                    tempXtraXl += customerDetailsArray[i].getQuantity();
                 } else if (customerDetailsArray[i].getSize().equals("XL")) {
-                    this.tempXtraLarge += customerDetailsArray[i].getQuantity();
+                    tempXtraLarge += customerDetailsArray[i].getQuantity();
                 } else if (customerDetailsArray[i].getSize().equals("S")) {
-                    this.tempSmall += customerDetailsArray[i].getQuantity();
+                    tempSmall += customerDetailsArray[i].getQuantity();
                 } else if (customerDetailsArray[i].getSize().equals("L")) {
-                    this.tempLarge += customerDetailsArray[i].getQuantity();
+                    tempLarge += customerDetailsArray[i].getQuantity();
                 }
-                tempAmountCalculation();;
-                return true;                
-            }            
-        }
-        return false;
-        // if (numbervalid == false) {
-        //     //return false;
-        // }
-
+                tempAmountCalculation();                               
+            }                       
+        }        
     }
-    public void tempAmountCalculation(){
-        this.mediumAmount=tempMedium*900;
-        this.xtraLargeAmount=tempXtraLarge*1100;
-        this.xtraxXlAmount=tempXtraXl*1200;
-        this.xtraSmallAmount=tempXtraSmall*600;
-        this.smallAmount=tempSmall*800;
-        this.largeAmount=tempLarge*1000;
-        this.searchTotalAmount=mediumAmount+xtraLargeAmount+xtraxXlAmount+xtraSmallAmount+smallAmount+largeAmount;
+
+    public boolean getNumberValid(){
+        return this.numbervalid;
+    }
+    
+    public void tempAmountCalculation(){        
+        mediumAmount=tempMedium*900;
+        xtraLargeAmount=tempXtraLarge*1100;
+        xtraxXlAmount=tempXtraXl*1200;
+        xtraSmallAmount=tempXtraSmall*600;
+        smallAmount=tempSmall*800;
+        largeAmount=tempLarge*1000;
+        searchTotalAmount=mediumAmount+xtraLargeAmount+xtraxXlAmount+xtraSmallAmount+smallAmount+largeAmount;
+
+        System.out.println("Medium"+mediumAmount);
+        System.out.println("xlamount"+xtraLargeAmount);
+        System.out.println("xtraxlAmo"+xtraxXlAmount);
+        System.out.println("smallAmount"+smallAmount);
+        System.out.println("large amount"+largeAmount);
+        System.out.println("total amount"+searchTotalAmount);
     }
     public int getMedium(){
         return this.tempMedium;
@@ -231,6 +236,16 @@ class CustomerDetailsHandeler {
         this.tempXtraSmall=0;
         this.tempSmall=0;
         this.tempLarge=0;
+    }
+
+    // search customer by order id..........
+    public FashionShopCustomerDetails serachOrderId(String orderId){
+        for(int i=0; i<customerDetailsArray.length; i++){
+            if(orderId.equalsIgnoreCase(customerDetailsArray[i].getOrderId())){
+                return customerDetailsArray[i];
+            }
+        }
+        return null;
     }
     
         
