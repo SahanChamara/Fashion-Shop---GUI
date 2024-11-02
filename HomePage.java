@@ -57,6 +57,14 @@ class HomePage extends JFrame {
         btnViewReports.setBounds(100, 220, 200, 40);
         centerPanel.add(btnViewReports);
 
+        // Reports button action
+        btnViewReports.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                dispose();
+                new ViewReportsOption(customerDetails).setVisible(true);
+            }
+        });
+
         btnDeleteOrder = new JButton("Delete");
         btnDeleteOrder.setBounds(100, 280, 200, 40);
         centerPanel.add(btnDeleteOrder);
