@@ -80,6 +80,13 @@ class ViewReportsOption extends JFrame{
         btnAllCustomers.setBounds(40,240,200,40);
         add(btnAllCustomers);
 
+        btnAllCustomers.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                dispose();
+                new AllCustomersView(customerDetails).setVisible(true);
+            }
+        });
+
         // Cat by Qty button
         btnCatByQty = new JButton("Categorized By QTY");
         btnCatByQty.setFont(new Font("Arial",Font.BOLD,15));

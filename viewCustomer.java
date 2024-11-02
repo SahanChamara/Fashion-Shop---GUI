@@ -29,14 +29,25 @@ class viewCustomer extends JFrame{
         btnBack.setBounds(0,0,80,30);
         add(btnBack);
 
+        //back button action
+        btnBack.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                dispose();
+                new ViewReportsOption(customerDetails).setVisible(true);
+            }
+        });
+
         // Table making
         String[] colNames = {"Customer ID","QTY","Amount"};
         DefaultTableModel dtm = new DefaultTableModel(colNames,0);
 
         FashionShopCustomerDetails[] cus = customerDetails.viewCustomer();
         for(int i=0; i<cus.length; i++){
-            Object[] rowData = {cus[i].getPhoneNumber(),cus[i].getQuantity(),cus[i].getAmount()};
-            dtm.addRow(rowData);
+            if(cus[i]!=null){
+                Object[] rowData = {cus[i].getPhoneNumber(),cus[i].getQuantity(),cus[i].getAmount()};
+                dtm.addRow(rowData);
+            }
+            
         }
 
         JTable cusTable = new JTable(dtm);

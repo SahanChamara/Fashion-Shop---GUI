@@ -27,7 +27,7 @@ class FashionShopCustomerDetails{
 		this.quantity=quantity;
 		this.amount=amount;
 	}
-	
+
 	// Best in customers
 	public void setBestInCustomers(String phoneNumber,int quantiity,double amount){
 		this.phoneNumber=phoneNumber;

@@ -7,6 +7,8 @@ import java.util.*;
 
 class SearchCustomer extends JFrame {
     private JLabel lblCustomerId;
+    private JLabel lbltotal;
+    private JLabel lbltotalView;
 
     private JTextField txtCustomerId;
 
@@ -51,6 +53,17 @@ class SearchCustomer extends JFrame {
         txtCustomerId.setBounds(180,55,120,22);
         add(txtCustomerId);
 
+        //Total Label
+        lbltotal = new JLabel("Total :");
+        lbltotal.setFont(new Font("Arial",Font.BOLD,15));
+        lbltotal.setBounds(50,300,70,30);;
+        add(lbltotal);
+
+        // total view lable
+        lbltotalView = new JLabel("");
+        lbltotalView.setFont(new Font("Arial",Font.BOLD,15));
+        lbltotalView.setBounds(200,300,70,30);
+
         //Search Button
         btnSearch = new JButton("SEARCH");
         btnSearch.setBounds(350,55,90,20);
@@ -85,6 +98,8 @@ class SearchCustomer extends JFrame {
                     JScrollPane scrollPane = new JScrollPane(cusDetails);
                     scrollPane.setBounds(50,100,400,100);
                     add(scrollPane);
+
+                    lbltotalView.setText(String.valueOf(customerDetails.getSearchTotalAmount()));
 
                     customerDetails.tempCountUpdate();
                     

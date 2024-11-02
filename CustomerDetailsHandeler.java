@@ -182,14 +182,7 @@ class CustomerDetailsHandeler {
         xtraSmallAmount=tempXtraSmall*600;
         smallAmount=tempSmall*800;
         largeAmount=tempLarge*1000;
-        searchTotalAmount=mediumAmount+xtraLargeAmount+xtraxXlAmount+xtraSmallAmount+smallAmount+largeAmount;
-
-        System.out.println("Medium"+mediumAmount);
-        System.out.println("xlamount"+xtraLargeAmount);
-        System.out.println("xtraxlAmo"+xtraxXlAmount);
-        System.out.println("smallAmount"+smallAmount);
-        System.out.println("large amount"+largeAmount);
-        System.out.println("total amount"+searchTotalAmount);
+        searchTotalAmount=mediumAmount+xtraLargeAmount+xtraxXlAmount+xtraSmallAmount+smallAmount+largeAmount;        
     }
     public int getMedium(){
         return this.tempMedium;
@@ -383,6 +376,95 @@ class CustomerDetailsHandeler {
             }
         }
     }
-           
+
+    // All Customer
+    public AllCustomers[] allCustomersReport(){
+        AllCustomers[] allCustomerDetails = new AllCustomers[customerDetailsArray.length];
+        
+        for(int i=0; i<allCustomerDetails.length; i++){
+            allCustomerDetails[i]=new AllCustomers();
+        }
+
+        boolean equalPass[] = new boolean[customerDetailsArray.length];
+        for(int i=0; i<customerDetailsArray.length; i++){
+            if(equalPass[i]){
+                continue;
+            }
+
+            int tempMedium2=0;
+            int tempXtraSmall2=0;
+            int tempXtraXl2=0;
+            int tempXtraLarge2=0;
+            int tempSmall2=0;
+            int tempLarge2=0;
+            double tempAmount2=0;
+
+            String customerPhoneNumber = customerDetailsArray[i].getPhoneNumber();
+            
+            allCustomerDetails[i].setPhoneNumber(customerPhoneNumber);
+
+            if(customerDetailsArray[i].getSize().equals("M")){
+                tempMedium2=customerDetailsArray[i].getQuantity();
+                allCustomerDetails[i].setMedium(tempMedium2);
+
+            }else if (customerDetailsArray[i].getSize().equals("XS")){
+                tempXtraSmall2=customerDetailsArray[i].getQuantity();
+                allCustomerDetails[i].setXtraSmall(tempXtraSmall2);
+
+            }else if(customerDetailsArray[i].getSize().equals("XXL")){
+                tempXtraXl2=customerDetailsArray[i].getQuantity();
+                allCustomerDetails[i].setXtraXl(tempXtraXl2);
+
+            }else if(customerDetailsArray[i].getSize().equals("XL")){
+                tempXtraLarge2=customerDetailsArray[i].getQuantity();
+                allCustomerDetails[i].setXtraLarge(tempXtraLarge2);
+
+            }else if(customerDetailsArray[i].getSize().equals("S")){
+                tempSmall2=customerDetailsArray[i].getQuantity();
+                allCustomerDetails[i].setSmall(tempSmall2);
+
+            }else if(customerDetailsArray[i].getSize().equals("L")){
+                tempLarge2=customerDetailsArray[i].getQuantity();
+                allCustomerDetails[i].setLarge(tempLarge2);
+            }
+
+            tempAmount2=customerDetailsArray[i].getAmount();  
+            allCustomerDetails[i].setAmount(tempAmount2);           
+            equalPass[i]=true;            
+    
+            for(int j=i+1; j<customerDetailsArray.length; j++){
+                if(customerDetailsArray[i].getPhoneNumber().equals(customerDetailsArray[j].getPhoneNumber())){                                             
+                allCustomerDetails[i].setPhoneNumber(customerPhoneNumber);
+
+                if(customerDetailsArray[i].getSize().equals("M")){
+                    tempMedium2=customerDetailsArray[i].getQuantity();
+                    allCustomerDetails[i].setMedium(tempMedium2);    
+                }else if (customerDetailsArray[i].getSize().equals("XS")){
+                    tempXtraSmall2=customerDetailsArray[i].getQuantity();
+                    allCustomerDetails[i].setXtraSmall(tempXtraSmall2);
+                }else if(customerDetailsArray[i].getSize().equals("XXL")){
+                    tempXtraXl2=customerDetailsArray[i].getQuantity();
+                    allCustomerDetails[i].setXtraXl(tempXtraXl2);
+                }else if(customerDetailsArray[i].getSize().equals("XL")){
+                    tempXtraLarge2=customerDetailsArray[i].getQuantity();
+                    allCustomerDetails[i].setXtraLarge(tempXtraLarge2);
+                }else if(customerDetailsArray[i].getSize().equals("S")){
+                    tempSmall2=customerDetailsArray[i].getQuantity();
+                    allCustomerDetails[i].setSmall(tempSmall2);
+                }else if(customerDetailsArray[i].getSize().equals("L")){
+                    tempLarge2=customerDetailsArray[i].getQuantity();
+                    allCustomerDetails[i].setLarge(tempLarge2);
+                }
+    
+                tempAmount2=customerDetailsArray[i].getAmount();  
+                allCustomerDetails[i].setAmount(tempAmount2);           
+                equalPass[i]=true;            
+                }                
+            }           
+        } 
+        return allCustomerDetails; 
+
+    }
+    
     
 }
