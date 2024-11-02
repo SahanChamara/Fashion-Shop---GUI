@@ -38,6 +38,14 @@ class SearchOrder extends JFrame {
         btnBack.setBounds(0,0,80,30);
         add(btnBack);
 
+        //Back button Action
+        btnBack.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                dispose();
+                new SearchingOption(customerDetails);
+            }
+        });
+
         lblOrderId = new JLabel("Enter Order ID: ");
         lblOrderId.setFont(new Font("SanSerif",Font.BOLD,15));
         lblOrderId.setBounds(40,50,200,20);

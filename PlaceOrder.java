@@ -54,6 +54,15 @@ class PlaceOrder extends JFrame{
         btnBack.setFont(new Font("SansSerif", Font.BOLD, 14));
         add(btnBack);
 
+        // Back Button Action
+        btnBack.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                dispose();
+                new HomePage(customerDetails).setVisible(true);
+            }
+
+        });
+
         // Order ID label
         lblOrderId = new JLabel("Order ID :");
         lblOrderId.setBounds(50, 60, 100, 30);

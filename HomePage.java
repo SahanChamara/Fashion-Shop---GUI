@@ -71,6 +71,7 @@ class HomePage extends JFrame {
         btnPlaceOrder.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){                    
                 // customerDetails.incrementOid();
+                dispose();
                 new PlaceOrder(customerDetails).setVisible(true);                                      
                 
             }

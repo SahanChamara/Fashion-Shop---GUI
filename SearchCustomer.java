@@ -31,6 +31,14 @@ class SearchCustomer extends JFrame {
         btnBack.setForeground(Color.WHITE);
         add(btnBack);
 
+        // Back button action
+        btnBack.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                dispose();
+                new SearchingOption(customerDetails);
+            }
+        });
+
         // Customer ID Lable 
         lblCustomerId = new JLabel("Enter Customer ID: ");
         lblCustomerId.setFont(new Font("sanSerif",Font.BOLD,12));
