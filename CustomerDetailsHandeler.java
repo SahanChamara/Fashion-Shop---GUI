@@ -64,18 +64,6 @@ class CustomerDetailsHandeler {
         }
     }
 
-    // Size Validation
-    // public boolean tShirtSizeValidation(String tShirtSize) {
-    //     if (tShirtSize.equalsIgnoreCase("XS") || tShirtSize.equalsIgnoreCase("S") || tShirtSize.equalsIgnoreCase("M")
-    //             || tShirtSize.equalsIgnoreCase("L") || tShirtSize.equalsIgnoreCase("XL")
-    //             || tShirtSize.equalsIgnoreCase("XXL")) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-
-    // }
-
     public boolean tShirtSizeValidation(String tShirtSize) {
         tShirtSize = tShirtSize.toUpperCase();
         if (tShirtSize.equals("XS") || tShirtSize.equals("S") || tShirtSize.equals("M")
@@ -354,7 +342,7 @@ class CustomerDetailsHandeler {
     // Change Order Status
     public int changeOrderStatus(String id){
         for(int i=0; i<customerDetailsArray.length; i++){
-            if(id.equals(customerDetailsArray[i].getOrderId())){
+            if(id.equalsIgnoreCase(customerDetailsArray[i].getOrderId())){
                 if(customerDetailsArray[i].getOrderStatus()==0){
                     return 0;
                 }else if(customerDetailsArray[i].getOrderStatus()==1){
@@ -367,13 +355,18 @@ class CustomerDetailsHandeler {
         return -1;        
     }
 
-    public void setOrderStatus(int status){
+    public void setOrderStatus(int status,String orderId){
         for(int i=0; i<customerDetailsArray.length; i++){
-            if(status==1){
-                customerDetailsArray[i].setOrderStatus(delivering);
-            }else if(status==2){
-                customerDetailsArray[i].setOrderStatus(delivered);
+            if(orderId.equals(customerDetailsArray[i].getOrderId())){
+                if(status==1){
+                    customerDetailsArray[i].setOrderStatus(delivering);
+                    break;                
+                }else if(status==2){
+                    customerDetailsArray[i].setOrderStatus(delivered);
+                    break;
+                }
             }
+            
         }
     }
 

@@ -5,10 +5,6 @@ import java.awt.event.*;
 import java.util.*;
 
 class SearchingOption extends JFrame{
-    // private JButton serachCustomer;
-    // private JButton searchOrder;
-    // private JButton cansel;
-
     private CustomerDetailsHandeler customerDetails;
 
     SearchingOption(CustomerDetailsHandeler customerDetails){

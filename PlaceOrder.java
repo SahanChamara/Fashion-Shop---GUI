@@ -144,9 +144,7 @@ class PlaceOrder extends JFrame{
         lblAmount.setFont(new Font("SansSerif", Font.PLAIN, 14));
         add(lblAmount);
 
-        txtAmount = new JLabel("0.00");
-        // double amount = customerDetails.amountCalculation(txtQty.getText(),txtSize.getText());
-        // txtAmount.setText(String.valueOf(amount));
+        txtAmount = new JLabel("0.00");        
         txtAmount.setBounds(150, 220, 150, 30);
         add(txtAmount);
 

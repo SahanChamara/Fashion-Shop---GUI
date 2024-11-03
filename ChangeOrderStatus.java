@@ -149,7 +149,7 @@ class ChangeOrderStatus extends JFrame{
             public void actionPerformed(ActionEvent evt){
                 int status = customerDetails.changeOrderStatus(txtCustomerId.getText());
                 if(status==0){
-                    Icon qIcon = UIManager.getIcon("JoptionPane.questionIcon");
+                    Icon qIcon = UIManager.getIcon("JOptionPane.questionIcon");
                     Object[] buttons = {"Delivering","Delivered"};
 
                     int selection=JOptionPane.showOptionDialog(
@@ -164,10 +164,10 @@ class ChangeOrderStatus extends JFrame{
                     );
                     switch (selection) {
                         case 0:
-                            customerDetails.setOrderStatus(1);                            
+                            customerDetails.setOrderStatus(1,(txtCustomerId.getText()));                            
                             break;
                         case 1:
-                            customerDetails.setOrderStatus(2);
+                            customerDetails.setOrderStatus(2,(txtCustomerId.getText()));
                             break;                    
                         default:
                             System.out.println("default");
@@ -189,7 +189,7 @@ class ChangeOrderStatus extends JFrame{
                     );
                     switch (selection) {
                         case 0:
-                            customerDetails.setOrderStatus(2);                            
+                            customerDetails.setOrderStatus(2,(txtCustomerId.getText()));                            
                             break;                    
                         default:
                             System.out.println("Default");

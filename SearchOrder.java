@@ -128,11 +128,7 @@ class SearchOrder extends JFrame {
                     lblStatusShow.setText(f1.printOrderStatus());
                 }else{
                     JOptionPane.showMessageDialog(null,"Invalid Order ID","Error",JOptionPane.ERROR_MESSAGE);
-                }
-                
-                
-                // JOptionPane.showConfirmDialog(rootPane, "Do you want serach another customer", ABORT);
-
+                }               
             }
         });
     }
