@@ -14,7 +14,7 @@ class HomePage extends JFrame {
     private JButton btnSetOrderStatus;
     private JButton btnDeleteOrder;
 
-    // private CustomerDetailsHandeler customerDetails;
+    private CustomerDetailsHandeler customerDetails;
 
     HomePage(CustomerDetailsHandeler customerDetails) {
         this.customerDetails = customerDetails;
