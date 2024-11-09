@@ -32,12 +32,10 @@ class PlaceOrder extends JFrame{
 
 
     // private String orderId;
-
-    private CustomerDetailsHandeler customerDetails;
     
     // Default Construcotr
-    PlaceOrder(CustomerDetailsHandeler customerDetails){
-        this.customerDetails=customerDetails;
+    PlaceOrder(){
+       
         
         setSize(400,400);
         setTitle("Place Order");
@@ -58,7 +56,7 @@ class PlaceOrder extends JFrame{
         btnBack.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
                 dispose();
-                new HomePage(customerDetails).setVisible(true);
+                new HomePage().setVisible(true);
             }
 
         });
@@ -73,7 +71,7 @@ class PlaceOrder extends JFrame{
         lblOrderIdValue = new JLabel();
         
         //set the generating order id
-        lblOrderIdValue.setText(customerDetails.incrementOid());
+        lblOrderIdValue.setText("test");
         lblOrderIdValue.setBounds(150, 60, 200, 30);
         lblOrderIdValue.setFont(new Font("SansSerif", Font.PLAIN, 14));
         add(lblOrderIdValue);
@@ -88,16 +86,16 @@ class PlaceOrder extends JFrame{
         txtCustomerId = new JTextField();
         txtCustomerId.setBounds(150, 100, 150, 30);       
         // Customer ID Validation
-        txtCustomerId.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent evt){  
-                //retun the user input phone number to validation method
-                isNumber = customerDetails.PhoneNumber(txtCustomerId.getText());                 
-                if(!isNumber){
-                    System.out.println(isNumber);
-                    JOptionPane.showMessageDialog(null,"Invalid Phone Number");
-                }                
-            }
-        });
+        // txtCustomerId.addActionListener(new ActionListener(){
+        //     public void actionPerformed(ActionEvent evt){  
+        //         //retun the user input phone number to validation method
+        //         isNumber = customerDetails.PhoneNumber(txtCustomerId.getText());                 
+        //         if(!isNumber){
+        //             System.out.println(isNumber);
+        //             JOptionPane.showMessageDialog(null,"Invalid Phone Number");
+        //         }                
+        //     }
+        // });
         add(txtCustomerId);
 
         // Size label 
@@ -111,15 +109,15 @@ class PlaceOrder extends JFrame{
         txtSize.setBounds(150, 140, 150, 30);
 
         // Size Validation        
-        txtSize.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent evt){
-                // reutn the user input size into validation method
-                isSize = customerDetails.tShirtSizeValidation(txtSize.getText());
-                if(!isSize){
-                    JOptionPane.showMessageDialog(null,"Invalid Size");
-                }
-            }
-        });
+        // txtSize.addActionListener(new ActionListener(){
+        //     public void actionPerformed(ActionEvent evt){
+        //         // reutn the user input size into validation method
+        //         isSize = customerDetails.tShirtSizeValidation(txtSize.getText());
+        //         if(!isSize){
+        //             JOptionPane.showMessageDialog(null,"Invalid Size");
+        //         }
+        //     }
+        // });
         add(txtSize);
 
         // Size hint label
@@ -149,17 +147,17 @@ class PlaceOrder extends JFrame{
         add(txtAmount);
 
         //Quantity Validation
-        txtQty.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent evt){
-                isQty = customerDetails.quantityValidation(txtQty.getText());
-                if(!isQty){
-                    JOptionPane.showMessageDialog(null,"Quantity is Not Valid");
-                }else{
-                    amount = customerDetails.amountCalculation(txtQty.getText(),txtSize.getText());
-                    txtAmount.setText(String.valueOf(amount)); 
-                }
-            }
-        });
+        // txtQty.addActionListener(new ActionListener(){
+        //     public void actionPerformed(ActionEvent evt){
+        //         isQty = customerDetails.quantityValidation(txtQty.getText());
+        //         if(!isQty){
+        //             JOptionPane.showMessageDialog(null,"Quantity is Not Valid");
+        //         }else{
+        //             amount = customerDetails.amountCalculation(txtQty.getText(),txtSize.getText());
+        //             txtAmount.setText(String.valueOf(amount)); 
+        //         }
+        //     }
+        // });
         add(txtQty);
 
         // Place button
@@ -172,15 +170,15 @@ class PlaceOrder extends JFrame{
         //Place Order Action
         btnPlaceOrder.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
-                double amount = customerDetails.amountCalculation(txtQty.getText(),txtSize.getText());
-                txtAmount.setText(String.valueOf(amount));
+                // double amount = customerDetails.amountCalculation(txtQty.getText(),txtSize.getText());
+                // txtAmount.setText(String.valueOf(amount));
 
                 System.out.println("prder place eke");
                 System.out.println(isNumber);
                 System.out.println(isSize);
                 System.out.println(isQty);
                 
-                if((isNumber) && (isSize) && (isQty)){                                       
+                //if((isNumber) && (isSize) && (isQty)){                                       
                     JOptionPane.showMessageDialog(null,"Order Place Succesfull");
 
                     String orderId = lblOrderIdValue.getText();
@@ -201,9 +199,9 @@ class PlaceOrder extends JFrame{
                     System.out.println(c1.getQuantity());
                     System.out.println(c1.getSize());
                     System.out.println(c1.getAmount());
-                }else{
-                    JOptionPane.showMessageDialog(null,"Order Place UN Successful");
-                }
+                //}else{
+                    //JOptionPane.showMessageDialog(null,"Order Place UN Successful");
+                //}
             }
         });        
         add(btnPlaceOrder);
