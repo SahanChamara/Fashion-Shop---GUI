@@ -105,4 +105,8 @@ class FashionShopCustomerDetails{
             return "Processing";
         }
     }
+
+	public String toString(){
+		return orderId+","+phoneNumber+","+size+","+String.valueOf(quantity)+","+String.valueOf(amount)+","+String.valueOf(orderStatus);
+	}
 }

@@ -14,7 +14,7 @@ class HomePage extends JFrame {
 
     // private CustomerDetailsHandeler customerDetails;
 
-    HomePage() {
+    HomePage(List customerList) {
 
         setSize(500, 500);
         setTitle("Fashion Shop Customer Management System");
@@ -91,14 +91,14 @@ class HomePage extends JFrame {
         btnPlaceOrder.setForeground(Color.WHITE); // White text color
 
         // add action in place oreder
-        // btnPlaceOrder.addActionListener(new ActionListener() {
-        // public void actionPerformed(ActionEvent evt) {
-        // // customerDetails.incrementOid();
-        // dispose();
-        // new PlaceOrder().setVisible(true);
+        btnPlaceOrder.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent evt) {
+        // customerDetails.incrementOid();
+        dispose();
+        new PlaceOrder(customerList).setVisible(true);
 
-        // }
-        // });
+        }
+        });
         centerPanel.add(btnPlaceOrder);
 
         // Image label
