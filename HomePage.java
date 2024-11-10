@@ -52,11 +52,11 @@ class HomePage extends JFrame {
         centerPanel.add(btnSetOrderStatus);
 
         // Status Button Action
-        // btnSetOrderStatus.addActionListener(new ActionListener() {
-        // public void actionPerformed(ActionEvent evt) {
-        // new ChangeOrderStatus().setVisible(true);
-        // }
-        // });
+        btnSetOrderStatus.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                new ChangeOrderStatus(customerList).setVisible(true);
+            }
+        });
 
         // View Report Button
         btnViewReports = new JButton("Reports");
@@ -64,12 +64,12 @@ class HomePage extends JFrame {
         centerPanel.add(btnViewReports);
 
         // Reports button action
-        // btnViewReports.addActionListener(new ActionListener() {
-        // public void actionPerformed(ActionEvent evt) {
-        // dispose();
-        // new ViewReportsOption().setVisible(true);
-        // }
-        // });
+        btnViewReports.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                dispose();
+                new ViewReportsOption(customerList).setVisible(true);
+            }
+        });
 
         // Delete Button
         btnDeleteOrder = new JButton("Delete");
@@ -77,12 +77,12 @@ class HomePage extends JFrame {
         centerPanel.add(btnDeleteOrder);
 
         // Delete Button Action
-        // btnDeleteOrder.addActionListener(new ActionListener() {
-        // public void actionPerformed(ActionEvent evt) {
-        // dispose();
-        // new DeleteOrder().setVisible(true);
-        // }
-        // });
+        btnDeleteOrder.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                dispose();
+                new DeleteOrder(customerList).setVisible(true);
+            }
+        });
 
         // Place Order button
         btnPlaceOrder = new JButton("Place Order");
