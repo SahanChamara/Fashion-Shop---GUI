@@ -3,6 +3,7 @@ import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.io.*;
 
 class PlaceOrder extends JFrame {
     // private JLabel lblPlaceORder;
@@ -67,7 +68,7 @@ class PlaceOrder extends JFrame {
         lblOrderIdValue = new JLabel();
 
         // set the generating order id
-        lblOrderIdValue.setText("test");
+        lblOrderIdValue.setText(generateOrderId());
         lblOrderIdValue.setBounds(150, 60, 200, 30);
         lblOrderIdValue.setFont(new Font("SansSerif", Font.PLAIN, 14));
         add(lblOrderIdValue);
@@ -86,8 +87,7 @@ class PlaceOrder extends JFrame {
             public void actionPerformed(ActionEvent evt) {
                 // retun the user input phone number to validation method
                 isNumber = customerList.phoneNumber(txtCustomerId.getText());
-                if (!isNumber) {
-                    System.out.println(isNumber);
+                if (!isNumber) {                    
                     JOptionPane.showMessageDialog(null, "Invalid Phone Number");
                 }
             }
@@ -170,11 +170,6 @@ class PlaceOrder extends JFrame {
                 customerList.amountCalculation(txtQty.getText(), txtSize.getText());
                 txtAmount.setText(String.valueOf(amount));
 
-                System.out.println("prder place eke");
-                System.out.println(isNumber);
-                System.out.println(isSize);
-                System.out.println(isQty);
-
                 if ((isNumber) && (isSize) && (isQty)) {
                     JOptionPane.showMessageDialog(null, "Order Place Succesfull");
 
@@ -187,20 +182,51 @@ class PlaceOrder extends JFrame {
                     FashionShopCustomerDetails c1 = new FashionShopCustomerDetails(orderId, phoneNumber, size, qty,amount,orderStatus);
                     customerList.add(c1);
 
+                    // order details writing for the text file
+                    try{
+                        FileWriter fw = new FileWriter("CustomerDetails.txt",true);
+                        fw.write(orderId+","+phoneNumber+","+size+","+qty+","+amount+","+orderStatus+"\n");
+                        fw.close();     // or you can write fw.flush();
+                    }catch(IOException ex){
+
+                    }                   
+
+                    //generateOrderId();
                     //customerList.orderNumber++;
                     dispose();
                     new PlaceOrder(customerList).setVisible(true);
 
-                    System.out.println(c1.getOrderId());
-                    System.out.println(c1.getPhoneNumber());
-                    System.out.println(c1.getQuantity());
-                    System.out.println(c1.getSize());
-                    System.out.println(c1.getAmount());
+                    System.out.println(c1.toString());
+                    
                 } else {
                     JOptionPane.showMessageDialog(null, "Order Place UN Successful");
                 }
             }
         });
         add(btnPlaceOrder);
+    }
+
+    // generating the order id
+    private String generateOrderId(){
+        String lastLine = null;
+        try{
+            BufferedReader br = new BufferedReader(new FileReader("CustomerDetails.txt"));
+            String line = br.readLine();
+            while(line!=null){
+                lastLine=line;
+                line = br.readLine();
+            }
+        }catch(IOException ex){
+
+        }
+        if(lastLine==null){            
+            return "ODR#00001";            
+        }else{            
+            int newId = Integer.parseInt(lastLine.substring(4,9));
+            return String.format("ODR#%05d",newId+1);
+
+            
+        }
+
     }
 }
