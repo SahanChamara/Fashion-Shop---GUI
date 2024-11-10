@@ -40,11 +40,11 @@ class HomePage extends JFrame {
         centerPanel.add(btnSearch);
 
         // serach button action
-        // btnSearch.addActionListener(new ActionListener() {
-        // public void actionPerformed(ActionEvent evt) {
-        // new SearchingOption();
-        // }
-        // });
+        btnSearch.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                new SearchingOption(customerList);
+            }
+        });
 
         // Status Button
         btnSetOrderStatus = new JButton("Status");
@@ -92,12 +92,12 @@ class HomePage extends JFrame {
 
         // add action in place oreder
         btnPlaceOrder.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-        // customerDetails.incrementOid();
-        dispose();
-        new PlaceOrder(customerList).setVisible(true);
+            public void actionPerformed(ActionEvent evt) {
+                // customerDetails.incrementOid();
+                dispose();
+                new PlaceOrder(customerList).setVisible(true);
 
-        }
+            }
         });
         centerPanel.add(btnPlaceOrder);
 

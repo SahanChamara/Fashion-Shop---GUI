@@ -98,6 +98,107 @@ class List {
 
     }
 
+    // serarch by custoemer id...................
+    public void serachCustomerId(String cusEnterPhonenum) {
+        numbervalid = false;
+
+        for (int i = 0; i < nextIndex; i++) {
+            if (cusEnterPhonenum.equals(cusDetailsArray[i].getPhoneNumber())) {
+                numbervalid = true;               
+
+                if (cusDetailsArray[i].getSize().equals("M")) {
+                    tempMedium += cusDetailsArray[i].getQuantity();
+                } else if (cusDetailsArray[i].getSize().equals("XS")) {
+                    tempXtraSmall += cusDetailsArray[i].getQuantity();
+                } else if (cusDetailsArray[i].getSize().equals("XXL")) {
+                    tempXtraXl += cusDetailsArray[i].getQuantity();
+                } else if (cusDetailsArray[i].getSize().equals("XL")) {
+                    tempXtraLarge += cusDetailsArray[i].getQuantity();
+                } else if (cusDetailsArray[i].getSize().equals("S")) {
+                    tempSmall += cusDetailsArray[i].getQuantity();
+                } else if (cusDetailsArray[i].getSize().equals("L")) {
+                    tempLarge += cusDetailsArray[i].getQuantity();
+                }
+                tempAmountCalculation();                               
+            }                       
+        }        
+    }
+
+    public boolean getNumberValid(){
+        return this.numbervalid;
+    }
+    
+    public void tempAmountCalculation(){        
+        mediumAmount=tempMedium*900;
+        xtraLargeAmount=tempXtraLarge*1100;
+        xtraxXlAmount=tempXtraXl*1200;
+        xtraSmallAmount=tempXtraSmall*600;
+        smallAmount=tempSmall*800;
+        largeAmount=tempLarge*1000;
+        searchTotalAmount=mediumAmount+xtraLargeAmount+xtraxXlAmount+xtraSmallAmount+smallAmount+largeAmount;        
+    }
+    public int getMedium(){
+        return this.tempMedium;
+    }
+    public int getXtraSmall(){
+        return this.tempXtraSmall;
+    }
+    public int getXtraXl(){
+        return this.tempXtraXl;
+    }
+    public int getXtraLarge(){
+        return this.tempXtraLarge;
+    }
+    public int getSmall(){
+        return this.tempSmall;
+    }
+    public int getLarge(){
+        return this.tempLarge;
+    }
+
+    // amount getters
+    public double getMediumAmount(){
+        return this.mediumAmount;
+    }
+    public double getXtraLargeAmount(){
+        return this.xtraLargeAmount;
+    }
+    public double getXtraXlAmount(){
+        return this.xtraxXlAmount;
+    }
+    public double getXtraSmallAmount(){
+        return this.xtraSmallAmount;
+    }
+    public double getSmallAmount(){
+        return this.smallAmount;
+    }
+    public double getLargeAmount(){
+        return this.largeAmount;
+    }
+    public double getSearchTotalAmount(){
+        return this.searchTotalAmount;
+    }
+
+    public void tempCountUpdate(){
+        this.tempMedium=0;
+        this.tempXtraLarge=0;
+        this.tempXtraXl=0;
+        this.tempXtraSmall=0;
+        this.tempSmall=0;
+        this.tempLarge=0;
+    }
+
+    // search customer by order id..........
+    public FashionShopCustomerDetails serachOrderId(String orderId){
+        for(int i=0; i<nextIndex; i++){
+            if(orderId.equalsIgnoreCase(cusDetailsArray[i].getOrderId())){
+                return cusDetailsArray[i];
+            }
+        }
+        return null;
+    }
+
+    //===========================================================================
 
 
     // customer details add 
