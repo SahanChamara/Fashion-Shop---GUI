@@ -14,7 +14,7 @@ class HomePage extends JFrame {
 
     // private CustomerDetailsHandeler customerDetails;
 
-    HomePage(List customerList) {
+    HomePage() {
 
         setSize(500, 500);
         setTitle("Fashion Shop Customer Management System");
@@ -42,7 +42,7 @@ class HomePage extends JFrame {
         // serach button action
         btnSearch.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                new SearchingOption(customerList);
+                new SearchingOption();
             }
         });
 
@@ -54,7 +54,7 @@ class HomePage extends JFrame {
         // Status Button Action
         btnSetOrderStatus.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                new ChangeOrderStatus(customerList).setVisible(true);
+                //new ChangeOrderStatus().setVisible(true);
             }
         });
 
@@ -67,7 +67,7 @@ class HomePage extends JFrame {
         btnViewReports.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 dispose();
-                new ViewReportsOption(customerList).setVisible(true);
+                //new ViewReportsOption().setVisible(true);
             }
         });
 
@@ -80,7 +80,7 @@ class HomePage extends JFrame {
         btnDeleteOrder.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 dispose();
-                new DeleteOrder(customerList).setVisible(true);
+                //new DeleteOrder().setVisible(true);
             }
         });
 
@@ -95,7 +95,8 @@ class HomePage extends JFrame {
             public void actionPerformed(ActionEvent evt) {
                 // customerDetails.incrementOid();
                 dispose();
-                new PlaceOrder(customerList).setVisible(true);
+                // new PlaceOrder(customerList).setVisible(true);
+                new PlaceOrder().setVisible(true);
 
             }
         });

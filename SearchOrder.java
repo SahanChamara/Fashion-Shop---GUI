@@ -25,7 +25,7 @@ class SearchOrder extends JFrame {
     private JLabel lblAmountShow;
     private JLabel lblStatusShow;
 
-    SearchOrder(List customerList){
+    SearchOrder(){
         setSize(500,500);
         setTitle("Search Order");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -43,7 +43,7 @@ class SearchOrder extends JFrame {
         btnBack.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
                 dispose();
-                new SearchingOption(customerList);
+                new SearchingOption();
             }
         });
 

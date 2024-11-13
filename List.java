@@ -5,22 +5,22 @@ class List {
     private int initSize;
 
     // CustomerDetails variables
-    private int tempMedium;
-    private int tempXtraSmall;
-    private int tempXtraXl;
-    private int tempXtraLarge;
-    private int tempSmall;
-    private int tempLarge;
+    // private int tempMedium;
+    // private int tempXtraSmall;
+    // private int tempXtraXl;
+    // private int tempXtraLarge;
+    // private int tempSmall;
+    // private int tempLarge;
 
-    private double mediumAmount;
-    private double xtraLargeAmount;
-    private double xtraxXlAmount;
-    private double xtraSmallAmount;
-    private double smallAmount;
-    private double largeAmount;
-    private double searchTotalAmount;
+    // private double mediumAmount;
+    // private double xtraLargeAmount;
+    // private double xtraxXlAmount;
+    // private double xtraSmallAmount;
+    // private double smallAmount;
+    // private double largeAmount;
+    // private double searchTotalAmount;
 
-    private boolean numbervalid;
+    // private boolean numbervalid;
 
     private final int processing = 0;
     private final int delivering = 1;
@@ -36,170 +36,170 @@ class List {
 
     // Details Validation Part
 
-    // Phone Number Validation
-    public boolean phoneNumber(String phoneNumber) {
-        if (phoneNumber.length() != 10 || phoneNumber.charAt(0) != '0') {
-            return false;
-        }
-        return true;
-    }
+    // // Phone Number Validation
+    // public boolean phoneNumber(String phoneNumber) {
+    //     if (phoneNumber.length() != 10 || phoneNumber.charAt(0) != '0') {
+    //         return false;
+    //     }
+    //     return true;
+    // }
 
-    // T-Shirt Size Validatiob
-    public boolean tShirtSizeValidation(String tShirtSize) {
-        tShirtSize = tShirtSize.toUpperCase();
-        if (tShirtSize.equals("XS") || tShirtSize.equals("S") || tShirtSize.equals("M")
-                || tShirtSize.equals("L") || tShirtSize.equals("XL")
-                || tShirtSize.equals("XXL")) {
-            return true;
-        } else {
-            return false;
-        }
+    // // T-Shirt Size Validatiob
+    // public boolean tShirtSizeValidation(String tShirtSize) {
+    //     tShirtSize = tShirtSize.toUpperCase();
+    //     if (tShirtSize.equals("XS") || tShirtSize.equals("S") || tShirtSize.equals("M")
+    //             || tShirtSize.equals("L") || tShirtSize.equals("XL")
+    //             || tShirtSize.equals("XXL")) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
 
-    }
+    // }
 
-    // Quantiity Validation
-    public boolean quantityValidation(String qty) {
-        if (Integer.parseInt(qty) > 0) {
-            return true;
-        } else {
-            return false;
-        }
+    // // Quantiity Validation
+    // public boolean quantityValidation(String qty) {
+    //     if (Integer.parseInt(qty) > 0) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
 
-    }
+    // }
 
-    // Amount Calculation
-    public double amountCalculation(String qty, String tShirtSize) {
-        tShirtSize = tShirtSize.toUpperCase();
+    // // Amount Calculation
+    // public double amountCalculation(String qty, String tShirtSize) {
+    //     tShirtSize = tShirtSize.toUpperCase();
 
-        double amount = 0;
-        int quantiity = Integer.parseInt(qty);
-        switch (tShirtSize) {
-            case "XS":
-                amount = quantiity * 600;
-                break;
-            case "S":
-                amount = quantiity * 800;
-                break;
-            case "M":
-                amount = quantiity * 900;
-                break;
-            case "L":
-                amount = quantiity * 1000;
-                break;
-            case "XL":
-                amount = quantiity * 1100;
-                break;
-            case "XXL":
-                amount = quantiity * 1200;
-                break;
+    //     double amount = 0;
+    //     int quantiity = Integer.parseInt(qty);
+    //     switch (tShirtSize) {
+    //         case "XS":
+    //             amount = quantiity * 600;
+    //             break;
+    //         case "S":
+    //             amount = quantiity * 800;
+    //             break;
+    //         case "M":
+    //             amount = quantiity * 900;
+    //             break;
+    //         case "L":
+    //             amount = quantiity * 1000;
+    //             break;
+    //         case "XL":
+    //             amount = quantiity * 1100;
+    //             break;
+    //         case "XXL":
+    //             amount = quantiity * 1200;
+    //             break;
 
-        }
-        return amount;
+    //     }
+    //     return amount;
 
-    }
+    // }
 
-    // serarch by custoemer id...................
-    public void serachCustomerId(String cusEnterPhonenum) {
-        numbervalid = false;
+    // // serarch by custoemer id...................
+    // public void serachCustomerId(String cusEnterPhonenum) {
+    //     numbervalid = false;
 
-        for (int i = 0; i < nextIndex; i++) {
-            if (cusEnterPhonenum.equals(cusDetailsArray[i].getPhoneNumber())) {
-                numbervalid = true;
+    //     for (int i = 0; i < nextIndex; i++) {
+    //         if (cusEnterPhonenum.equals(cusDetailsArray[i].getPhoneNumber())) {
+    //             numbervalid = true;
 
-                if (cusDetailsArray[i].getSize().equals("M")) {
-                    tempMedium += cusDetailsArray[i].getQuantity();
-                } else if (cusDetailsArray[i].getSize().equals("XS")) {
-                    tempXtraSmall += cusDetailsArray[i].getQuantity();
-                } else if (cusDetailsArray[i].getSize().equals("XXL")) {
-                    tempXtraXl += cusDetailsArray[i].getQuantity();
-                } else if (cusDetailsArray[i].getSize().equals("XL")) {
-                    tempXtraLarge += cusDetailsArray[i].getQuantity();
-                } else if (cusDetailsArray[i].getSize().equals("S")) {
-                    tempSmall += cusDetailsArray[i].getQuantity();
-                } else if (cusDetailsArray[i].getSize().equals("L")) {
-                    tempLarge += cusDetailsArray[i].getQuantity();
-                }
-                tempAmountCalculation();
-            }
-        }
-    }
+    //             if (cusDetailsArray[i].getSize().equals("M")) {
+    //                 tempMedium += cusDetailsArray[i].getQuantity();
+    //             } else if (cusDetailsArray[i].getSize().equals("XS")) {
+    //                 tempXtraSmall += cusDetailsArray[i].getQuantity();
+    //             } else if (cusDetailsArray[i].getSize().equals("XXL")) {
+    //                 tempXtraXl += cusDetailsArray[i].getQuantity();
+    //             } else if (cusDetailsArray[i].getSize().equals("XL")) {
+    //                 tempXtraLarge += cusDetailsArray[i].getQuantity();
+    //             } else if (cusDetailsArray[i].getSize().equals("S")) {
+    //                 tempSmall += cusDetailsArray[i].getQuantity();
+    //             } else if (cusDetailsArray[i].getSize().equals("L")) {
+    //                 tempLarge += cusDetailsArray[i].getQuantity();
+    //             }
+    //             tempAmountCalculation();
+    //         }
+    //     }
+    // }
 
-    public boolean getNumberValid() {
-        return this.numbervalid;
-    }
+    // public boolean getNumberValid() {
+    //     return this.numbervalid;
+    // }
 
-    public void tempAmountCalculation() {
-        mediumAmount = tempMedium * 900;
-        xtraLargeAmount = tempXtraLarge * 1100;
-        xtraxXlAmount = tempXtraXl * 1200;
-        xtraSmallAmount = tempXtraSmall * 600;
-        smallAmount = tempSmall * 800;
-        largeAmount = tempLarge * 1000;
-        searchTotalAmount = mediumAmount + xtraLargeAmount + xtraxXlAmount + xtraSmallAmount + smallAmount
-                + largeAmount;
-    }
+    // public void tempAmountCalculation() {
+    //     mediumAmount = tempMedium * 900;
+    //     xtraLargeAmount = tempXtraLarge * 1100;
+    //     xtraxXlAmount = tempXtraXl * 1200;
+    //     xtraSmallAmount = tempXtraSmall * 600;
+    //     smallAmount = tempSmall * 800;
+    //     largeAmount = tempLarge * 1000;
+    //     searchTotalAmount = mediumAmount + xtraLargeAmount + xtraxXlAmount + xtraSmallAmount + smallAmount
+    //             + largeAmount;
+    // }
 
-    public int getMedium() {
-        return this.tempMedium;
-    }
+    // public int getMedium() {
+    //     return this.tempMedium;
+    // }
 
-    public int getXtraSmall() {
-        return this.tempXtraSmall;
-    }
+    // public int getXtraSmall() {
+    //     return this.tempXtraSmall;
+    // }
 
-    public int getXtraXl() {
-        return this.tempXtraXl;
-    }
+    // public int getXtraXl() {
+    //     return this.tempXtraXl;
+    // }
 
-    public int getXtraLarge() {
-        return this.tempXtraLarge;
-    }
+    // public int getXtraLarge() {
+    //     return this.tempXtraLarge;
+    // }
 
-    public int getSmall() {
-        return this.tempSmall;
-    }
+    // public int getSmall() {
+    //     return this.tempSmall;
+    // }
 
-    public int getLarge() {
-        return this.tempLarge;
-    }
+    // public int getLarge() {
+    //     return this.tempLarge;
+    // }
 
-    // amount getters
-    public double getMediumAmount() {
-        return this.mediumAmount;
-    }
+    // // amount getters
+    // public double getMediumAmount() {
+    //     return this.mediumAmount;
+    // }
 
-    public double getXtraLargeAmount() {
-        return this.xtraLargeAmount;
-    }
+    // public double getXtraLargeAmount() {
+    //     return this.xtraLargeAmount;
+    // }
 
-    public double getXtraXlAmount() {
-        return this.xtraxXlAmount;
-    }
+    // public double getXtraXlAmount() {
+    //     return this.xtraxXlAmount;
+    // }
 
-    public double getXtraSmallAmount() {
-        return this.xtraSmallAmount;
-    }
+    // public double getXtraSmallAmount() {
+    //     return this.xtraSmallAmount;
+    // }
 
-    public double getSmallAmount() {
-        return this.smallAmount;
-    }
+    // public double getSmallAmount() {
+    //     return this.smallAmount;
+    // }
 
-    public double getLargeAmount() {
-        return this.largeAmount;
-    }
+    // public double getLargeAmount() {
+    //     return this.largeAmount;
+    // }
 
-    public double getSearchTotalAmount() {
-        return this.searchTotalAmount;
-    }
+    // public double getSearchTotalAmount() {
+    //     return this.searchTotalAmount;
+    // }
 
-    public void tempCountUpdate() {
-        this.tempMedium = 0;
-        this.tempXtraLarge = 0;
-        this.tempXtraXl = 0;
-        this.tempXtraSmall = 0;
-        this.tempSmall = 0;
-        this.tempLarge = 0;
-    }
+    // public void tempCountUpdate() {
+    //     this.tempMedium = 0;
+    //     this.tempXtraLarge = 0;
+    //     this.tempXtraXl = 0;
+    //     this.tempXtraSmall = 0;
+    //     this.tempSmall = 0;
+    //     this.tempLarge = 0;
+    // }
 
     // search customer by order id..........
     public FashionShopCustomerDetails serachOrderId(String orderId) {

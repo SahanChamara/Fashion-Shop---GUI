@@ -4,7 +4,7 @@ class FashionShop {
 
         List customerList = new List(10,0.5);
 
-        new HomePage(customerList).setVisible(true);        
+        new HomePage().setVisible(true);        
     }
     
 }

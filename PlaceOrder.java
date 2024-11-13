@@ -34,7 +34,7 @@ class PlaceOrder extends JFrame {
     // private String orderId;
 
     // Default Construcotr
-    PlaceOrder(List customerList) {
+    PlaceOrder() {
 
         setSize(400, 400);
         setTitle("Place Order");
@@ -54,7 +54,7 @@ class PlaceOrder extends JFrame {
         btnBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 dispose();
-                new HomePage(customerList).setVisible(true);
+                new HomePage().setVisible(true);
             }
         });
 
@@ -86,7 +86,7 @@ class PlaceOrder extends JFrame {
         txtCustomerId.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 // retun the user input phone number to validation method
-                isNumber = customerList.phoneNumber(txtCustomerId.getText());
+                isNumber = phoneNumber(txtCustomerId.getText());
                 if (!isNumber) {                    
                     JOptionPane.showMessageDialog(null, "Invalid Phone Number");
                 }
@@ -108,7 +108,7 @@ class PlaceOrder extends JFrame {
         txtSize.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 // reutn the user input size into validation method
-                isSize = customerList.tShirtSizeValidation(txtSize.getText());
+                isSize = tShirtSizeValidation(txtSize.getText());
                 if (!isSize) {
                     JOptionPane.showMessageDialog(null, "Invalid Size");
                 }
@@ -145,11 +145,11 @@ class PlaceOrder extends JFrame {
         // Quantity Validation
         txtQty.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                isQty = customerList.quantityValidation(txtQty.getText());
+                isQty =quantityValidation(txtQty.getText());
                 if (!isQty) {
                     JOptionPane.showMessageDialog(null, "Quantity is Not Valid");
                 } else {
-                    amount = customerList.amountCalculation(txtQty.getText(), txtSize.getText());
+                    amount = amountCalculation(txtQty.getText(), txtSize.getText());
                     txtAmount.setText(String.valueOf(amount));
                 }
             }
@@ -167,7 +167,7 @@ class PlaceOrder extends JFrame {
         btnPlaceOrder.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 // double amount =
-                customerList.amountCalculation(txtQty.getText(), txtSize.getText());
+                amountCalculation(txtQty.getText(), txtSize.getText());
                 txtAmount.setText(String.valueOf(amount));
 
                 if ((isNumber) && (isSize) && (isQty)) {
@@ -179,8 +179,8 @@ class PlaceOrder extends JFrame {
                     int qty = Integer.parseInt(txtQty.getText());
                     int orderStatus = 0;
 
-                    FashionShopCustomerDetails c1 = new FashionShopCustomerDetails(orderId, phoneNumber, size, qty,amount,orderStatus);
-                    customerList.add(c1);
+                    // FashionShopCustomerDetails c1 = new FashionShopCustomerDetails(orderId, phoneNumber, size, qty,amount,orderStatus);
+                    // customerList.add(c1);
 
                     // order details writing for the text file
                     try{
@@ -194,9 +194,9 @@ class PlaceOrder extends JFrame {
                     //generateOrderId();
                     //customerList.orderNumber++;
                     dispose();
-                    new PlaceOrder(customerList).setVisible(true);
+                    new PlaceOrder().setVisible(true);
 
-                    System.out.println(c1.toString());
+                    //System.out.println(c1.toString());
                     
                 } else {
                     JOptionPane.showMessageDialog(null, "Order Place UN Successful");
@@ -224,9 +224,70 @@ class PlaceOrder extends JFrame {
         }else{            
             int newId = Integer.parseInt(lastLine.substring(4,9));
             return String.format("ODR#%05d",newId+1);
-
             
         }
+
+    }
+
+     // Phone Number Validation
+     public boolean phoneNumber(String phoneNumber) {
+        if (phoneNumber.length() != 10 || phoneNumber.charAt(0) != '0') {
+            return false;
+        }
+        return true;
+    }
+
+    // T-Shirt Size Validatiob
+    public boolean tShirtSizeValidation(String tShirtSize) {
+        tShirtSize = tShirtSize.toUpperCase();
+        if (tShirtSize.equals("XS") || tShirtSize.equals("S") || tShirtSize.equals("M")
+                || tShirtSize.equals("L") || tShirtSize.equals("XL")
+                || tShirtSize.equals("XXL")) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+     // Quantiity Validation
+     public boolean quantityValidation(String qty) {
+        if (Integer.parseInt(qty) > 0) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    // Amount Calculation
+    public double amountCalculation(String qty, String tShirtSize) {
+        tShirtSize = tShirtSize.toUpperCase();
+
+        double amount = 0;
+        int quantiity = Integer.parseInt(qty);
+        switch (tShirtSize) {
+            case "XS":
+                amount = quantiity * 600;
+                break;
+            case "S":
+                amount = quantiity * 800;
+                break;
+            case "M":
+                amount = quantiity * 900;
+                break;
+            case "L":
+                amount = quantiity * 1000;
+                break;
+            case "XL":
+                amount = quantiity * 1100;
+                break;
+            case "XXL":
+                amount = quantiity * 1200;
+                break;
+
+        }
+        return amount;
 
     }
 }

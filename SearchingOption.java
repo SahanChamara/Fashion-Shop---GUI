@@ -7,8 +7,7 @@ import java.util.*;
 class SearchingOption extends JFrame{
     private List customerList;
 
-    SearchingOption(List customerList){
-        this.customerList=customerList;
+    SearchingOption(){        
 
         Icon qIcon = UIManager.getIcon("OptionPane.questionIcon");
 
@@ -26,10 +25,10 @@ class SearchingOption extends JFrame{
         );
         switch (selection) {
             case 0:
-                new SearchCustomer(customerList).setVisible(true);                
+                new SearchCustomer().setVisible(true);                
                 break;
             case 1:
-                new SearchOrder(customerList).setVisible(true);
+                new SearchOrder().setVisible(true);
                 break;
             case 2:
                 // dispose();        
