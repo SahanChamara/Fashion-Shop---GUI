@@ -236,37 +236,37 @@ class List {
     //     }
     //}
 
-    // View Customers
-    public FashionShopCustomerDetails[] viewCustomer() {
-        FashionShopCustomerDetails[] viewCustomers = new FashionShopCustomerDetails[cusDetailsArray.length];
-        boolean[] equalPass = new boolean[cusDetailsArray.length];
-        int count = 0;
+    // // View Customers
+    // public FashionShopCustomerDetails[] viewCustomer() {
+    //     FashionShopCustomerDetails[] viewCustomers = new FashionShopCustomerDetails[cusDetailsArray.length];
+    //     boolean[] equalPass = new boolean[cusDetailsArray.length];
+    //     int count = 0;
 
-        for (int i = 0; i < size(); i++) {
-            if (equalPass[i]) {
-                continue;
-            }
+    //     for (int i = 0; i < size(); i++) {
+    //         if (equalPass[i]) {
+    //             continue;
+    //         }
 
-            viewCustomers[count] = new FashionShopCustomerDetails();
+    //         viewCustomers[count] = new FashionShopCustomerDetails();
 
-            int tempQty = cusDetailsArray[i].getQuantity();
-            double tempAmount = cusDetailsArray[i].getAmount();
-            equalPass[i] = true;
+    //         int tempQty = cusDetailsArray[i].getQuantity();
+    //         double tempAmount = cusDetailsArray[i].getAmount();
+    //         equalPass[i] = true;
 
-            for (int j = i + 1; j < size(); j++) {
-                if (cusDetailsArray[i].getPhoneNumber().equals(cusDetailsArray[j].getPhoneNumber())) {
-                    tempQty += cusDetailsArray[i].getQuantity();
-                    tempAmount += cusDetailsArray[i].getAmount();
-                    equalPass[j] = true;
-                }
-            }
+    //         for (int j = i + 1; j < size(); j++) {
+    //             if (cusDetailsArray[i].getPhoneNumber().equals(cusDetailsArray[j].getPhoneNumber())) {
+    //                 tempQty += cusDetailsArray[i].getQuantity();
+    //                 tempAmount += cusDetailsArray[i].getAmount();
+    //                 equalPass[j] = true;
+    //             }
+    //         }
 
-            String cusPhoneNumber = cusDetailsArray[i].getPhoneNumber();
-            viewCustomers[count].setViewCustomers(cusPhoneNumber, tempQty, tempAmount);
-            count++;
-        }
-        return viewCustomers;
-    }
+    //         String cusPhoneNumber = cusDetailsArray[i].getPhoneNumber();
+    //         viewCustomers[count].setViewCustomers(cusPhoneNumber, tempQty, tempAmount);
+    //         count++;
+    //     }
+    //     return viewCustomers;
+    // }
 
     // Best In Customers Sorting Part
     public FashionShopCustomerDetails[] bestInCusSort() {
@@ -711,4 +711,8 @@ class List {
         return index < nextIndex && index >= 0;
     }
 
+    // i write method
+    public FashionShopCustomerDetails[] getArrayObject(){
+        return cusDetailsArray;
+    }
 }

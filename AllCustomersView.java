@@ -36,7 +36,7 @@ class AllCustomersView extends JFrame {
         btnBack.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
                 dispose();
-                new ViewReportsOption(customerList).setVisible(true);
+                new ViewReportsOption().setVisible(true);
             }
         });
 

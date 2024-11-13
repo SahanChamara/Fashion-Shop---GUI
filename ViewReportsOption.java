@@ -14,8 +14,7 @@ class ViewReportsOption extends JFrame{
 
     private List customerList;
 
-    ViewReportsOption(List customerList){
-        this.customerList=customerList;
+    ViewReportsOption(){
 
         // making the window
         setSize(800,400);
@@ -36,7 +35,7 @@ class ViewReportsOption extends JFrame{
         btnBack.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
                 dispose();
-                new HomePage(customerList);
+                new HomePage();
             }
         });
 
@@ -52,7 +51,7 @@ class ViewReportsOption extends JFrame{
         btnViewCustomers.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
                 dispose();
-                new viewCustomer(customerList).setVisible(true);
+                new viewCustomer().setVisible(true);
             }
         });
 

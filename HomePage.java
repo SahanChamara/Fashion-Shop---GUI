@@ -67,7 +67,7 @@ class HomePage extends JFrame {
         btnViewReports.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 dispose();
-                //new ViewReportsOption().setVisible(true);
+                new ViewReportsOption().setVisible(true);
             }
         });
 
