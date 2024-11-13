@@ -80,7 +80,7 @@ class HomePage extends JFrame {
         btnDeleteOrder.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 dispose();
-                //new DeleteOrder().setVisible(true);
+                new DeleteOrder().setVisible(true);
             }
         });
 

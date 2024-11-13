@@ -67,7 +67,7 @@ class ViewReportsOption extends JFrame{
         btnBestInCustomers.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
                 dispose();
-                new BestInCustomers(customerList).setVisible(true);
+                new BestInCustomers().setVisible(true);
             }
         });
 
@@ -83,7 +83,7 @@ class ViewReportsOption extends JFrame{
         btnAllCustomers.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
                 dispose();
-                new AllCustomersView(customerList).setVisible(true);
+                new AllCustomersView().setVisible(true);
             }
         });
 
@@ -99,7 +99,7 @@ class ViewReportsOption extends JFrame{
         btnCatByQty.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
                 dispose();
-                new CatByQty(customerList).setVisible(true);
+                new CatByQty().setVisible(true);
             }
         });
 
@@ -115,7 +115,7 @@ class ViewReportsOption extends JFrame{
         btnCatByAmount.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
                 dispose();
-                new CatByAmount(customerList).setVisible(true);
+                new CatByAmount().setVisible(true);
             }
         });
 
@@ -131,7 +131,7 @@ class ViewReportsOption extends JFrame{
         btnOrdersByAmount.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
                 dispose();
-                new ViewAllOrdersByAmount(customerList).setVisible(true);
+                new ViewAllOrdersByAmount().setVisible(true);
             }
         });
 
@@ -146,7 +146,7 @@ class ViewReportsOption extends JFrame{
         btnAllOrders.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
                 dispose();
-                new ViewAllOrders(customerList).setVisible(true);
+                new ViewAllOrders().setVisible(true);
             }
         });
         

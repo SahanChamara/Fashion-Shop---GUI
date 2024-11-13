@@ -2,15 +2,18 @@ import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 class AllCustomersView extends JFrame {
-    private List customerList;
+    
 
     private JLabel topic;
     private JButton btnBack;
 
-    AllCustomersView(List customerList){
-        this.customerList=customerList;
+    AllCustomersView(){
+        
 
         setSize(1000,600);
         setTitle("All Customer Reports");
@@ -40,11 +43,25 @@ class AllCustomersView extends JFrame {
             }
         });
 
+        List customerList = new List(10,0.5);
+        try{
+            BufferedReader br = new BufferedReader(new FileReader("CustomerDetails.txt"));
+            String line = br.readLine();
+            while(line!=null){
+                String[] cusDetails = line.split(",");
+                FashionShopCustomerDetails c1 = new FashionShopCustomerDetails(cusDetails[0],cusDetails[1],cusDetails[2],Integer.parseInt(cusDetails[3]),Double.parseDouble(cusDetails[4]),Integer.parseInt(cusDetails[5]));
+                customerList.add(c1);
+                line=br.readLine();
+            }
+        }catch(IOException ex){
+
+        }
+
         // Table 
         String[] colNames = {"Customer ID","XS","S","M","L","XL","XXL","Amount"};
         DefaultTableModel dtm = new DefaultTableModel(colNames,0);
 
-        AllCustomers[] allCus = customerList.allCustomersReport();
+        AllCustomers[] allCus = allCustomersReport(customerList);
         for(int i=0; i<allCus.length; i++){
             if(allCus[i].getPhoneNumber()!=null){
                 Object[] rowData = {allCus[i].getPhoneNumber(),allCus[i].getXtraSamll(),allCus[i].getSmall(),allCus[i].getMediumSize(),allCus[i].getLarge(),allCus[i].getXtraLarge(),allCus[i].getXtraXl(),allCus[i].getAmount()};
@@ -56,6 +73,96 @@ class AllCustomersView extends JFrame {
         JScrollPane sp = new JScrollPane(cusTable);
         sp.setBounds(100,100,800,400);
         add(sp);
+
+    }
+
+     // All Customer
+     public AllCustomers[] allCustomersReport(List customerList) {
+        AllCustomers[] allCustomerDetails = new AllCustomers[customerList.capacity()];
+        FashionShopCustomerDetails[] cusDetails = customerList.getArrayObject();
+
+        for (int i = 0; i < allCustomerDetails.length; i++) {
+            allCustomerDetails[i] = new AllCustomers();
+        }
+
+        boolean equalPass[] = new boolean[customerList.capacity()];
+        for (int i = 0; i < customerList.capacity(); i++) {
+            if (equalPass[i]) {
+                continue;
+            }
+
+            int tempMedium2 = 0;
+            int tempXtraSmall2 = 0;
+            int tempXtraXl2 = 0;
+            int tempXtraLarge2 = 0;
+            int tempSmall2 = 0;
+            int tempLarge2 = 0;
+            double tempAmount2 = 0;
+
+            String customerPhoneNumber = cusDetails[i].getPhoneNumber();
+
+            allCustomerDetails[i].setPhoneNumber(customerPhoneNumber);
+
+            if (cusDetails[i].getSize().equals("M")) {
+                tempMedium2 = cusDetails[i].getQuantity();
+                allCustomerDetails[i].setMedium(tempMedium2);
+
+            } else if (cusDetails[i].getSize().equals("XS")) {
+                tempXtraSmall2 = cusDetails[i].getQuantity();
+                allCustomerDetails[i].setXtraSmall(tempXtraSmall2);
+
+            } else if (cusDetails[i].getSize().equals("XXL")) {
+                tempXtraXl2 = cusDetails[i].getQuantity();
+                allCustomerDetails[i].setXtraXl(tempXtraXl2);
+
+            } else if (cusDetails[i].getSize().equals("XL")) {
+                tempXtraLarge2 = cusDetails[i].getQuantity();
+                allCustomerDetails[i].setXtraLarge(tempXtraLarge2);
+
+            } else if (cusDetails[i].getSize().equals("S")) {
+                tempSmall2 = cusDetails[i].getQuantity();
+                allCustomerDetails[i].setSmall(tempSmall2);
+
+            } else if (cusDetails[i].getSize().equals("L")) {
+                tempLarge2 = cusDetails[i].getQuantity();
+                allCustomerDetails[i].setLarge(tempLarge2);
+            }
+
+            tempAmount2 = cusDetails[i].getAmount();
+            allCustomerDetails[i].setAmount(tempAmount2);
+            equalPass[i] = true;
+
+            for (int j = i + 1; j < customerList.capacity(); j++) {
+                if (cusDetails[i].getPhoneNumber().equals(cusDetails[j].getPhoneNumber())) {
+                    allCustomerDetails[i].setPhoneNumber(customerPhoneNumber);
+
+                    if (cusDetails[i].getSize().equals("M")) {
+                        tempMedium2 = cusDetails[i].getQuantity();
+                        allCustomerDetails[i].setMedium(tempMedium2);
+                    } else if (cusDetails[i].getSize().equals("XS")) {
+                        tempXtraSmall2 = cusDetails[i].getQuantity();
+                        allCustomerDetails[i].setXtraSmall(tempXtraSmall2);
+                    } else if (cusDetails[i].getSize().equals("XXL")) {
+                        tempXtraXl2 = cusDetails[i].getQuantity();
+                        allCustomerDetails[i].setXtraXl(tempXtraXl2);
+                    } else if (cusDetails[i].getSize().equals("XL")) {
+                        tempXtraLarge2 = cusDetails[i].getQuantity();
+                        allCustomerDetails[i].setXtraLarge(tempXtraLarge2);
+                    } else if (cusDetails[i].getSize().equals("S")) {
+                        tempSmall2 = cusDetails[i].getQuantity();
+                        allCustomerDetails[i].setSmall(tempSmall2);
+                    } else if (cusDetails[i].getSize().equals("L")) {
+                        tempLarge2 = cusDetails[i].getQuantity();
+                        allCustomerDetails[i].setLarge(tempLarge2);
+                    }
+
+                    tempAmount2 = cusDetails[i].getAmount();
+                    allCustomerDetails[i].setAmount(tempAmount2);
+                    equalPass[i] = true;
+                }
+            }
+        }
+        return allCustomerDetails;
 
     }
     

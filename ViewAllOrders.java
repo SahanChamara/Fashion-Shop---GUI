@@ -2,60 +2,89 @@ import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 class ViewAllOrders extends JFrame {
-    private List customerList;
+
     private JLabel topic;
     private JButton btnBack;
 
-    ViewAllOrders(List customerList){
-        this.customerList=customerList;
+    ViewAllOrders() {
 
-        setSize(800,400);
+        setSize(800, 400);
         setTitle("Item By Amount");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(null);
 
-        //topic
+        // topic
         topic = new JLabel("View All Orders", SwingConstants.CENTER);
-        topic.setFont(new Font("Arial",Font.BOLD,15));
+        topic.setFont(new Font("Arial", Font.BOLD, 15));
         topic.setForeground(Color.RED);
-        topic.setBounds(0,0,800,30);
+        topic.setBounds(0, 0, 800, 30);
         add(topic);
 
-        //back button
+        // back button
         btnBack = new JButton("BACK");
-        btnBack.setFont(new Font("Arial",Font.BOLD,15));
+        btnBack.setFont(new Font("Arial", Font.BOLD, 15));
         btnBack.setBackground(Color.RED);
         btnBack.setForeground(Color.WHITE);
-        btnBack.setBounds(0,35,80,30);
+        btnBack.setBounds(0, 35, 80, 30);
         add(btnBack);
 
-        //back button action
-        btnBack.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent evt){
+        // back button action
+        btnBack.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 dispose();
-                new ViewReportsOption(customerList).setVisible(true);
+                new ViewReportsOption().setVisible(true);
             }
         });
 
-        //table
-        String[] colNames = {"Order ID","Customer ID","Size","Quantity","Amount","Status"};
-        DefaultTableModel dtm = new DefaultTableModel(colNames,0);
+        List customerList = new List(10,0.5);
+        try{
+            BufferedReader br = new BufferedReader(new FileReader("CustomerDetails.txt"));
+            String line = br.readLine();
+            while(line!=null){
+                String[] cusDetails = line.split(",");
+                FashionShopCustomerDetails c1 = new FashionShopCustomerDetails(cusDetails[0],cusDetails[1],cusDetails[2],Integer.parseInt(cusDetails[3]),Double.parseDouble(cusDetails[4]),Integer.parseInt(cusDetails[5]));
+                customerList.add(c1);
+                line=br.readLine();
+            }
+            
 
-        FashionShopCustomerDetails[] cusArray = customerList.getObject();
-        for(int i=customerList.size()-1; i>=0; i--){
-            Object[] rowData = {cusArray[i].getOrderId(),cusArray[i].getPhoneNumber(),cusArray[i].getSize(),cusArray[i].getQuantity(),cusArray[i].getAmount(),cusArray[i].printOrderStatus()};
+        }catch(IOException ex){
+
+        }
+
+        // table
+        String[] colNames = { "Order ID", "Customer ID", "Size", "Quantity", "Amount", "Status" };
+        DefaultTableModel dtm = new DefaultTableModel(colNames, 0);
+
+        FashionShopCustomerDetails[] cusArray = getObject(customerList);
+        for (int i = customerList.size() - 1; i >= 0; i--) {
+            Object[] rowData = { cusArray[i].getOrderId(), cusArray[i].getPhoneNumber(), cusArray[i].getSize(),
+                    cusArray[i].getQuantity(), cusArray[i].getAmount(), cusArray[i].printOrderStatus() };
             dtm.addRow(rowData);
         }
 
         JTable cusTable = new JTable(dtm);
         JScrollPane sp = new JScrollPane(cusTable);
-        sp.setBounds(100,60,600,300);
+        sp.setBounds(100, 60, 600, 300);
         add(sp);
-        
 
     }
-    
+
+    // get Object by print the view all orders
+    public FashionShopCustomerDetails[] getObject(List customerList) {
+        FashionShopCustomerDetails[] cusDetails = customerList.getArrayObject();
+
+        FashionShopCustomerDetails[] tempArray = new FashionShopCustomerDetails[customerList.capacity()];
+        for (int i = 0; i < customerList.capacity(); i++) {
+            tempArray[i] = cusDetails[i];
+        }
+        return tempArray;
+    }
+
 }

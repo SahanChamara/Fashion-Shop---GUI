@@ -25,7 +25,7 @@ class DeleteOrder extends JFrame {
     private JLabel lblAmountShow;
     private JLabel lblStatusShow;
 
-    DeleteOrder(List customerList){
+    DeleteOrder(){
         setSize(500,500);
         setTitle("Delete Order");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -58,7 +58,7 @@ class DeleteOrder extends JFrame {
         btnBack.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
                 dispose();
-                new HomePage(customerList);
+                new HomePage();
             }
         });
 
@@ -177,13 +177,14 @@ class DeleteOrder extends JFrame {
                 //     JOptionPane.showMessageDialog(null,"Order Delete Succesfull","Delete Order",JOptionPane.INFORMATION_MESSAGE);
                 // }
                 
+                List customerList=new List(100,0.5);
                 try{
                     BufferedReader br = new BufferedReader(new FileReader("CustomerDetails.txt"));
                     String line = br.readLine();
                     while(line!=null){                        
                         String[] cusDetails = line.split(",");
                         line=br.readLine();
-                        if(txtCustomerId.getText().equalsIgnoreCase(cusDetails[0])){
+                        if(txtCustomerId.getText().equals(cusDetails[0])){
                             continue;
                         }
                         
