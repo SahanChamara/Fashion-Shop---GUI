@@ -54,7 +54,7 @@ class HomePage extends JFrame {
         // Status Button Action
         btnSetOrderStatus.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                //new ChangeOrderStatus().setVisible(true);
+                new ChangeOrderStatus().setVisible(true);
             }
         });
 

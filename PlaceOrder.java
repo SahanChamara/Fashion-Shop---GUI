@@ -177,7 +177,7 @@ class PlaceOrder extends JFrame {
                     String phoneNumber = txtCustomerId.getText();
                     String size = txtSize.getText();
                     int qty = Integer.parseInt(txtQty.getText());
-                    int orderStatus = 0;
+                    String orderStatus = "Processing";
 
                     // FashionShopCustomerDetails c1 = new FashionShopCustomerDetails(orderId, phoneNumber, size, qty,amount,orderStatus);
                     // customerList.add(c1);

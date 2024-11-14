@@ -4,7 +4,7 @@ class FashionShopCustomerDetails{
 	private String size;
 	private int quantity;
 	private double amount;
-	private int orderStatus;	
+	private String orderStatus;	
 	
 	//defauls constructor
 	FashionShopCustomerDetails(){		
@@ -12,7 +12,7 @@ class FashionShopCustomerDetails{
 	}
 	
 	// all constructors
-	FashionShopCustomerDetails(String orderId , String phoneNumber , String size , int quantity , double amount,int orderStatus){
+	FashionShopCustomerDetails(String orderId , String phoneNumber , String size , int quantity , double amount,String orderStatus){
 		this.orderId = orderId;
 		this.phoneNumber=phoneNumber;
 		this.size=size;
@@ -86,27 +86,27 @@ class FashionShopCustomerDetails{
 	}
 	
 	//set Order Status
-	public void setOrderStatus(int orderStatus){
+	public void setOrderStatus(String orderStatus){
 		this.orderStatus=orderStatus;
 	}
 	
 	// // Get Order Status
-	public int getOrderStatus(){
+	public String getOrderStatus(){
 		return this.orderStatus;
 	}
 
     // get order status delivering . processing or delivered
-    public String printOrderStatus(){
-        if(this.orderStatus==1){
-            return "Delivering";
-        }else if(this.orderStatus==2){
-            return "Delivered";
-        }else{
-            return "Processing";
-        }
-    }
+    // public String printOrderStatus(){
+    //     if(this.orderStatus==1){
+    //         return "Delivering";
+    //     }else if(this.orderStatus==2){
+    //         return "Delivered";
+    //     }else{
+    //         return "Processing";
+    //     }
+    // }
 
 	public String toString(){
-		return orderId+","+phoneNumber+","+size+","+String.valueOf(quantity)+","+String.valueOf(amount)+","+String.valueOf(orderStatus);
+		return orderId+","+phoneNumber+","+size+","+String.valueOf(quantity)+","+String.valueOf(amount)+","+orderStatus;
 	}
 }

@@ -44,7 +44,7 @@ class viewCustomer extends JFrame{
             String line = br.readLine();
             while(line!=null){
                 String[] cusDetails = line.split(",");
-                FashionShopCustomerDetails c1 = new FashionShopCustomerDetails(cusDetails[0],cusDetails[1],cusDetails[2],Integer.parseInt(cusDetails[3]),Double.parseDouble(cusDetails[4]),Integer.parseInt(cusDetails[5]));
+                FashionShopCustomerDetails c1 = new FashionShopCustomerDetails(cusDetails[0],cusDetails[1],cusDetails[2],Integer.parseInt(cusDetails[3]),Double.parseDouble(cusDetails[4]),cusDetails[5]);
                 customerList.add(c1);
                 line=br.readLine();
             }
