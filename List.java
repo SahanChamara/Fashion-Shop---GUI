@@ -1,132 +1,89 @@
-class List {
-    private FashionShopCustomerDetails[] cusDetailsArray;
-    private int nextIndex;
-    private double loadFact;
-    private int initSize;
+class List{
+    private Node start;
 
-    private final int processing = 0;
-    private final int delivering = 1;
-    private final int delivered = 2;
-
-    List(int initSize, double loadFact) {
-        this.initSize = initSize;
-        this.loadFact = loadFact;
-        nextIndex = 0;
-
-        cusDetailsArray = new FashionShopCustomerDetails[initSize];
+    // add method
+    public boolean add(FashionShopCustomerDetails customerDetails){
+        if(isEmpty()){
+            return addFirst(customerDetails);
+        }else{
+            return addLast(customerDetails);
+        }
     }
 
-    
-
-    // Change Order Status
-    // public int changeOrderStatus(String id) {
-    //     for (int i = 0; i < size(); i++) {
-    //         if (id.equalsIgnoreCase(cusDetailsArray[i].getOrderId())) {
-    //             if (cusDetailsArray[i].getOrderStatus() == 0) {
-    //                 return 0;
-    //             } else if (cusDetailsArray[i].getOrderStatus() == 1) {
-    //                 return 1;
-    //             } else if (cusDetailsArray[i].getOrderStatus() == 2) {
-    //                 return 2;
-    //             }
-    //         }
-    //     }
-    //     return -1;
-    // }
-
-    // public void setOrderStatus(int status, String orderId) {
-    //     for (int i = 0; i < size(); i++) {
-    //         if (orderId.equals(cusDetailsArray[i].getOrderId())) {
-    //             if (status == 1) {
-    //                 cusDetailsArray[i].setOrderStatus(delivering);
-    //                 break;
-    //             } else if (status == 2) {
-    //                 cusDetailsArray[i].setOrderStatus(delivered);
-    //                 break;
-    //             }
-    //         }
-
-    //     }
-    // }
-
-   
-
-    // customer details add
-    public boolean add(FashionShopCustomerDetails customerDetails) {
-        if (nextIndex >= cusDetailsArray.length) {
-            extendArray();
-        }
-        cusDetailsArray[nextIndex] = customerDetails;
-        nextIndex++;
+    // addFirst
+    public boolean addFirst(FashionShopCustomerDetails customerDetails){
+        Node n1 = new Node(customerDetails);
+        n1.next=start;
+        start=n1;
         return true;
     }
 
-    // extend array
-    private void extendArray() {
-        FashionShopCustomerDetails[] tempCusDetails = new FashionShopCustomerDetails[cusDetailsArray.length
-                + (int) (cusDetailsArray.length * loadFact)];
-        for (int i = 0; i < cusDetailsArray.length; i++) {
-            tempCusDetails[i] = cusDetailsArray[i];
+    // add last
+    public boolean addLast(FashionShopCustomerDetails customerDetails){
+        Node n1 = new Node(customerDetails);
+        Node lastNode  = start;
+        while(lastNode.next!=null){
+            lastNode=lastNode.next;
         }
-        cusDetailsArray = tempCusDetails;
+        lastNode.next=n1;
+        return true;
     }
 
-    // search method
-    public int search(FashionShopCustomerDetails cusDetails) {
-        for (int i = 0; i < nextIndex; i++) {
-            if (cusDetailsArray[i].equals(cusDetails)) {
-                return i;
+    //add on index
+    public boolean add(int index,FashionShopCustomerDetails customerDetails){
+        if(isEmpty()){
+            return addFirst(customerDetails);
+        }else{
+            Node n1 = new Node(customerDetails);
+            Node temp = start;
+            int count=0;
+            while(count<index-1){
+                temp=temp.next;
+                count++;
             }
-        }
-        return -1;
-    }
-
-    // remove method
-    public boolean remove(int index) {
-        if (isValidIndex(index)) {
-            for (int i = index; i < nextIndex - 1; i++) {
-                cusDetailsArray[i] = cusDetailsArray[i + 1];
-            }
-            nextIndex--;
+            n1.next=temp.next;
+            temp.next=n1;
             return true;
+
         }
-        return false;
     }
 
-    // is empty
-    public boolean isEmpty() {
-        return nextIndex <= 0;
+    // isempty
+    public boolean isEmpty(){
+        return start==null;
     }
 
-    // Size Method
-    public int size() {
-        return nextIndex;
+    //size
+    public int size(){
+        Node temp=start;
+        int count=0;
+        while(temp!=null){
+            count++;
+            temp=temp.next;
+        }
+        return count;
     }
 
-    // Capacity Method
-    public int capacity() {
-        return cusDetailsArray.length;
+
+
+
+
+
+
+
+
+
+
+
+    // inner class Node
+    class Node{
+        private FashionShopCustomerDetails customerDetails;
+        private Node next;
+
+        Node(FashionShopCustomerDetails customerDetails){
+            this.customerDetails=customerDetails;
+        }
     }
 
-    // get method
-    public FashionShopCustomerDetails get(int index) {
-        return cusDetailsArray[index];
-    }
 
-    // set Method
-    public void set(int index, FashionShopCustomerDetails cusDetails) {
-        cusDetailsArray[index] = cusDetails;
-    }
-
-    // valid index check
-    public boolean isValidIndex(int index) {
-        return index < nextIndex && index >= 0;
-    }
-
-    // i write method
-    public FashionShopCustomerDetails[] getArrayObject(){
-        return cusDetailsArray;
-    }
 }
-
-
