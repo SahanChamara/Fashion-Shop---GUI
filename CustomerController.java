@@ -192,5 +192,30 @@ class CustomerController {
             return null;
         }
     }
+
+    // delete order
+    public static boolean deleteOrder(String id) throws IOException{
+        List customerList = new List();
+        BufferedReader br = new BufferedReader(new FileReader("CustomerDetails.txt"));
+        String line=br.readLine();
+
+        while(line!=null){
+            String[] cusDetails = line.split(",");
+            FashionShopCustomerDetails c1 = new FashionShopCustomerDetails(cusDetails[0],cusDetails[1],cusDetails[2],Integer.parseInt(cusDetails[3]),Double.parseDouble(cusDetails[4]),cusDetails[5]);
+            customerList.add(c1);
+            line=br.readLine();
+        }
+        br.close();
+        boolean isDeleted = customerList.remove(new FashionShopCustomerDetails(id,null,null,0,0.0,null));
+
+        FileWriter fw = new FileWriter("CustomerDetails.txt");
+        for(int i=0; i<customerList.size(); i++){
+            FashionShopCustomerDetails c1 = customerList.get(i);
+            fw.write(c1.toString()+"\n");
+        }
+        fw.close();
+        return isDeleted;
+        
+    }
     
 }

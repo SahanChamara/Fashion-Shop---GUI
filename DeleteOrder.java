@@ -4,7 +4,6 @@ import java.awt.event.*;
 import java.io.*;
 
 class DeleteOrder extends JFrame {
-    private List customerList;
 
     private JButton btnBack;
     private JButton btnSearch;
@@ -127,77 +126,59 @@ class DeleteOrder extends JFrame {
 
         // search button action
         btnSearch.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent evt){
-                // FashionShopCustomerDetails f1=customerDetails.serachOrderId(txtCustomerId.getText());
-                // if(f1!=null){
-                //     lblOrderIdShow.setText(f1.getPhoneNumber());
-                //     lblSizeShow.setText(f1.getSize());
-                //     lblQtyShow.setText(String.valueOf(f1.getQuantity()));
-                //     lblAmountShow.setText(String.valueOf(f1.getAmount()));
-                //     lblStatusShow.setText(String.valueOf(f1.getOrderStatus()));
-                // }else{
-                //     JOptionPane.showMessageDialog(null,"Invalid Order ID","Error",JOptionPane.ERROR_MESSAGE);
-                // }
-                
-                String newLine=null;
+            public void actionPerformed(ActionEvent evt){               
                 try{
-                    BufferedReader br = new BufferedReader(new FileReader("CustomerDetails.txt"));
-                    String line = br.readLine();
-                    while(line!=null){
-                        String id = line.substring(0,9);
-                        if(id.equalsIgnoreCase(txtCustomerId.getText())){
-                            newLine = line;
-                            break;
-                        }
-                        line=br.readLine();
+                    FashionShopCustomerDetails cusDetails = CustomerController.searchOrderId(txtCustomerId.getText());
+                    if(cusDetails!=null){
+                        lblOrderIdShow.setText(cusDetails.getPhoneNumber());
+                        lblSizeShow.setText(cusDetails.getSize());
+                        lblQtyShow.setText(String.valueOf(cusDetails.getQuantity()));
+                        lblAmountShow.setText(String.valueOf(cusDetails.getAmount()));
+                        lblStatusShow.setText(cusDetails.getOrderStatus());                        
+                    }else{
+                        JOptionPane.showMessageDialog(null,"Cannot Find Customer","ERROR",JOptionPane.ERROR_MESSAGE);
                     }
-
                 }catch(IOException ex){
 
                 }
-                if(newLine!=null){
-                    String[] cusDetails = newLine.split(",");
-                    lblOrderIdShow.setText(cusDetails[1]);
-                    lblSizeShow.setText(cusDetails[2]);
-                    lblQtyShow.setText(cusDetails[3]);
-                    lblAmountShow.setText(cusDetails[4]);
-                    lblStatusShow.setText(cusDetails[5]);
-                }else{
-                    JOptionPane.showMessageDialog(null,"Customer not Found","Error",JOptionPane.ERROR_MESSAGE);
-                }
-
             }
         });
 
-        // Delete Button Action
+        // Delete Button Action 
         btnDelete.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent evt){
-                // boolean isDelete = customerDetails.deleteOrder(txtCustomerId.getText());
-                // if(isDelete){
-                //     JOptionPane.showMessageDialog(null,"Order Delete Succesfull","Delete Order",JOptionPane.INFORMATION_MESSAGE);
-                // }
+            public void actionPerformed(ActionEvent evt){         
                 
-                List customerList=new List(100,0.5);
-                try{
-                    BufferedReader br = new BufferedReader(new FileReader("CustomerDetails.txt"));
-                    String line = br.readLine();
-                    while(line!=null){                        
-                        String[] cusDetails = line.split(",");
-                        line=br.readLine();
-                        if(txtCustomerId.getText().equals(cusDetails[0])){
-                            continue;
-                        }
+                // try{
+                //     BufferedReader br = new BufferedReader(new FileReader("CustomerDetails.txt"));
+                //     String line = br.readLine();
+                //     while(line!=null){                        
+                //         String[] cusDetails = line.split(",");
+                //         line=br.readLine();
+                //         if(txtCustomerId.getText().equals(cusDetails[0])){
+                //             continue;
+                //         }
                         
-                        FashionShopCustomerDetails c1 = new FashionShopCustomerDetails(cusDetails[0],cusDetails[1],cusDetails[2],Integer.parseInt(cusDetails[3]),Double.parseDouble(cusDetails[4]),cusDetails[5]);
-                        customerList.add(c1);                        
-                    }
-                    FileWriter fw = new FileWriter("CustomerDetails.txt");
-                    for(int i=0; i<customerList.size(); i++){
-                        FashionShopCustomerDetails c1 = customerList.get(i);
-                        fw.write(c1.toString()+"\n");
-                    }
-                    fw.close();
+                //         FashionShopCustomerDetails c1 = new FashionShopCustomerDetails(cusDetails[0],cusDetails[1],cusDetails[2],Integer.parseInt(cusDetails[3]),Double.parseDouble(cusDetails[4]),cusDetails[5]);
+                //         customerList.add(c1);                        
+                //     }
+                //     FileWriter fw = new FileWriter("CustomerDetails.txt");
+                //     for(int i=0; i<customerList.size(); i++){
+                //         FashionShopCustomerDetails c1 = customerList.get(i);
+                //         fw.write(c1.toString()+"\n");
+                //     }
+                //     fw.close();
                     
+                // }catch(IOException ex){
+
+                // }
+
+                try{
+                    boolean isDeleted = CustomerController.deleteOrder(txtCustomerId.getText());
+                    if(isDeleted){
+                        JOptionPane.showMessageDialog(null,"Order Delete Succesfull");
+                    }else{
+                        JOptionPane.showMessageDialog(null,"Order Not Delete","ERROR",JOptionPane.ERROR_MESSAGE);
+                    }
                 }catch(IOException ex){
 
                 }

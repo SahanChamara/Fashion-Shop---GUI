@@ -164,7 +164,7 @@ class SearchOrder extends JFrame {
         try{
             FashionShopCustomerDetails cusDetails = CustomerController.searchOrderId(txtCustomerId.getText());
             if(cusDetails!=null){
-                lblOrderIdShow.setText(cusDetails.getOrderId());
+                lblOrderIdShow.setText(cusDetails.getPhoneNumber());
                 lblSizeShow.setText(cusDetails.getSize());
                 lblQtyShow.setText(String.valueOf(cusDetails.getQuantity()));
                 lblAmountShow.setText(String.valueOf(cusDetails.getAmount()));

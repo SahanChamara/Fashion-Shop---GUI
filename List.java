@@ -111,6 +111,7 @@ class List {
         return null;
     }
 
+    // remove using an object
     public boolean remove(FashionShopCustomerDetails customerDetails){
         int index=search(customerDetails);
         return remove(index)!=null;
