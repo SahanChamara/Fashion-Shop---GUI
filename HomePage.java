@@ -1,8 +1,6 @@
 import javax.swing.*;
-import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
 
 class HomePage extends JFrame {
     private JLabel mainTopic;
@@ -14,10 +12,9 @@ class HomePage extends JFrame {
     private JButton btnSetOrderStatus;
     private JButton btnDeleteOrder;
 
-    private CustomerDetailsHandeler customerDetails;
+    // private CustomerDetailsHandeler customerDetails;
 
-    HomePage(CustomerDetailsHandeler customerDetails) {
-        this.customerDetails = customerDetails;
+    HomePage() {
 
         setSize(500, 500);
         setTitle("Fashion Shop Customer Management System");
@@ -35,7 +32,7 @@ class HomePage extends JFrame {
 
         // NEw panel for the buttons
         JPanel centerPanel = new JPanel(null);
-        centerPanel.setPreferredSize(new Dimension(500,400));
+        centerPanel.setPreferredSize(new Dimension(500, 400));
 
         // Buttons
         btnSearch = new JButton("Search");
@@ -43,9 +40,9 @@ class HomePage extends JFrame {
         centerPanel.add(btnSearch);
 
         // serach button action
-        btnSearch.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent evt){
-                new SearchingOption(customerDetails);
+        btnSearch.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                new SearchingOption();
             }
         });
 
@@ -55,9 +52,9 @@ class HomePage extends JFrame {
         centerPanel.add(btnSetOrderStatus);
 
         // Status Button Action
-        btnSetOrderStatus.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent evt){
-                new ChangeOrderStatus(customerDetails).setVisible(true);
+        btnSetOrderStatus.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                new ChangeOrderStatus().setVisible(true);
             }
         });
 
@@ -67,10 +64,10 @@ class HomePage extends JFrame {
         centerPanel.add(btnViewReports);
 
         // Reports button action
-        btnViewReports.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent evt){
+        btnViewReports.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 dispose();
-                new ViewReportsOption(customerDetails).setVisible(true);
+                new ViewReportsOption().setVisible(true);
             }
         });
 
@@ -79,11 +76,11 @@ class HomePage extends JFrame {
         btnDeleteOrder.setBounds(100, 280, 200, 40);
         centerPanel.add(btnDeleteOrder);
 
-        //Delete Button Action
-        btnDeleteOrder.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent evt){
+        // Delete Button Action
+        btnDeleteOrder.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 dispose();
-                new DeleteOrder(customerDetails).setVisible(true);
+                new DeleteOrder().setVisible(true);
             }
         });
 
@@ -94,12 +91,13 @@ class HomePage extends JFrame {
         btnPlaceOrder.setForeground(Color.WHITE); // White text color
 
         // add action in place oreder
-        btnPlaceOrder.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent evt){                    
+        btnPlaceOrder.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 // customerDetails.incrementOid();
                 dispose();
-                new PlaceOrder(customerDetails).setVisible(true);                                      
-                
+                // new PlaceOrder(customerList).setVisible(true);
+                new PlaceOrder().setVisible(true);
+
             }
         });
         centerPanel.add(btnPlaceOrder);
@@ -110,13 +108,13 @@ class HomePage extends JFrame {
         imageLabel.setBounds(320, 100, 200, 350); // Position image on the right
         centerPanel.add(imageLabel);
 
-        add(centerPanel,BorderLayout.CENTER);
+        add(centerPanel, BorderLayout.CENTER);
 
         // Copyright label
         JLabel copyrightLabel = new JLabel("Copyrights © Sahan Chamara 2024", SwingConstants.CENTER);
         copyrightLabel.setBounds(0, 440, 500, 30);
         copyrightLabel.setFont(new Font("SansSerif", Font.PLAIN, 12));
-        add(copyrightLabel,BorderLayout.SOUTH);
+        add(copyrightLabel, BorderLayout.SOUTH);
 
         // Display the frame
         setLocationRelativeTo(null); // Center on screen

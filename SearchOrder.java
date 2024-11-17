@@ -1,10 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 
 class SearchOrder extends JFrame {
 
-    private CustomerDetailsHandeler customerDetails;
+    private List customerList;
 
     private JButton btnBack;
     private JButton btnSearch;
@@ -24,7 +25,7 @@ class SearchOrder extends JFrame {
     private JLabel lblAmountShow;
     private JLabel lblStatusShow;
 
-    SearchOrder(CustomerDetailsHandeler customerDetails){
+    SearchOrder(){
         setSize(500,500);
         setTitle("Search Order");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -42,7 +43,7 @@ class SearchOrder extends JFrame {
         btnBack.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
                 dispose();
-                new SearchingOption(customerDetails);
+                new SearchingOption();
             }
         });
 
@@ -119,16 +120,42 @@ class SearchOrder extends JFrame {
         // search button action
         btnSearch.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){            
-                FashionShopCustomerDetails f1=customerDetails.serachOrderId(txtCustomerId.getText());
-                if(f1!=null){
-                    lblOrderIdShow.setText(f1.getPhoneNumber());
-                    lblSizeShow.setText(f1.getSize());
-                    lblQtyShow.setText(String.valueOf(f1.getQuantity()));
-                    lblAmountShow.setText(String.valueOf(f1.getAmount()));
-                    lblStatusShow.setText(f1.printOrderStatus());
+                // FashionShopCustomerDetails f1=customerList.serachOrderId(txtCustomerId.getText());
+                // if(f1!=null){
+                //     lblOrderIdShow.setText(f1.getPhoneNumber());
+                //     lblSizeShow.setText(f1.getSize());
+                //     lblQtyShow.setText(String.valueOf(f1.getQuantity()));
+                //     lblAmountShow.setText(String.valueOf(f1.getAmount()));
+                //     lblStatusShow.setText(f1.printOrderStatus());
+                // }else{
+                //     JOptionPane.showMessageDialog(null,"Invalid Order ID","Error",JOptionPane.ERROR_MESSAGE);
+                // }    
+                
+                String newLine = null;
+                try{
+                    BufferedReader br = new BufferedReader(new FileReader("CustomerDetails.txt"));
+                    String line = br.readLine();
+                    while(line!=null){
+                        String id = line.substring(0,9);
+                        if(id.equalsIgnoreCase(txtCustomerId.getText())){
+                            newLine=line;
+                            break;
+                        }
+                        line = br.readLine();
+                    }
+                }catch(IOException ex){
+
+                }
+                if(newLine!=null){
+                    String[] cusDetails = newLine.split(",");
+                    lblOrderIdShow.setText(cusDetails[1]);
+                    lblSizeShow.setText(cusDetails[2]);
+                    lblQtyShow.setText(cusDetails[3]);
+                    lblAmountShow.setText(cusDetails[4]);
+                    lblStatusShow.setText(cusDetails[5]);
                 }else{
-                    JOptionPane.showMessageDialog(null,"Invalid Order ID","Error",JOptionPane.ERROR_MESSAGE);
-                }               
+                    JOptionPane.showMessageDialog(null,"Invalid Order ID","Error",JOptionPane.ERROR_MESSAGE);                    
+                }
             }
         });
     }

@@ -3,8 +3,9 @@ import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.io.*;
 
-class PlaceOrder extends JFrame{
+class PlaceOrder extends JFrame {
     // private JLabel lblPlaceORder;
 
     private JLabel lblOrderId;
@@ -19,7 +20,7 @@ class PlaceOrder extends JFrame{
     // private JTextField txtOrderId;
     private JTextField txtCustomerId;
     private JTextField txtSize;
-    private JTextField txtQty;    
+    private JTextField txtQty;
 
     private JButton btnBack;
     private JButton btnPlaceOrder;
@@ -30,21 +31,16 @@ class PlaceOrder extends JFrame{
 
     private double amount;
 
-
     // private String orderId;
 
-    private CustomerDetailsHandeler customerDetails;
-    
     // Default Construcotr
-    PlaceOrder(CustomerDetailsHandeler customerDetails){
-        this.customerDetails=customerDetails;
-        
-        setSize(400,400);
+    PlaceOrder() {
+
+        setSize(400, 400);
         setTitle("Place Order");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(null);
-
 
         // Back button
         btnBack = new JButton("Back");
@@ -55,12 +51,11 @@ class PlaceOrder extends JFrame{
         add(btnBack);
 
         // Back Button Action
-        btnBack.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent evt){
+        btnBack.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 dispose();
-                new HomePage(customerDetails).setVisible(true);
+                new HomePage().setVisible(true);
             }
-
         });
 
         // Order ID label
@@ -71,52 +66,51 @@ class PlaceOrder extends JFrame{
 
         // Order ID value label
         lblOrderIdValue = new JLabel();
-        
-        //set the generating order id
-        lblOrderIdValue.setText(customerDetails.incrementOid());
+
+        // set the generating order id
+        lblOrderIdValue.setText(generateOrderId());
         lblOrderIdValue.setBounds(150, 60, 200, 30);
         lblOrderIdValue.setFont(new Font("SansSerif", Font.PLAIN, 14));
         add(lblOrderIdValue);
 
-        // Customer ID label 
+        // Customer ID label
         lblCustomerId = new JLabel("Customer ID :");
         lblCustomerId.setBounds(50, 100, 100, 30);
         lblCustomerId.setFont(new Font("SansSerif", Font.PLAIN, 14));
         add(lblCustomerId);
 
-        //Customer ID text field
+        // Customer ID text field
         txtCustomerId = new JTextField();
-        txtCustomerId.setBounds(150, 100, 150, 30);       
+        txtCustomerId.setBounds(150, 100, 150, 30);
         // Customer ID Validation
-        txtCustomerId.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent evt){  
-                //retun the user input phone number to validation method
-                isNumber = customerDetails.PhoneNumber(txtCustomerId.getText());                 
-                if(!isNumber){
-                    System.out.println(isNumber);
-                    JOptionPane.showMessageDialog(null,"Invalid Phone Number");
-                }                
+        txtCustomerId.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                // retun the user input phone number to validation method
+                isNumber = phoneNumber(txtCustomerId.getText());
+                if (!isNumber) {                    
+                    JOptionPane.showMessageDialog(null, "Invalid Phone Number");
+                }
             }
         });
         add(txtCustomerId);
 
-        // Size label 
+        // Size label
         lblSize = new JLabel("Size :");
         lblSize.setBounds(50, 140, 100, 30);
         lblSize.setFont(new Font("SansSerif", Font.PLAIN, 14));
         add(lblSize);
 
-        //Size text field
+        // Size text field
         txtSize = new JTextField();
         txtSize.setBounds(150, 140, 150, 30);
 
-        // Size Validation        
-        txtSize.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent evt){
+        // Size Validation
+        txtSize.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 // reutn the user input size into validation method
-                isSize = customerDetails.tShirtSizeValidation(txtSize.getText());
-                if(!isSize){
-                    JOptionPane.showMessageDialog(null,"Invalid Size");
+                isSize = tShirtSizeValidation(txtSize.getText());
+                if (!isSize) {
+                    JOptionPane.showMessageDialog(null, "Invalid Size");
                 }
             }
         });
@@ -128,7 +122,7 @@ class PlaceOrder extends JFrame{
         lblSizeHint.setFont(new Font("SansSerif", Font.BOLD, 9));
         add(lblSizeHint);
 
-        // Quantity label 
+        // Quantity label
         lblQty = new JLabel("QTY :");
         lblQty.setBounds(50, 180, 100, 30);
         lblQty.setFont(new Font("SansSerif", Font.PLAIN, 14));
@@ -144,19 +138,19 @@ class PlaceOrder extends JFrame{
         lblAmount.setFont(new Font("SansSerif", Font.PLAIN, 14));
         add(lblAmount);
 
-        txtAmount = new JLabel("0.00");        
+        txtAmount = new JLabel("0.00");
         txtAmount.setBounds(150, 220, 150, 30);
         add(txtAmount);
 
-        //Quantity Validation
-        txtQty.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent evt){
-                isQty = customerDetails.quantityValidation(txtQty.getText());
-                if(!isQty){
-                    JOptionPane.showMessageDialog(null,"Quantity is Not Valid");
-                }else{
-                    amount = customerDetails.amountCalculation(txtQty.getText(),txtSize.getText());
-                    txtAmount.setText(String.valueOf(amount)); 
+        // Quantity Validation
+        txtQty.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                isQty =quantityValidation(txtQty.getText());
+                if (!isQty) {
+                    JOptionPane.showMessageDialog(null, "Quantity is Not Valid");
+                } else {
+                    amount = amountCalculation(txtQty.getText(), txtSize.getText());
+                    txtAmount.setText(String.valueOf(amount));
                 }
             }
         });
@@ -169,43 +163,131 @@ class PlaceOrder extends JFrame{
         btnPlaceOrder.setForeground(Color.WHITE); // White text
         btnPlaceOrder.setFont(new Font("SansSerif", Font.BOLD, 14));
 
-        //Place Order Action
-        btnPlaceOrder.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent evt){
-                double amount = customerDetails.amountCalculation(txtQty.getText(),txtSize.getText());
+        // Place Order Action
+        btnPlaceOrder.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                // double amount =
+                amountCalculation(txtQty.getText(), txtSize.getText());
                 txtAmount.setText(String.valueOf(amount));
 
-                System.out.println("prder place eke");
-                System.out.println(isNumber);
-                System.out.println(isSize);
-                System.out.println(isQty);
-                
-                if((isNumber) && (isSize) && (isQty)){                                       
-                    JOptionPane.showMessageDialog(null,"Order Place Succesfull");
+                if ((isNumber) && (isSize) && (isQty)) {
+                    JOptionPane.showMessageDialog(null, "Order Place Succesfull");
 
                     String orderId = lblOrderIdValue.getText();
                     String phoneNumber = txtCustomerId.getText();
                     String size = txtSize.getText();
-                    int qty = Integer.parseInt(txtQty.getText());                    
-                    int orderStatus=0;                    
+                    int qty = Integer.parseInt(txtQty.getText());
+                    String orderStatus = "Processing";
 
-                    FashionShopCustomerDetails c1 = new FashionShopCustomerDetails(orderId,phoneNumber,size,qty,amount,orderStatus);
-                    customerDetails.addCustomer(c1);                  
+                    // FashionShopCustomerDetails c1 = new FashionShopCustomerDetails(orderId, phoneNumber, size, qty,amount,orderStatus);
+                    // customerList.add(c1);
 
-                    customerDetails.orderNumber++;
+                    // order details writing for the text file
+                    try{
+                        FileWriter fw = new FileWriter("CustomerDetails.txt",true);
+                        fw.write(orderId+","+phoneNumber+","+size+","+qty+","+amount+","+orderStatus+"\n");
+                        fw.close();     // or you can write fw.flush();
+                    }catch(IOException ex){
+
+                    }                   
+
+                    //generateOrderId();
+                    //customerList.orderNumber++;
                     dispose();
-                    new PlaceOrder(customerDetails).setVisible(true);                                                  
+                    new PlaceOrder().setVisible(true);
 
-                    System.out.println(c1.getOrderId());
-                    System.out.println(c1.getPhoneNumber());
-                    System.out.println(c1.getQuantity());
-                    System.out.println(c1.getSize());
-                    System.out.println(c1.getAmount());
-                }else{
-                    JOptionPane.showMessageDialog(null,"Order Place UN Successful");
+                    //System.out.println(c1.toString());
+                    
+                } else {
+                    JOptionPane.showMessageDialog(null, "Order Place UN Successful");
                 }
             }
-        });        
+        });
         add(btnPlaceOrder);
+    }
+
+    // generating the order id
+    private String generateOrderId(){
+        String lastLine = null;
+        try{
+            BufferedReader br = new BufferedReader(new FileReader("CustomerDetails.txt"));
+            String line = br.readLine();
+            while(line!=null){
+                lastLine=line;
+                line = br.readLine();
+            }
+        }catch(IOException ex){
+
+        }
+        if(lastLine==null){            
+            return "ODR#00001";            
+        }else{            
+            int newId = Integer.parseInt(lastLine.substring(4,9));
+            return String.format("ODR#%05d",newId+1);
+            
+        }
+
+    }
+
+     // Phone Number Validation
+     public boolean phoneNumber(String phoneNumber) {
+        if (phoneNumber.length() != 10 || phoneNumber.charAt(0) != '0') {
+            return false;
+        }
+        return true;
+    }
+
+    // T-Shirt Size Validatiob
+    public boolean tShirtSizeValidation(String tShirtSize) {
+        tShirtSize = tShirtSize.toUpperCase();
+        if (tShirtSize.equals("XS") || tShirtSize.equals("S") || tShirtSize.equals("M")
+                || tShirtSize.equals("L") || tShirtSize.equals("XL")
+                || tShirtSize.equals("XXL")) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+     // Quantiity Validation
+     public boolean quantityValidation(String qty) {
+        if (Integer.parseInt(qty) > 0) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    // Amount Calculation
+    public double amountCalculation(String qty, String tShirtSize) {
+        tShirtSize = tShirtSize.toUpperCase();
+
+        double amount = 0;
+        int quantiity = Integer.parseInt(qty);
+        switch (tShirtSize) {
+            case "XS":
+                amount = quantiity * 600;
+                break;
+            case "S":
+                amount = quantiity * 800;
+                break;
+            case "M":
+                amount = quantiity * 900;
+                break;
+            case "L":
+                amount = quantiity * 1000;
+                break;
+            case "XL":
+                amount = quantiity * 1100;
+                break;
+            case "XXL":
+                amount = quantiity * 1200;
+                break;
+
+        }
+        return amount;
+
     }
 }

@@ -12,10 +12,9 @@ class ViewReportsOption extends JFrame{
     private JButton btnOrdersByAmount;
     private JButton btnAllOrders;
 
-    private CustomerDetailsHandeler customerDetails;
+    private List customerList;
 
-    ViewReportsOption(CustomerDetailsHandeler customerDetails){
-        this.customerDetails=customerDetails;
+    ViewReportsOption(){
 
         // making the window
         setSize(800,400);
@@ -36,7 +35,7 @@ class ViewReportsOption extends JFrame{
         btnBack.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
                 dispose();
-                new HomePage(customerDetails);
+                new HomePage();
             }
         });
 
@@ -52,7 +51,7 @@ class ViewReportsOption extends JFrame{
         btnViewCustomers.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
                 dispose();
-                new viewCustomer(customerDetails).setVisible(true);
+                new viewCustomer().setVisible(true);
             }
         });
 
@@ -68,7 +67,7 @@ class ViewReportsOption extends JFrame{
         btnBestInCustomers.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
                 dispose();
-                new BestInCustomers(customerDetails).setVisible(true);
+                new BestInCustomers().setVisible(true);
             }
         });
 
@@ -84,7 +83,7 @@ class ViewReportsOption extends JFrame{
         btnAllCustomers.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
                 dispose();
-                new AllCustomersView(customerDetails).setVisible(true);
+                new AllCustomersView().setVisible(true);
             }
         });
 
@@ -100,7 +99,7 @@ class ViewReportsOption extends JFrame{
         btnCatByQty.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
                 dispose();
-                new CatByQty(customerDetails).setVisible(true);
+                new CatByQty().setVisible(true);
             }
         });
 
@@ -116,7 +115,7 @@ class ViewReportsOption extends JFrame{
         btnCatByAmount.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
                 dispose();
-                new CatByAmount(customerDetails).setVisible(true);
+                new CatByAmount().setVisible(true);
             }
         });
 
@@ -132,7 +131,7 @@ class ViewReportsOption extends JFrame{
         btnOrdersByAmount.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
                 dispose();
-                new ViewAllOrdersByAmount(customerDetails).setVisible(true);
+                new ViewAllOrdersByAmount().setVisible(true);
             }
         });
 
@@ -147,7 +146,7 @@ class ViewReportsOption extends JFrame{
         btnAllOrders.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
                 dispose();
-                new ViewAllOrders(customerDetails).setVisible(true);
+                new ViewAllOrders().setVisible(true);
             }
         });
         

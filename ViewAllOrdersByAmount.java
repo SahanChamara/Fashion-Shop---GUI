@@ -2,15 +2,16 @@ import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 class ViewAllOrdersByAmount extends JFrame {
-    private CustomerDetailsHandeler customerDetails;
+    
     private JLabel topic;
     private JButton btnBack;
 
-    ViewAllOrdersByAmount(CustomerDetailsHandeler customerDetails){
-        this.customerDetails=customerDetails;
-
+    ViewAllOrdersByAmount(){
         setSize(800,400);
         setTitle("All Orders By Amount");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -36,17 +37,33 @@ class ViewAllOrdersByAmount extends JFrame {
         btnBack.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt){
                 dispose();
-                new ViewReportsOption(customerDetails).setVisible(true);
+                new ViewReportsOption().setVisible(true);
             }
         });
+
+        List customerList = new List(10,0.5);
+        try{
+            BufferedReader br = new BufferedReader(new FileReader("CustomerDetails.txt"));
+            String line = br.readLine();
+            while(line!=null){
+                String[] cusDetails = line.split(",");
+                FashionShopCustomerDetails c1 = new FashionShopCustomerDetails(cusDetails[0],cusDetails[1],cusDetails[2],Integer.parseInt(cusDetails[3]),Double.parseDouble(cusDetails[4]),cusDetails[5]);
+                customerList.add(c1);
+                line=br.readLine();
+            }
+            
+
+        }catch(IOException ex){
+
+        }
 
         //table
         String[] colNames = {"Order ID","Customer ID","Size","Quantity","Amount","Status"};
         DefaultTableModel dtm = new DefaultTableModel(colNames,0);
 
-        FashionShopCustomerDetails[] cusArray = customerDetails.allOrdersByAmount();
-        for(int i=0; i<cusArray.length; i++){
-            Object[] rowData = {cusArray[i].getOrderId(),cusArray[i].getPhoneNumber(),cusArray[i].getSize(),cusArray[i].getQuantity(),cusArray[i].getAmount(),cusArray[i].printOrderStatus()};
+        FashionShopCustomerDetails[] cusArray = allOrdersByAmount(customerList);
+        for(int i=0; i<customerList.size(); i++){
+            Object[] rowData = {cusArray[i].getOrderId(),cusArray[i].getPhoneNumber(),cusArray[i].getSize(),cusArray[i].getQuantity(),cusArray[i].getAmount(),cusArray[i].getOrderStatus()};
             dtm.addRow(rowData);
         }
 
@@ -54,7 +71,26 @@ class ViewAllOrdersByAmount extends JFrame {
         JScrollPane sp = new JScrollPane(cusTable);
         sp.setBounds(100,60,600,300);
         add(sp);
+    }
 
+    // Orders by Amount all orders print
+    public FashionShopCustomerDetails[] allOrdersByAmount(List customerList) {
+        FashionShopCustomerDetails[] cusDetails = customerList.getArrayObject();
+
+        FashionShopCustomerDetails[] sortingByAmount = new FashionShopCustomerDetails[customerList.capacity()];
+        for (int i = 0; i < customerList.size(); i++) {
+            sortingByAmount[i] = cusDetails[i];
+        }
+
+        for (int i = customerList.size() - 1; i > 0; i--) {
+            for (int j = 0; j < i; j++)
+                if (sortingByAmount[j].getAmount() < sortingByAmount[j + 1].getAmount()) {
+                    FashionShopCustomerDetails swap = cusDetails[j];
+                    sortingByAmount[j] = sortingByAmount[j + 1];
+                    sortingByAmount[j + 1] = swap;
+                }
+        }
+        return sortingByAmount;
 
     }
     
