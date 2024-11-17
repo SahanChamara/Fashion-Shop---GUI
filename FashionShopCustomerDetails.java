@@ -109,4 +109,8 @@ class FashionShopCustomerDetails{
 	public String toString(){
 		return orderId+","+phoneNumber+","+size+","+String.valueOf(quantity)+","+String.valueOf(amount)+","+orderStatus;
 	}
+
+	public boolean equals(FashionShopCustomerDetails customer){
+		return this.orderId.equalsIgnoreCase(customer.orderId);
+	}
 }
