@@ -16,28 +16,26 @@ class SearchCustomer extends JFrame {
     private JButton btnBack;
     private JButton btnSearch;
 
-   
+    // private int tempMedium;
+    // private int tempXtraSmall;
+    // private int tempXtraXl;
+    // private int tempXtraLarge;
+    // private int tempSmall;
+    // private int tempLarge;
 
-    private int tempMedium;
-    private int tempXtraSmall;
-    private int tempXtraXl;
-    private int tempXtraLarge;
-    private int tempSmall;
-    private int tempLarge;
+    // private double mediumAmount;
+    // private double xtraLargeAmount;
+    // private double xtraxXlAmount;
+    // private double xtraSmallAmount;
+    // private double smallAmount;
+    // private double largeAmount;
+    // private double searchTotalAmount;
 
-    private double mediumAmount;
-    private double xtraLargeAmount;
-    private double xtraxXlAmount;
-    private double xtraSmallAmount;
-    private double smallAmount;
-    private double largeAmount;
-    private double searchTotalAmount;
-
-    private boolean numbervalid;
+    // private boolean numbervalid;
 
     SearchCustomer() {
         
-        numbervalid=false;
+        //numbervalid=false;
 
         setSize(500, 400);
         setTitle("Search Customer");
@@ -94,158 +92,207 @@ class SearchCustomer extends JFrame {
         // ID validation and printing the table
         btnSearch.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                String cusPhoneNumber = txtCustomerId.getText();
+                //String cusPhoneNumber = txtCustomerId.getText();
 
-                try {
-                    BufferedReader br = new BufferedReader(new FileReader("CustomerDetails.txt"));
-                    String line = br.readLine();
-                    while (line != null) {
-                        String phoneNum = line.substring(10, 20);
-                        if (cusPhoneNumber.equals(phoneNum)) {
-                            numbervalid=true;
-                            String[] cusDetails = line.split(",");
+                // try {
+                //     BufferedReader br = new BufferedReader(new FileReader("CustomerDetails.txt"));
+                //     String line = br.readLine();
+                //     while (line != null) {
+                //         String phoneNum = line.substring(10, 20);
+                //         if (cusPhoneNumber.equals(phoneNum)) {
+                //             numbervalid=true;
+                //             String[] cusDetails = line.split(",");
 
-                            serachCustomerId(cusDetails[0], cusDetails[2], Integer.parseInt(cusDetails[3]));
-                        }
-                        line=br.readLine();
-                    }
-                } catch (IOException ex) {
+                //             serachCustomerId(cusDetails[0], cusDetails[2], Integer.parseInt(cusDetails[3]));
+                //         }
+                //         line=br.readLine();
+                //     }
+                // } catch (IOException ex) {
 
-                }
+                // }
+
+                // CustomerController cusControll = new CustomerController();
+
+                txtCustomerIdActionPerformed(evt);
 
                 // serachCustomerId(txtCustomerId.getText());
-                if (getNumberValid() == true) {
-                    Object[][] customerData = {
-                            { "L", getLarge(), getLargeAmount() },
-                            { "M", getMedium(), getMediumAmount() },
-                            { "XS", getXtraSmall(), getXtraSmallAmount() },
-                            { "S", getSmall(), getSmallAmount() },
-                            { "XL", getXtraLarge(), getXtraLargeAmount() },
-                            { "XXL", getXtraXl(), getXtraXlAmount() },
-                    };
+                // if (cusControll.getNumberValid() == false) {
+                //     Object[][] customerData = {
+                //             { "L", cusControll.getLarge(), cusControll.getLargeAmount() },
+                //             { "M", cusControll.getMedium(), cusControll.getMediumAmount() },
+                //             { "XS", cusControll.getXtraSmall(), cusControll.getXtraSmallAmount() },
+                //             { "S", cusControll.getSmall(), cusControll.getSmallAmount() },
+                //             { "XL", cusControll.getXtraLarge(), cusControll.getXtraLargeAmount() },
+                //             { "XXL", cusControll.getXtraXl(), cusControll.getXtraXlAmount() },
+                //     };
 
-                    String[] colNames = { "Size", "Quantiity", "Amount" };
+                //     String[] colNames = { "Size", "Quantiity", "Amount" };
 
-                    JTable cusDetails = new JTable(customerData, colNames);
+                //     JTable cusDetails = new JTable(customerData, colNames);
 
-                    // center the table values
-                    DefaultTableCellRenderer centerValues = new DefaultTableCellRenderer();
-                    centerValues.setHorizontalAlignment(SwingConstants.CENTER);
-                    for (int i = 0; i < cusDetails.getColumnCount(); i++) {
-                        cusDetails.getColumnModel().getColumn(i).setCellRenderer(centerValues);
-                    }
+                //     // center the table values
+                //     DefaultTableCellRenderer centerValues = new DefaultTableCellRenderer();
+                //     centerValues.setHorizontalAlignment(SwingConstants.CENTER);
+                //     for (int i = 0; i < cusDetails.getColumnCount(); i++) {
+                //         cusDetails.getColumnModel().getColumn(i).setCellRenderer(centerValues);
+                //     }
 
-                    JScrollPane scrollPane = new JScrollPane(cusDetails);
-                    scrollPane.setBounds(50, 100, 400, 100);
-                    add(scrollPane);
+                //     JScrollPane scrollPane = new JScrollPane(cusDetails);
+                //     scrollPane.setBounds(50, 100, 400, 100);
+                //     add(scrollPane);
 
-                    lbltotalView.setText(String.valueOf(getSearchTotalAmount()));
+                //     lbltotalView.setText(String.valueOf(cusControll.getSearchTotalAmount()));
 
-                    tempCountUpdate();
+                //     cusControll.tempCountUpdate();
 
-                } else {
-                    JOptionPane.showMessageDialog(null, "Invalid Customer ID");
-                }
+                // } else {
+                //     JOptionPane.showMessageDialog(null, "Invalid Customer ID");
+                // }
             }
         });
     }
 
-    // serarch by custoemer id...................
-    public void serachCustomerId(String cusEnterPhonenum, String cusSize, int qty) {
-        // numbervalid = false;
+    // txtcus id action perforemd
+    private void txtCustomerIdActionPerformed(ActionEvent evt){
+        CustomerController cusControll = new CustomerController();
+        try{
+            cusControll.searchCustomer(txtCustomerId.getText());
 
-        if (cusSize.equals("M")) {
-            tempMedium += qty;
-        } else if (cusSize.equals("XS")) {
-            tempXtraSmall += qty;
-        } else if (cusSize.equals("XXL")) {
-            tempXtraXl += qty;
-        } else if (cusSize.equals("XL")) {
-            tempXtraLarge += qty;
-        } else if (cusSize.equals("S")) {
-            tempSmall += qty;
-        } else if (cusSize.equals("L")) {
-            tempLarge += qty;
+            if (cusControll.getNumberValid() == true) {
+                Object[][] customerData = {
+                        { "L", cusControll.getLarge(), cusControll.getLargeAmount() },
+                        { "M", cusControll.getMedium(), cusControll.getMediumAmount() },
+                        { "XS", cusControll.getXtraSmall(), cusControll.getXtraSmallAmount() },
+                        { "S", cusControll.getSmall(), cusControll.getSmallAmount() },
+                        { "XL", cusControll.getXtraLarge(), cusControll.getXtraLargeAmount() },
+                        { "XXL", cusControll.getXtraXl(), cusControll.getXtraXlAmount() },
+                };
+
+                String[] colNames = { "Size", "Quantiity", "Amount" };
+
+                JTable cusDetails = new JTable(customerData, colNames);
+
+                // center the table values
+                DefaultTableCellRenderer centerValues = new DefaultTableCellRenderer();
+                centerValues.setHorizontalAlignment(SwingConstants.CENTER);
+                for (int i = 0; i < cusDetails.getColumnCount(); i++) {
+                    cusDetails.getColumnModel().getColumn(i).setCellRenderer(centerValues);
+                }
+
+                JScrollPane scrollPane = new JScrollPane(cusDetails);
+                scrollPane.setBounds(50, 100, 400, 100);
+                add(scrollPane);
+
+                lbltotalView.setText(String.valueOf(cusControll.getSearchTotalAmount()));
+
+                cusControll.tempCountUpdate();
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Invalid Customer ID");
+            }
+           
+        }catch(IOException ex){
+
         }
-        tempAmountCalculation();
-
     }
 
-    public boolean getNumberValid() {
-        return this.numbervalid;
-    }
 
-    public void tempAmountCalculation() {
-        mediumAmount = tempMedium * 900;
-        xtraLargeAmount = tempXtraLarge * 1100;
-        xtraxXlAmount = tempXtraXl * 1200;
-        xtraSmallAmount = tempXtraSmall * 600;
-        smallAmount = tempSmall * 800;
-        largeAmount = tempLarge * 1000;
-        searchTotalAmount = mediumAmount + xtraLargeAmount + xtraxXlAmount + xtraSmallAmount + smallAmount
-                + largeAmount;
-    }
+    // // serarch by custoemer id...................
+    // public void searchCustomerId(String cusEnterPhonenum, String cusSize, int qty) {
+    //     // numbervalid = false;
 
-    public int getMedium() {
-        return this.tempMedium;
-    }
+    //     if (cusSize.equals("M")) {
+    //         tempMedium += qty;
+    //     } else if (cusSize.equals("XS")) {
+    //         tempXtraSmall += qty;
+    //     } else if (cusSize.equals("XXL")) {
+    //         tempXtraXl += qty;
+    //     } else if (cusSize.equals("XL")) {
+    //         tempXtraLarge += qty;
+    //     } else if (cusSize.equals("S")) {
+    //         tempSmall += qty;
+    //     } else if (cusSize.equals("L")) {
+    //         tempLarge += qty;
+    //     }
+    //     tempAmountCalculation();
 
-    public int getXtraSmall() {
-        return this.tempXtraSmall;
-    }
+    // }
 
-    public int getXtraXl() {
-        return this.tempXtraXl;
-    }
+    // public boolean getNumberValid() {
+    //     return this.numbervalid;
+    // }
 
-    public int getXtraLarge() {
-        return this.tempXtraLarge;
-    }
+    // public void tempAmountCalculation() {
+    //     mediumAmount = tempMedium * 900;
+    //     xtraLargeAmount = tempXtraLarge * 1100;
+    //     xtraxXlAmount = tempXtraXl * 1200;
+    //     xtraSmallAmount = tempXtraSmall * 600;
+    //     smallAmount = tempSmall * 800;
+    //     largeAmount = tempLarge * 1000;
+    //     searchTotalAmount = mediumAmount + xtraLargeAmount + xtraxXlAmount + xtraSmallAmount + smallAmount
+    //             + largeAmount;
+    // }
 
-    public int getSmall() {
-        return this.tempSmall;
-    }
+    // public int getMedium() {
+    //     return this.tempMedium;
+    // }
 
-    public int getLarge() {
-        return this.tempLarge;
-    }
+    // public int getXtraSmall() {
+    //     return this.tempXtraSmall;
+    // }
 
-    // amount getters
-    public double getMediumAmount() {
-        return this.mediumAmount;
-    }
+    // public int getXtraXl() {
+    //     return this.tempXtraXl;
+    // }
 
-    public double getXtraLargeAmount() {
-        return this.xtraLargeAmount;
-    }
+    // public int getXtraLarge() {
+    //     return this.tempXtraLarge;
+    // }
 
-    public double getXtraXlAmount() {
-        return this.xtraxXlAmount;
-    }
+    // public int getSmall() {
+    //     return this.tempSmall;
+    // }
 
-    public double getXtraSmallAmount() {
-        return this.xtraSmallAmount;
-    }
+    // public int getLarge() {
+    //     return this.tempLarge;
+    // }
 
-    public double getSmallAmount() {
-        return this.smallAmount;
-    }
+    // // amount getters
+    // public double getMediumAmount() {
+    //     return this.mediumAmount;
+    // }
 
-    public double getLargeAmount() {
-        return this.largeAmount;
-    }
+    // public double getXtraLargeAmount() {
+    //     return this.xtraLargeAmount;
+    // }
 
-    public double getSearchTotalAmount() {
-        return this.searchTotalAmount;
-    }
+    // public double getXtraXlAmount() {
+    //     return this.xtraxXlAmount;
+    // }
 
-    public void tempCountUpdate() {
-        this.tempMedium = 0;
-        this.tempXtraLarge = 0;
-        this.tempXtraXl = 0;
-        this.tempXtraSmall = 0;
-        this.tempSmall = 0;
-        this.tempLarge = 0;
-    }
+    // public double getXtraSmallAmount() {
+    //     return this.xtraSmallAmount;
+    // }
+
+    // public double getSmallAmount() {
+    //     return this.smallAmount;
+    // }
+
+    // public double getLargeAmount() {
+    //     return this.largeAmount;
+    // }
+
+    // public double getSearchTotalAmount() {
+    //     return this.searchTotalAmount;
+    // }
+
+    // public void tempCountUpdate() {
+    //     this.tempMedium = 0;
+    //     this.tempXtraLarge = 0;
+    //     this.tempXtraXl = 0;
+    //     this.tempXtraSmall = 0;
+    //     this.tempSmall = 0;
+    //     this.tempLarge = 0;
+    // }
 
 }

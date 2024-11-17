@@ -67,10 +67,14 @@ class PlaceOrder extends JFrame {
         // Order ID value label
         lblOrderIdValue = new JLabel();
 
-        // set the generating order id
-        lblOrderIdValue.setText(generateOrderId());
+        // set the generating order id        
         lblOrderIdValue.setBounds(150, 60, 200, 30);
         lblOrderIdValue.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        try{
+            lblOrderIdValue.setText(CustomerController.generateOrderId());
+        }catch(IOException ex){
+            
+        }
         add(lblOrderIdValue);
 
         // Customer ID label
@@ -171,28 +175,31 @@ class PlaceOrder extends JFrame {
                 txtAmount.setText(String.valueOf(amount));
 
                 if ((isNumber) && (isSize) && (isQty)) {
-                    JOptionPane.showMessageDialog(null, "Order Place Succesfull");
+                    // JOptionPane.showMessageDialog(null, "Order Place Succesfull");
 
                     String orderId = lblOrderIdValue.getText();
                     String phoneNumber = txtCustomerId.getText();
                     String size = txtSize.getText();
                     int qty = Integer.parseInt(txtQty.getText());
+                    double amount = Double.parseDouble(txtAmount.getText());
                     String orderStatus = "Processing";
 
-                    // FashionShopCustomerDetails c1 = new FashionShopCustomerDetails(orderId, phoneNumber, size, qty,amount,orderStatus);
-                    // customerList.add(c1);
+                    FashionShopCustomerDetails c1 = new FashionShopCustomerDetails(orderId,phoneNumber,size,qty,amount,orderStatus);
 
-                    // order details writing for the text file
                     try{
-                        FileWriter fw = new FileWriter("CustomerDetails.txt",true);
-                        fw.write(orderId+","+phoneNumber+","+size+","+qty+","+amount+","+orderStatus+"\n");
-                        fw.close();     // or you can write fw.flush();
+                        boolean isAdded=CustomerController.addCustomer(c1);
+                        if(isAdded){
+                            JOptionPane.showMessageDialog(null,"Order Added Succefull");
+                        }
+                        lblOrderIdValue.setText(CustomerController.generateOrderId());
+                        txtCustomerId.setText("");
+                        txtQty.setText("");
+                        txtSize.setText("");
+                        txtAmount.setText("");
                     }catch(IOException ex){
 
-                    }                   
+                    }
 
-                    //generateOrderId();
-                    //customerList.orderNumber++;
                     dispose();
                     new PlaceOrder().setVisible(true);
 
@@ -204,29 +211,6 @@ class PlaceOrder extends JFrame {
             }
         });
         add(btnPlaceOrder);
-    }
-
-    // generating the order id
-    private String generateOrderId(){
-        String lastLine = null;
-        try{
-            BufferedReader br = new BufferedReader(new FileReader("CustomerDetails.txt"));
-            String line = br.readLine();
-            while(line!=null){
-                lastLine=line;
-                line = br.readLine();
-            }
-        }catch(IOException ex){
-
-        }
-        if(lastLine==null){            
-            return "ODR#00001";            
-        }else{            
-            int newId = Integer.parseInt(lastLine.substring(4,9));
-            return String.format("ODR#%05d",newId+1);
-            
-        }
-
     }
 
      // Phone Number Validation

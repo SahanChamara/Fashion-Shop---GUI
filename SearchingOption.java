@@ -5,8 +5,6 @@ import java.awt.event.*;
 import java.util.*;
 
 class SearchingOption extends JFrame{
-    private List customerList;
-
     SearchingOption(){        
 
         Icon qIcon = UIManager.getIcon("OptionPane.questionIcon");

@@ -5,8 +5,6 @@ import java.io.*;
 
 class SearchOrder extends JFrame {
 
-    private List customerList;
-
     private JButton btnBack;
     private JButton btnSearch;
 
@@ -129,35 +127,54 @@ class SearchOrder extends JFrame {
                 //     lblStatusShow.setText(f1.printOrderStatus());
                 // }else{
                 //     JOptionPane.showMessageDialog(null,"Invalid Order ID","Error",JOptionPane.ERROR_MESSAGE);
-                // }    
+                // }
                 
-                String newLine = null;
-                try{
-                    BufferedReader br = new BufferedReader(new FileReader("CustomerDetails.txt"));
-                    String line = br.readLine();
-                    while(line!=null){
-                        String id = line.substring(0,9);
-                        if(id.equalsIgnoreCase(txtCustomerId.getText())){
-                            newLine=line;
-                            break;
-                        }
-                        line = br.readLine();
-                    }
-                }catch(IOException ex){
+                txtCustomerIdActionPerformed(evt);
+                
+                // String newLine = null;
+                // try{
+                //     BufferedReader br = new BufferedReader(new FileReader("CustomerDetails.txt"));
+                //     String line = br.readLine();
+                //     while(line!=null){
+                //         String id = line.substring(0,9);
+                //         if(id.equalsIgnoreCase(txtCustomerId.getText())){
+                //             newLine=line;
+                //             break;
+                //         }
+                //         line = br.readLine();
+                //     }
+                // }catch(IOException ex){
 
-                }
-                if(newLine!=null){
-                    String[] cusDetails = newLine.split(",");
-                    lblOrderIdShow.setText(cusDetails[1]);
-                    lblSizeShow.setText(cusDetails[2]);
-                    lblQtyShow.setText(cusDetails[3]);
-                    lblAmountShow.setText(cusDetails[4]);
-                    lblStatusShow.setText(cusDetails[5]);
-                }else{
-                    JOptionPane.showMessageDialog(null,"Invalid Order ID","Error",JOptionPane.ERROR_MESSAGE);                    
-                }
+                // }
+                // if(newLine!=null){
+                //     String[] cusDetails = newLine.split(",");
+                //     lblOrderIdShow.setText(cusDetails[1]);
+                //     lblSizeShow.setText(cusDetails[2]);
+                //     lblQtyShow.setText(cusDetails[3]);
+                //     lblAmountShow.setText(cusDetails[4]);
+                //     lblStatusShow.setText(cusDetails[5]);
+                // }else{
+                //     JOptionPane.showMessageDialog(null,"Invalid Order ID","Error",JOptionPane.ERROR_MESSAGE);                    
+                // }
             }
         });
+    }
+
+    private void txtCustomerIdActionPerformed(ActionEvent evt){
+        try{
+            FashionShopCustomerDetails cusDetails = CustomerController.searchOrderId(txtCustomerId.getText());
+            if(cusDetails!=null){
+                lblOrderIdShow.setText(cusDetails.getOrderId());
+                lblSizeShow.setText(cusDetails.getSize());
+                lblQtyShow.setText(String.valueOf(cusDetails.getQuantity()));
+                lblAmountShow.setText(String.valueOf(cusDetails.getAmount()));
+                lblStatusShow.setText(cusDetails.getOrderStatus());
+            }else{
+                JOptionPane.showMessageDialog(null,"Invalid Order ID","ERROR",JOptionPane.ERROR_MESSAGE);
+            }
+        }catch(IOException ex){
+
+        }
     }
 
 }
