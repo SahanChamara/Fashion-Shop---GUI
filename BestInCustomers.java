@@ -37,47 +37,52 @@ class BestInCustomers extends JFrame {
             }
         });
 
-        List customerList = new List(10,0.5);
-        try{
-            BufferedReader br = new BufferedReader(new FileReader("CustomerDetails.txt"));
-            String line = br.readLine();
-            while(line!=null){
-                String[] cusDetails = line.split(",");
-                FashionShopCustomerDetails c1 = new FashionShopCustomerDetails(cusDetails[0],cusDetails[1],cusDetails[2],Integer.parseInt(cusDetails[3]),Double.parseDouble(cusDetails[4]),cusDetails[5]);
-                customerList.add(c1);
-                line=br.readLine();
-            }
-        }catch(IOException ex){
+        // List customerList = new List(10,0.5);
+        // try{
+        //     BufferedReader br = new BufferedReader(new FileReader("CustomerDetails.txt"));
+        //     String line = br.readLine();
+        //     while(line!=null){
+        //         String[] cusDetails = line.split(",");
+        //         FashionShopCustomerDetails c1 = new FashionShopCustomerDetails(cusDetails[0],cusDetails[1],cusDetails[2],Integer.parseInt(cusDetails[3]),Double.parseDouble(cusDetails[4]),cusDetails[5]);
+        //         customerList.add(c1);
+        //         line=br.readLine();
+        //     }
+        // }catch(IOException ex){
 
-        }
+        // }
 
         // making the table
         String[] colNames = {"Customer ID","Quantity","Amount"};
         DefaultTableModel dtm = new DefaultTableModel(colNames,0);
 
-        FashionShopCustomerDetails[] bInCus=bestInCusSort(customerList);
-        for(int i=0; i<bInCus.length; i++){
-            if(bInCus[i]!=null){
-                if(bInCus[i].getQuantity()!=0){
-                    Object[] rowData = {bInCus[i].getPhoneNumber(),bInCus[i].getQuantity(),bInCus[i].getAmount()};
-                    dtm.addRow(rowData);
+        try{
+            List customerList = CustomerController.viewCustomer();
+            FashionShopCustomerDetails[] bInCus=bestInCusSort(customerList);
+            for(int i=0; i<bInCus.length; i++){
+                if(bInCus[i]!=null){
+                    if(bInCus[i].getQuantity()!=0){
+                        Object[] rowData = {bInCus[i].getPhoneNumber(),bInCus[i].getQuantity(),bInCus[i].getAmount()};
+                        dtm.addRow(rowData);
+                    }
                 }
             }
-        }
 
-        JTable cusTable = new JTable(dtm);
-        JScrollPane sp = new JScrollPane(cusTable);
-        sp.setBounds(70,60,600,150);        
-        add(sp);
+            JTable cusTable = new JTable(dtm);
+            JScrollPane sp = new JScrollPane(cusTable);
+            sp.setBounds(70,60,600,150);        
+            add(sp);
+        }catch(IOException ex){
+
+        }
     }
 
     // Best In Customers Sorting Part
     public FashionShopCustomerDetails[] bestInCusSort(List customerList) {
-        FashionShopCustomerDetails[] viewBestCustomers = new FashionShopCustomerDetails[customerList.capacity()];
-        boolean[] equalPass = new boolean[customerList.capacity()];
+        FashionShopCustomerDetails[] viewBestCustomers = new FashionShopCustomerDetails[customerList.size()];
+        boolean[] equalPass = new boolean[customerList.size()];
         int count = 0;
         
-        FashionShopCustomerDetails[] cusDetails = customerList.getArrayObject();
+        FashionShopCustomerDetails[] cusDetails = customerList.toArray();
 
         for (int i = 0; i < customerList.size(); i++) {
             if (equalPass[i]) {

@@ -42,49 +42,65 @@ class ViewAllOrders extends JFrame {
             }
         });
 
-        List customerList = new List(10,0.5);
-        try{
-            BufferedReader br = new BufferedReader(new FileReader("CustomerDetails.txt"));
-            String line = br.readLine();
-            while(line!=null){
-                String[] cusDetails = line.split(",");
-                FashionShopCustomerDetails c1 = new FashionShopCustomerDetails(cusDetails[0],cusDetails[1],cusDetails[2],Integer.parseInt(cusDetails[3]),Double.parseDouble(cusDetails[4]),cusDetails[5]);
-                customerList.add(c1);
-                line=br.readLine();
-            }
+        // List customerList = new List(10,0.5);
+        // try{
+        //     BufferedReader br = new BufferedReader(new FileReader("CustomerDetails.txt"));
+        //     String line = br.readLine();
+        //     while(line!=null){
+        //         String[] cusDetails = line.split(",");
+        //         FashionShopCustomerDetails c1 = new FashionShopCustomerDetails(cusDetails[0],cusDetails[1],cusDetails[2],Integer.parseInt(cusDetails[3]),Double.parseDouble(cusDetails[4]),cusDetails[5]);
+        //         customerList.add(c1);
+        //         line=br.readLine();
+        //     }
             
 
-        }catch(IOException ex){
+        // }catch(IOException ex){
 
-        }
+        // }
 
         // table
         String[] colNames = { "Order ID", "Customer ID", "Size", "Quantity", "Amount", "Status" };
         DefaultTableModel dtm = new DefaultTableModel(colNames, 0);
 
-        FashionShopCustomerDetails[] cusArray = getObject(customerList);
-        for (int i = customerList.size() - 1; i >= 0; i--) {
-            Object[] rowData = { cusArray[i].getOrderId(), cusArray[i].getPhoneNumber(), cusArray[i].getSize(),
-                    cusArray[i].getQuantity(), cusArray[i].getAmount(), cusArray[i].getOrderStatus()};
-            dtm.addRow(rowData);
-        }
+        // FashionShopCustomerDetails[] cusArray = getObject(customerList);
+        // for (int i = customerList.size() - 1; i >= 0; i--) {
+        //     Object[] rowData = { cusArray[i].getOrderId(), cusArray[i].getPhoneNumber(), cusArray[i].getSize(),
+        //             cusArray[i].getQuantity(), cusArray[i].getAmount(), cusArray[i].getOrderStatus()};
+        //     dtm.addRow(rowData);
+        // }
 
-        JTable cusTable = new JTable(dtm);
-        JScrollPane sp = new JScrollPane(cusTable);
-        sp.setBounds(100, 60, 600, 300);
-        add(sp);
+        // JTable cusTable = new JTable(dtm);
+        // JScrollPane sp = new JScrollPane(cusTable);
+        // sp.setBounds(100, 60, 600, 300);
+        // add(sp);
+
+        try{
+            List customerList = CustomerController.viewCustomer();
+            for(int i=0; i<customerList.size(); i++){
+                FashionShopCustomerDetails c1 = customerList.get(i);
+                Object[] rowData = {c1.getOrderId(),c1.getPhoneNumber(),c1.getSize(),c1.getQuantity(),c1.getAmount(),c1.getOrderStatus()};
+                dtm.addRow(rowData);
+            }
+
+            JTable cusTable = new JTable(dtm);
+            JScrollPane sp = new JScrollPane(cusTable);
+            sp.setBounds(100,60,600,300);
+            add(sp);
+        }catch(IOException ex){
+
+        }
 
     }
 
     // get Object by print the view all orders
-    public FashionShopCustomerDetails[] getObject(List customerList) {
-        FashionShopCustomerDetails[] cusDetails = customerList.getArrayObject();
+    // public FashionShopCustomerDetails[] getObject(List customerList) {
+    //     FashionShopCustomerDetails[] cusDetails = customerList.getArrayObject();
 
-        FashionShopCustomerDetails[] tempArray = new FashionShopCustomerDetails[customerList.capacity()];
-        for (int i = 0; i < customerList.capacity(); i++) {
-            tempArray[i] = cusDetails[i];
-        }
-        return tempArray;
-    }
+    //     FashionShopCustomerDetails[] tempArray = new FashionShopCustomerDetails[customerList.capacity()];
+    //     for (int i = 0; i < customerList.capacity(); i++) {
+    //         tempArray[i] = cusDetails[i];
+    //     }
+    //     return tempArray;
+    // }
 
 }

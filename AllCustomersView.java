@@ -43,50 +43,55 @@ class AllCustomersView extends JFrame {
             }
         });
 
-        List customerList = new List(10,0.5);
-        try{
-            BufferedReader br = new BufferedReader(new FileReader("CustomerDetails.txt"));
-            String line = br.readLine();
-            while(line!=null){
-                String[] cusDetails = line.split(",");
-                FashionShopCustomerDetails c1 = new FashionShopCustomerDetails(cusDetails[0],cusDetails[1],cusDetails[2],Integer.parseInt(cusDetails[3]),Double.parseDouble(cusDetails[4]),cusDetails[5]);
-                customerList.add(c1);
-                line=br.readLine();
-            }
-        }catch(IOException ex){
+        // List customerList = new List(10,0.5);
+        // try{
+        //     BufferedReader br = new BufferedReader(new FileReader("CustomerDetails.txt"));
+        //     String line = br.readLine();
+        //     while(line!=null){
+        //         String[] cusDetails = line.split(",");
+        //         FashionShopCustomerDetails c1 = new FashionShopCustomerDetails(cusDetails[0],cusDetails[1],cusDetails[2],Integer.parseInt(cusDetails[3]),Double.parseDouble(cusDetails[4]),cusDetails[5]);
+        //         customerList.add(c1);
+        //         line=br.readLine();
+        //     }
+        // }catch(IOException ex){
 
-        }
+        // }
 
         // Table 
         String[] colNames = {"Customer ID","XS","S","M","L","XL","XXL","Amount"};
         DefaultTableModel dtm = new DefaultTableModel(colNames,0);
 
-        AllCustomers[] allCus = allCustomersReport(customerList);
-        for(int i=0; i<allCus.length; i++){
-            if(allCus[i].getPhoneNumber()!=null){
-                Object[] rowData = {allCus[i].getPhoneNumber(),allCus[i].getXtraSamll(),allCus[i].getSmall(),allCus[i].getMediumSize(),allCus[i].getLarge(),allCus[i].getXtraLarge(),allCus[i].getXtraXl(),allCus[i].getAmount()};
-                dtm.addRow(rowData);
+        try{
+            List customerList = CustomerController.viewCustomer();
+            AllCustomers[] allCus = allCustomersReport(customerList);
+            for(int i=0; i<allCus.length; i++){
+                if(allCus[i].getPhoneNumber()!=null){
+                    Object[] rowData = {allCus[i].getPhoneNumber(),allCus[i].getXtraSamll(),allCus[i].getSmall(),allCus[i].getMediumSize(),allCus[i].getLarge(),allCus[i].getXtraLarge(),allCus[i].getXtraXl(),allCus[i].getAmount()};
+                    dtm.addRow(rowData);
+                }
             }
-        }
 
-        JTable cusTable = new JTable(dtm);
-        JScrollPane sp = new JScrollPane(cusTable);
-        sp.setBounds(100,100,800,400);
-        add(sp);
+            JTable cusTable = new JTable(dtm);
+            JScrollPane sp = new JScrollPane(cusTable);
+            sp.setBounds(100,100,800,400);
+            add(sp);
+        }catch(IOException ex){
+
+        }
 
     }
 
      // All Customer
      public AllCustomers[] allCustomersReport(List customerList) {
-        AllCustomers[] allCustomerDetails = new AllCustomers[customerList.capacity()];
-        FashionShopCustomerDetails[] cusDetails = customerList.getArrayObject();
+        AllCustomers[] allCustomerDetails = new AllCustomers[customerList.size()];
+        FashionShopCustomerDetails[] cusDetails = customerList.toArray();
 
         for (int i = 0; i < allCustomerDetails.length; i++) {
             allCustomerDetails[i] = new AllCustomers();
         }
 
-        boolean equalPass[] = new boolean[customerList.capacity()];
-        for (int i = 0; i < customerList.capacity(); i++) {
+        boolean equalPass[] = new boolean[customerList.size()];
+        for (int i = 0; i < customerList.size(); i++) {
             if (equalPass[i]) {
                 continue;
             }
@@ -132,7 +137,7 @@ class AllCustomersView extends JFrame {
             allCustomerDetails[i].setAmount(tempAmount2);
             equalPass[i] = true;
 
-            for (int j = i + 1; j < customerList.capacity(); j++) {
+            for (int j = i + 1; j < customerList.size(); j++) {
                 if (cusDetails[i].getPhoneNumber().equals(cusDetails[j].getPhoneNumber())) {
                     allCustomerDetails[i].setPhoneNumber(customerPhoneNumber);
 

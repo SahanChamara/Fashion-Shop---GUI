@@ -39,35 +39,40 @@ class CatByAmount extends JFrame {
             }
         });
 
-        List customerList = new List(10,0.5);
-        try{
-            BufferedReader br = new BufferedReader(new FileReader("CustomerDetails.txt"));
-            String line = br.readLine();
-            while(line!=null){
-                String[] cusDetails = line.split(",");
-                FashionShopCustomerDetails c1 = new FashionShopCustomerDetails(cusDetails[0],cusDetails[1],cusDetails[2],Integer.parseInt(cusDetails[3]),Double.parseDouble(cusDetails[4]),cusDetails[5]);
-                customerList.add(c1);
-                line=br.readLine();
-            }
+        // List customerList = new List(10,0.5);
+        // try{
+        //     BufferedReader br = new BufferedReader(new FileReader("CustomerDetails.txt"));
+        //     String line = br.readLine();
+        //     while(line!=null){
+        //         String[] cusDetails = line.split(",");
+        //         FashionShopCustomerDetails c1 = new FashionShopCustomerDetails(cusDetails[0],cusDetails[1],cusDetails[2],Integer.parseInt(cusDetails[3]),Double.parseDouble(cusDetails[4]),cusDetails[5]);
+        //         customerList.add(c1);
+        //         line=br.readLine();
+        //     }
 
-        }catch(IOException ex){
+        // }catch(IOException ex){
 
-        }
+        // }
 
         // table
         String[] colNames = {"Size","QTY","Amount"};
         DefaultTableModel dtm = new DefaultTableModel(colNames,0);
 
-        Sorting[] sortAmount = sortByAmount(customerList);
-        for(int i=0; i<sortAmount.length; i++){
-            Object[] rowData = {sortAmount[i].getSize(),sortAmount[i].getQuantity(),sortAmount[i].getAmount()};
-            dtm.addRow(rowData);
+        try{
+            List customerList = CustomerController.viewCustomer();
+            Sorting[] sortAmount = sortByAmount(customerList);
+            for(int i=0; i<sortAmount.length; i++){
+                Object[] rowData = {sortAmount[i].getSize(),sortAmount[i].getQuantity(),sortAmount[i].getAmount()};
+                dtm.addRow(rowData);
         }
-
         JTable cusTable = new JTable(dtm);
         JScrollPane sp = new JScrollPane(cusTable);
         sp.setBounds(100,100,300,200);
         add(sp);
+
+        }catch(IOException ex){
+
+        }
 
     }
 
@@ -78,7 +83,7 @@ class CatByAmount extends JFrame {
             sortByAmount[i] = new Sorting();
         }
 
-        FashionShopCustomerDetails[] cusDetails = customerList.getArrayObject();
+        FashionShopCustomerDetails[] cusDetails = customerList.toArray();
 
         sortByAmount[0].setSize("M");
         sortByAmount[1].setSize("XL");

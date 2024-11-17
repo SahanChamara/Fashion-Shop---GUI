@@ -178,7 +178,7 @@ class ChangeOrderStatus extends JFrame {
                 // int status = customerList.changeOrderStatus(txtCustomerId.getText());
                 String status = null;
 
-                List customerList = new List(10, 0.5);
+                List customerList = new List();
                 try {
                     BufferedReader br = new BufferedReader(new FileReader("CustomerDetails.txt"));
                     String line = br.readLine();

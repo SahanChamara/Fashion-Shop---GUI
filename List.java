@@ -187,15 +187,11 @@ class List {
         return isEmpty()? "[Empty]":list+"\b\b}";
     }
 
-    // inner class Node ========================================
-    class Node {
-        private FashionShopCustomerDetails customerDetails;
-        private Node next;
+    // public Node getObjects(){
+    //     Node temp= start;
+    //     return temp;
+    // }
 
-        Node(FashionShopCustomerDetails customerDetails) {
-            this.customerDetails = customerDetails;
-        }
-    }
 
     public FashionShopCustomerDetails[] toArray(){
         FashionShopCustomerDetails[] tempCusDetailsArray = new FashionShopCustomerDetails[size()];
@@ -206,5 +202,17 @@ class List {
         }
         return tempCusDetailsArray;
     }
+
+    // inner class Node ========================================
+    class Node {
+        private FashionShopCustomerDetails customerDetails;
+        private Node next;
+
+        Node(FashionShopCustomerDetails customerDetails) {
+            this.customerDetails = customerDetails;
+        }
+    }
+
+    
 
 }
